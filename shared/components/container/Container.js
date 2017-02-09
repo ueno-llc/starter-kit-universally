@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import s from './Container.scss';
 
 const Container = ({ children }) => (
-  <div className={s('container')}>
+  <div className={s.container}>
     {children}
   </div>
 );

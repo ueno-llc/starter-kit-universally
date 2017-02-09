@@ -425,7 +425,12 @@ export default function webpackConfigFactory(buildOptions) {
             {
               path: 'css-loader',
               // Include sourcemaps for dev experience++.
-              query: { sourceMap: true },
+              query: {
+                sourceMap: true,
+                modules: true,
+                importLoaders: 1,
+                localIdentName: '[hash:base64:10]',
+              },
             },
             { path: 'postcss-loader' },
             {
@@ -629,7 +634,12 @@ export default function webpackConfigFactory(buildOptions) {
             // When targetting the server we use the "/locals" version of the
             // css loader, as we don't need any css files for the server.
             ifNode({
-              loaders: ['classnames-loader', 'css-loader/locals', 'postcss-loader', 'sass-loader'],
+              loaders: [
+                'classnames-loader',
+                'css-loader/locals?modules=1&importLoaders=1&localIdentName=[hash:base64:10]',
+                'postcss-loader',
+                'sass-loader',
+              ],
             }),
           ),
         ),
