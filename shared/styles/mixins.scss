@@ -1,0 +1,99 @@
+@mixin fit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@mixin font-size($size) {
+  font-size: $size * 0.6;
+
+  @media (min-width: $min-480) {
+    font-size: $size * 0.7;
+  }
+
+  @media (min-width: $min-768) {
+    font-size: $size * 0.8;
+  }
+
+  @media (min-width: $min-1200) {
+    font-size: $size;
+  }
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+// defaults to standard heading size
+@mixin responsive-font($min-size: 23, $size: 36, $limit: 1200px) {
+  $baseline: 375px;
+  $font-multiplier: (($size - $min-size) / (strip-unit($limit) - strip-unit($baseline)));
+  $font-baseline: ($min-size - $font-multiplier * strip-unit($baseline));
+
+  font-size: #{$min-size}px;
+
+  @media (min-width: $baseline) {
+    font-size: #{$min-size}px;
+    font-size: calc(#{$font-multiplier} * #{100vw} + (#{$font-baseline}px));
+  }
+
+  @media (min-width: $limit) {
+    font-size: #{$size}px;
+  }
+}
+
+@mixin viewport($media) {
+  @if $media == handset {
+    @media only screen and (max-width: $handset-landscape) { @content; }
+  }
+
+  @else if $media == tablet {
+    @media only screen and (min-width: $tablet) { @content; }
+  }
+
+  @else if $media == desktop {
+    @media only screen and (min-width: $desktop) { @content; }
+  }
+
+  /* stylelint-disable */
+  @else if $media == retina {
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.3),
+      only screen and (-o-min-device-pixel-ratio: 13/10),
+      only screen and (min-resolution: 120dpi) {
+      @content;
+    }
+  }
+
+  @else if $media == oldIE {
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      @content;
+    }
+  }
+}
+
+@mixin container() {
+  margin: 0 auto;
+
+  padding: 0 $container-gutter-mobile;
+  max-width: $page-width + $container-gutter-mobile * 1;
+
+  @include viewport(340px) {
+    max-width: $page-width + $container-gutter-mobile * 2;
+  }
+
+  @include viewport(tablet) {
+    padding: 0 $container-gutter-tablet;
+    max-width: $page-width + $container-gutter-tablet * 2;
+  }
+
+  @include viewport(desktop) {
+    padding: 0 $container-gutter-desktop;
+    max-width: $page-width + $container-gutter-desktop * 2;
+  }
+}

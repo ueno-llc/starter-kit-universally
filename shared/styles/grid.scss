@@ -1,0 +1,34 @@
+// Rows
+@mixin make-row($direction: $grid-direction, $grid-gutter: $gutter) {
+  display: flex;
+
+  @if $direction == left {
+    flex-direction: row;
+  }
+
+  @else {
+    flex-direction: row-reverse;
+  }
+
+  flex-wrap: wrap;
+
+  margin-left: -$grid-gutter/2;
+  margin-right: -$grid-gutter/2;
+}
+
+// Columns
+@mixin make-col($width: 100%, $align: flex-start, $grid-gutter: $gutter) {
+  display: block;
+
+  flex: none;
+  align-items: flex-start;
+  align-self: $align;
+
+  padding-left: $grid-gutter/2;
+  padding-right: $grid-gutter/2;
+
+  width: $width;
+  min-height: 1px;
+
+  box-sizing: border-box;
+}

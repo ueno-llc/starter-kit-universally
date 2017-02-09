@@ -8,7 +8,10 @@
 {
   "presets": [
     ["env", { "targets": { "node": true } }],
-    "stage-3",
+    "stage-0",
     "react"
+  ],
+  "plugins": [
+    "transform-decorators-legacy"
   ]
 }

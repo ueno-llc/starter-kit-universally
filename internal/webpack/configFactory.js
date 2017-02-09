@@ -5,13 +5,15 @@ import OfflinePlugin from 'offline-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 import nodeExternals from 'webpack-node-externals';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
+import { factory as componentResolver } from 'component-webpack-resolver-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import appRootDir from 'app-root-dir';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import { happyPackPlugin } from '../utils';
-import { removeNil } from '../../shared/utils/arrays';
-import { mergeDeep } from '../../shared/utils/objects';
-import { ifElse } from '../../shared/utils/logic';
+import { removeNil } from '../utils/arrays';
+import { mergeDeep } from '../utils/objects';
+import { ifElse } from '../utils/logic';
 import getConfig from '../../config/get';
 import ClientConfigScript from '../../config/ClientConfigScript';
 
@@ -203,6 +205,15 @@ export default function webpackConfigFactory(buildOptions) {
       alias: {
         modernizr$: path.resolve(appRootDir.get(), './.modernizrrc'),
       },
+
+      modules: [
+        './shared',
+        path.resolve(appRootDir.get(), 'shared'),
+        'node_modules',
+      ],
+
+      // Component resolver plugin
+      plugins: [componentResolver()],
     },
 
     plugins: removeNil([
@@ -353,15 +364,15 @@ export default function webpackConfigFactory(buildOptions) {
               presets: [
                 // JSX
                 'react',
-                // Stage 3 javascript syntax.
-                // "Candidate: complete spec and initial browser implementations."
-                // Add anything lower than stage 3 at your own risk. :)
-                'stage-3',
                 // For our client bundles we transpile all the latest ratified
                 // ES201X code into ES5, safe for browsers.  We exclude module
                 // transilation as webpack takes care of this for us, doing
                 // tree shaking in the process.
                 ifClient(['latest', { es2015: { modules: false } }]),
+                // Stage 3 javascript syntax.
+                // "Candidate: complete spec and initial browser implementations."
+                // Add anything lower than stage 3 at your own risk. :)
+                'stage-0',
                 // For a node bundle we use the awesome babel-preset-env which
                 // acts like babel-preset-latest in that it supports the latest
                 // ratified ES201X syntax, however, it will only transpile what
@@ -395,6 +406,8 @@ export default function webpackConfigFactory(buildOptions) {
                 // React that the subtree hasn’t changed so React can completely
                 // skip it when reconciling.
                 ifProd('transform-react-constant-elements'),
+                // Decorators for everybody
+                'transform-decorators-legacy',
               ].filter(x => x != null),
             },
             buildOptions,
@@ -407,11 +420,20 @@ export default function webpackConfigFactory(buildOptions) {
         () => happyPackPlugin({
           name: 'happypack-devclient-css',
           loaders: [
+            'classnames-loader',
             'style-loader',
             {
               path: 'css-loader',
               // Include sourcemaps for dev experience++.
               query: { sourceMap: true },
+            },
+            { path: 'postcss-loader' },
+            {
+              path: 'sass-loader',
+              options: {
+                outputStyle: 'expanded',
+                sourceMap: true,
+              },
             },
           ],
         }),
@@ -555,6 +577,7 @@ export default function webpackConfigFactory(buildOptions) {
             ),
         }),
       ),
+      new CaseSensitivePathsPlugin(),
       // ),
     ]),
     module: {
@@ -582,7 +605,7 @@ export default function webpackConfigFactory(buildOptions) {
         ifElse(isClient || isServer)(
           mergeDeep(
             {
-              test: /\.css$/,
+              test: /(\.scss|\.css)$/,
             },
             // For development clients we will defer all our css processing to the
             // happypack plugin named "happypack-devclient-css".
@@ -600,13 +623,13 @@ export default function webpackConfigFactory(buildOptions) {
             ifProdClient(() => ({
               loader: ExtractTextPlugin.extract({
                 fallbackLoader: 'style-loader',
-                loader: ['css-loader'],
+                loader: ['css-loader?sourceMap&importLoaders=2!postcss-loader!sass-loader?outputStyle=expanded&sourceMap&sourceMapContents'],
               }),
             })),
             // When targetting the server we use the "/locals" version of the
             // css loader, as we don't need any css files for the server.
             ifNode({
-              loaders: ['css-loader/locals'],
+              loaders: ['classnames-loader', 'css-loader/locals', 'postcss-loader', 'sass-loader'],
             }),
           ),
         ),
@@ -635,6 +658,20 @@ export default function webpackConfigFactory(buildOptions) {
             emitFile: isClient,
           },
         })),
+
+        // SVG IMPORT loader
+        {
+          test: /\.svg$/,
+          loaders: ['babel-loader', {
+            loader: 'react-svg-loader',
+            query: {
+              svgo: {
+                plugins: [{ removeTitle: false }],
+                floatPrecision: 2,
+              },
+            },
+          }],
+        },
 
         // MODERNIZR
         // This allows you to do feature detection.

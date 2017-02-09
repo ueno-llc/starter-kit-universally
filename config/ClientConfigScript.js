@@ -11,7 +11,7 @@
 
 import React from 'react';
 import serialize from 'serialize-javascript';
-import filterWithRules from '../shared/utils/objects/filterWithRules';
+import filterWithRules from '../internal/utils/objects/filterWithRules';
 import values from './values';
 
 // Filter the config down to the properties that are allowed to be included

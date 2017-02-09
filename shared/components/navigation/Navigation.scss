@@ -1,0 +1,46 @@
+@import '~styles/config';
+
+.navigation {
+  display: flex;
+
+  &__list {
+    @include reset-list;
+
+    display: flex;
+    align-items: stretch;
+
+    margin: 0 -($gutter / 2);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    padding: 0 ($gutter / 2);
+  }
+
+  &__link {
+    @include reset-anchor;
+
+    padding: 5px 0;
+
+    font-size: 14px;
+    font-weight: 700;
+    color: $color-primary;
+    text-transform: uppercase;
+
+    border-bottom: 1px solid transparent;
+
+    transition: border $transition-leave;
+
+    &:hover {
+      border-color: fade($color-primary, 30%);
+
+      transition-duration: $transition-enter;
+    }
+
+    &.active {
+      border-color: $color-primary;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@import '~styles/config';
+
+.container {
+  @include container();
+
+  .full {
+    max-width: none;
+
+    @include viewport(tablet) {
+      max-width: none;
+    }
+
+    @include viewport(desktop) {
+      max-width: none;
+    }
+  }
+}

@@ -10,11 +10,11 @@ import React, { Children, PropTypes } from 'react';
 import serialize from 'serialize-javascript';
 
 import getConfig from '../../../config/get';
-import onlyIf from '../../../shared/utils/logic/onlyIf';
-import removeNil from '../../../shared/utils/arrays/removeNil';
+import onlyIf from '../../../internal/utils/logic/onlyIf';
+import removeNil from '../../../internal/utils/arrays/removeNil';
 import getClientBundleEntryAssets from './getClientBundleEntryAssets';
 
-import HTML from '../../../shared/components/HTML';
+import HTML from '../../components/html';
 import ClientConfigScript from '../../../config/ClientConfigScript';
 
 

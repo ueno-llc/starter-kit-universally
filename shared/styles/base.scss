@@ -1,0 +1,51 @@
+/***
+*  This file is imported in components/app-layout/AppLayout.scss
+*/
+
+@-ms-viewport { // stylelint-disable-line
+  width: device-width;
+}
+
+@-o-viewport { // stylelint-disable-line
+  width: device-width;
+}
+
+@viewport {
+  width: device-width;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body { // stylelint-disable-line
+  min-height: 100vh;
+
+  background: #fff;
+}
+
+html { // stylelint-disable-line
+  -webkit-overflow-scrolling: touch;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body { // stylelint-disable-line
+  position: relative;
+
+  margin: 0;
+
+  font-family: $font-family;
+  font-size: $font-size;
+  line-height: $line-height;
+  color: $font-color;
+
+  overflow-x: hidden;
+}
+
+img { // stylelint-disable-line
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

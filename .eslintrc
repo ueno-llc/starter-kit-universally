@@ -21,6 +21,31 @@
     // This rule struggles with flow and class properties.
     "react/sort-comp": 0,
     // We use global requires in various places, e.g. code splitting instances.
-    "global-require": 0
+    "global-require": 0,
+    // Other ueno. rules
+    "react/prefer-stateless-function": 0,
+    "react/require-default-props": 0,
+    "jsx-quotes": [
+      2,
+      "prefer-double"
+    ],
+    "padded-blocks": 0,
+    "consistent-return": 0,
+    "no-confusing-arrow": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".json",
+          ".scss"
+        ],
+        "moduleDirectory": [
+          "node_modules",
+          "shared",
+        ]
+      }
+    }
   }
 }

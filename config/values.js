@@ -125,7 +125,6 @@ const values = {
     'gif',
     'ico',
     'eot',
-    'svg',
     'ttf',
     'woff',
     'woff2',

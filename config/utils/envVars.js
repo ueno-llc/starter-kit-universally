@@ -14,8 +14,8 @@ import path from 'path';
 import userHome from 'user-home';
 
 import pkg from '../../package.json';
-import onlyIf from '../../shared/utils/logic/onlyIf';
-import removeNil from '../../shared/utils/arrays/removeNil';
+import onlyIf from '../../internal/utils/logic/onlyIf';
+import removeNil from '../../internal/utils/arrays/removeNil';
 
 // PRIVATES
 
