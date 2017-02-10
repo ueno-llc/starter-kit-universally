@@ -1,10 +1,7 @@
 // This script builds a production output of all of our bundles.
 
 import webpack from 'webpack';
-import appRootDir from 'app-root-dir';
-import { resolve as pathResolve } from 'path';
 import webpackConfigFactory from '../webpack/configFactory';
-import { exec } from '../utils';
 import getConfig from '../../config/get';
 
 // First clear the build output dir.
