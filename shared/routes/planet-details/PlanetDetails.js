@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { PropTypes as MobxPropTypes, observer, inject } from 'mobx-react';
-import { fromPromise } from 'mobx-utils';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import Segment from 'components/segment';
@@ -27,8 +26,8 @@ export default class PlanetDetails extends Component {
     const { planets, match } = this.props;
 
     // Fetch initial data needed
-    this.planets = fromPromise(planets.fetchAll());
-    this.planet = fromPromise(planets.fetchById(match.params.id));
+    this.planets = planets.fetchAll();
+    this.planet = planets.fetchById(match.params.id);
   }
 
   /**
