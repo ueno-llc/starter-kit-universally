@@ -1,4 +1,4 @@
-import { fillServerWait } from 'mobx-server-wait';
+import { fillServerWait } from 'utils/mobx-server-wait';
 import Network from './Network';
 import Planets from './Planets';
 

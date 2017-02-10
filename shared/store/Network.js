@@ -1,6 +1,6 @@
 import { action, observable, ObservableMap, extendObservable } from 'mobx';
 import { autobind } from 'core-decorators';
-import serverWait from 'mobx-server-wait';
+import serverWait from 'utils/mobx-server-wait';
 import fetch from 'isomorphic-fetch';
 
 /**

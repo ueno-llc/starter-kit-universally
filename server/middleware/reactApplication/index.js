@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { withAsyncComponents } from 'react-async-component';
 import { Provider, useStaticRendering } from 'mobx-react';
-import { serverWaitRender } from 'mobx-server-wait';
+import { serverWaitRender } from 'utils/mobx-server-wait';
 import Helmet from 'react-helmet';
 import Store from 'store';
 

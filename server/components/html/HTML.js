@@ -73,8 +73,7 @@ function HTML(props) {
 
 HTML.propTypes = {
   appName: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   appBodyString: PropTypes.string,
   headerElements: PropTypes.node,
   bodyElements: PropTypes.node,
