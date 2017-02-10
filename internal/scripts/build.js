@@ -8,7 +8,7 @@ import { exec } from '../utils';
 import getConfig from '../../config/get';
 
 // First clear the build output dir.
-exec(`rimraf ${pathResolve(appRootDir.get(), getConfig('buildOutputPath'))}`);
+// exec(`rimraf ${pathResolve(appRootDir.get(), getConfig('buildOutputPath'))}`);
 
 // Get our "fixed" bundle names
 Object.keys(getConfig('bundles'))
