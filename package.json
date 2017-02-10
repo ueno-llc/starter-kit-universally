@@ -9,7 +9,7 @@
   "scripts": {
     "analyze": "cross-env NODE_ENV=production babel-node internal/scripts/analyze",
     "build:dev": "cross-env NODE_ENV=development babel-node internal/scripts/build",
-    "build": "cross-env NODE_ENV=production babel-node internal/scripts/build",
+    "build": "rm -rf ./build && cross-env NODE_ENV=production babel-node internal/scripts/build",
     "clean": "babel-node internal/scripts/clean",
     "deploy": "babel-node internal/scripts/deploy",
     "development": "babel-node internal/development",
@@ -90,6 +90,7 @@
     "react-helmet": "4.0.0",
     "react-router": "4.0.0-beta.5",
     "react-router-dom": "4.0.0-beta.5",
+    "react-svgdom-loader": "^3.0.0",
     "serialize-javascript": "1.3.0",
     "user-home": "2.0.0",
     "uuid": "3.0.1"

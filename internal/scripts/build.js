@@ -9,6 +9,7 @@ import getConfig from '../../config/get';
 
 // First clear the build output dir.
 // exec(`rimraf ${pathResolve(appRootDir.get(), getConfig('buildOutputPath'))}`);
+// REMOVED, we do this in build script
 
 // Get our "fixed" bundle names
 Object.keys(getConfig('bundles'))

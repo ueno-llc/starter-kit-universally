@@ -311,6 +311,7 @@ export default function webpackConfigFactory(buildOptions) {
             },
             mangle: {
               screw_ie8: true,
+              keep_fnames: true,
             },
             output: {
               comments: false,
@@ -676,7 +677,7 @@ export default function webpackConfigFactory(buildOptions) {
         {
           test: /\.svg$/,
           loaders: ['babel-loader', {
-            loader: 'react-svg-loader',
+            loader: 'react-svgdom-loader',
             query: {
               svgo: {
                 plugins: [{ removeTitle: false }],

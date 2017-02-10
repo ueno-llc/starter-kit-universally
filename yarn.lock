@@ -5597,6 +5597,12 @@ react-svg-loader@^1.1.1:
     svgo "~0.6.3"
     yargs "~4.8.0"
 
+react-svgdom-loader@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-svgdom-loader/-/react-svgdom-loader-3.0.0.tgz#49db7120ca4812eee7ac08ee3065524f8ca1b6d4"
+  dependencies:
+    loader-utils "^0.2.11"
+
 react-tree-walker@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-1.0.0.tgz#061f719232a5b77b01fbab21b8ee6a3ab7be7085"
