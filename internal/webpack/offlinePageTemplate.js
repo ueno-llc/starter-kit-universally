@@ -8,7 +8,7 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
-import HTML from '../../shared/components/HTML';
+import HTML from 'components/html';
 
 module.exports = function generate(context) {
   const getConfig = context.htmlWebpackPlugin.options.custom.getConfig;

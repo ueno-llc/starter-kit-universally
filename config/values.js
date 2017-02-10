@@ -25,7 +25,7 @@ const values = {
     welcomeMessage: true,
     // We only need to expose the enabled flag of the service worker.
     serviceWorker: {
-      enabled: true,
+      enabled: false,
     },
     // We need to expose all the polyfill.io settings.
     polyfillIO: true,
@@ -155,7 +155,7 @@ const values = {
   // and it is served by the "server" bundle.
   serviceWorker: {
     // Enabled?
-    enabled: true,
+    enabled: false,
     // Service worker name
     fileName: 'sw.js',
     // Paths to the public assets which should be included within our

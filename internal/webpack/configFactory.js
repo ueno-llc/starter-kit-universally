@@ -626,10 +626,13 @@ export default function webpackConfigFactory(buildOptions) {
             // Note: The ExtractTextPlugin needs to be registered within the
             // plugins section too.
             ifProdClient(() => ({
-              loader: ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
-                loader: ['css-loader?sourceMap&importLoaders=2!postcss-loader!sass-loader?outputStyle=expanded&sourceMap&sourceMapContents'],
-              }),
+              loaders: [
+                'classnames-loader',
+                ExtractTextPlugin.extract({
+                  fallbackLoader: 'style-loader',
+                  loader: ['css-loader?modules=1&sourceMap&importLoaders=1&localIdentName=[hash:base64:10]!postcss-loader!sass-loader?outputStyle=expanded&sourceMap'],
+                }),
+              ],
             })),
             // When targetting the server we use the "/locals" version of the
             // css loader, as we don't need any css files for the server.
