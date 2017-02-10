@@ -1,9 +1,9 @@
-
 import React from 'react';
-import { renderToString, renderToStaticMarkup } from 'react-dom/server';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { withAsyncComponents } from 'react-async-component';
 import { Provider, useStaticRendering } from 'mobx-react';
+import { serverWaitRender } from 'mobx-server-wait';
 import Helmet from 'react-helmet';
 import Store from 'store';
 
@@ -17,7 +17,7 @@ useStaticRendering(true);
 /**
  * React application middleware, supports server side rendering.
  */
-function reactApplicationMiddleware(request, response) {
+function reactApplicationMiddleware(request, response, next) {
   // We should have had a nonce provided to us.  See the server/index.js for
   // more information on what this is.
   if (typeof response.locals.nonce !== 'string') {
@@ -57,34 +57,34 @@ function reactApplicationMiddleware(request, response) {
   // Wrap our app with react-async-component helper so that our async components
   // will be resolved and rendered with the response.
   withAsyncComponents(app).then(({ appWithAsyncComponents, state, STATE_IDENTIFIER }) => {
-    // Render the app to a string.
-    const reactAppString = renderToString(appWithAsyncComponents);
 
-    // Generate the html response.
-    const html = renderToStaticMarkup(
-      <ServerHTML
-        reactAppString={reactAppString}
-        nonce={nonce}
-        helmet={Helmet.rewind()}
-        asyncComponents={{ state, STATE_IDENTIFIER }}
-      />,
-    );
+    serverWaitRender({
+      store,
+      root: appWithAsyncComponents,
+      onError: next,
+      maxWait: 1200,
+      debug: console.log, // eslint-disable-line
+      render(reactAppString, initialState) {
+        const html = renderToStaticMarkup(
+          <ServerHTML
+            reactAppString={reactAppString}
+            nonce={nonce}
+            initialState={initialState}
+            helmet={Helmet.rewind()}
+            asyncComponents={{ state, STATE_IDENTIFIER }}
+          />,
+        );
 
-    // Get the render result from the server render context.
-    // const renderResult = reactRouterContext.getResult();
-    // const renderResult = { missed: false, redirect: false };
+        if (context.url) {
+          response.status(301).setHeader('Location', context.url);
+          response.end();
+          return;
+        }
 
-    // Check if the render result contains a redirect, if so we need to set
-    // the specific status and redirect header and end the response.
-    if (context.url) {
-      response.status(301).setHeader('Location', context.url);
-      response.end();
-      return;
-    }
+        response.status(200).send(`<!DOCTYPE html>${html}`);
+      },
+    });
 
-    response
-      .status(200)
-      .send(`<!DOCTYPE html>${html}`);
   });
 }
 

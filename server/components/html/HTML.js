@@ -13,8 +13,8 @@ import React, { PropTypes } from 'react';
 
 function HTML(props) {
   const {
+    appName,
     title,
-    description,
     appBodyString,
     headerElements,
     bodyElements,
@@ -23,9 +23,8 @@ function HTML(props) {
   return (
     <html lang="en">
       <head>
-        <title>{title}</title>
-        <meta name="application-name" content={title} />
-        <meta name="description" content={description} />
+        {title}
+        <meta name="application-name" content={appName} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -73,6 +72,7 @@ function HTML(props) {
 }
 
 HTML.propTypes = {
+  appName: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   appBodyString: PropTypes.string,

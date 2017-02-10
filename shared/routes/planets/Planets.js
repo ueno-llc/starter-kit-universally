@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes as MobxPropTypes, observer, inject } from 'mobx-react';
 import { observable, computed } from 'mobx';
-import { fromPromise } from 'mobx-utils';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import Segment from 'components/segment';
@@ -20,8 +19,8 @@ export default class Planets extends Component {
    * Fired when component will mount.
    * @return {void}
    */
-  componentDidMount() {
-    this.planets = fromPromise(this.props.planets.fetchAll());
+  componentWillMount() {
+    this.planets = this.props.planets.fetchAll();
   }
 
   /**
@@ -40,7 +39,7 @@ export default class Planets extends Component {
     const page = parseInt(pagestr && pagestr[1], 10) || 1;
 
     // Fetch the next wanted page. (it may or may not already exist in the cache).
-    this.planets = fromPromise(this.props.planets.fetchAll({ page }));
+    this.planets = this.props.planets.fetchAll({ page });
 
     // Set current page
     this.page = page;

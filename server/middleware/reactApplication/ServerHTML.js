@@ -50,6 +50,7 @@ function ServerHTML(props) {
     nonce,
     helmet,
     asyncComponents,
+    initialState,
   } = props;
 
   // Creates an inline script definition that is protected by the nonce.
@@ -84,6 +85,12 @@ function ServerHTML(props) {
         `window.${asyncComponents.STATE_IDENTIFIER}=${serialize(asyncComponents.state)};`,
       ),
     ),
+    onlyIf(
+      initialState,
+      () => inlineScript(
+        `window.__INITIAL_STATE__=${initialState}`,
+      ),
+    ),
     // Enable the polyfill io script?
     // This can't be configured within a react-helmet component as we
     // may need the polyfill's before our client JS gets parsed.
@@ -114,8 +121,8 @@ function ServerHTML(props) {
 
   return (
     <HTML
-      title={getConfig('htmlPage.defaultTitle')}
-      description={getConfig('htmlPage.description')}
+      appName={getConfig('htmlPage.appName')}
+      title={helmet.title.toComponent()}
       appBodyString={reactAppString}
       headerElements={
         headerElements.map((x, idx) => <KeyedComponent key={idx}>{x}</KeyedComponent>)
@@ -132,6 +139,7 @@ ServerHTML.propTypes = {
   nonce: PropTypes.string,
   // eslint-disable-next-line react/forbid-prop-types
   helmet: PropTypes.object,
+  initialState: PropTypes.string,
   asyncComponents: PropTypes.shape({
     state: PropTypes.object.isRequired,
     STATE_IDENTIFIER: PropTypes.string.isRequired,

@@ -14,7 +14,7 @@ import App from '../shared';
 
 // Get the DOM Element that will host our React application.
 const container = document.querySelector('#app');
-const store = new Store();
+const store = new Store(window.__INITIAL_STATE__); // eslint-disable-line no-underscore-dangle
 
 window.store = store;
 

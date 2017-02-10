@@ -1,4 +1,4 @@
-// import { fillServerWait } from 'mobx-server-wait';
+import { fillServerWait } from 'mobx-server-wait';
 import Network from './Network';
 import Planets from './Planets';
 
@@ -9,7 +9,7 @@ export default class Store {
     this.planets = new Planets(state, this.network);
 
     // We need to load the promises state from the server.
-    // fillServerWait(state);
+    fillServerWait(state);
   }
 
 }

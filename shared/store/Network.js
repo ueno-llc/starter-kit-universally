@@ -1,6 +1,6 @@
 import { action, observable, ObservableMap, extendObservable } from 'mobx';
 import { autobind } from 'core-decorators';
-// import serverWait from 'mobx-server-wait';
+import serverWait from 'mobx-server-wait';
 import fetch from 'isomorphic-fetch';
 
 /**
@@ -41,7 +41,7 @@ export default class Network {
    * @return {Promise}
    */
   @autobind
-  // @serverWait
+  @serverWait
   fetch(url, { force = false } = {}) {
 
     if (this.history.has(url) && !force) {

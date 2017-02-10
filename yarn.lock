@@ -4035,7 +4035,7 @@ json-stable-stringify@^1.0.0, json-stable-stringify@^1.0.1:
   dependencies:
     jsonify "~0.0.0"
 
-json-stringify-safe@5.0.1, json-stringify-safe@~5.0.1:
+json-stringify-safe@5.0.1, json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
@@ -4565,9 +4565,28 @@ mobx-react@^4.1.0:
   dependencies:
     hoist-non-react-statics "^1.2.0"
 
+mobx-server-wait@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/mobx-server-wait/-/mobx-server-wait-0.1.2.tgz#7238ae382fe4b56b707e80b086bc6e1b30783884"
+  dependencies:
+    json-stringify-safe "^5.0.1"
+    lodash "^4.15.0"
+    mobx "^2.5.1"
+    mobx-utils "^1.0.1"
+    react "^15.3.1"
+    react-dom "^15.3.1"
+
+mobx-utils@^1.0.1:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-1.1.6.tgz#6b94b66ffe3b3a314f60e2265be8f4e7450f3902"
+
 mobx-utils@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-2.0.1.tgz#6460d6436f991b2d3250d51995cbcae2c5707b67"
+
+mobx@^2.5.1:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-2.7.0.tgz#cf3d82d18c0ca7f458d8f2a240817b3dc7e54a01"
 
 mobx@^3.1.0:
   version "3.1.0"
@@ -5525,7 +5544,7 @@ react-deep-force-update@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
 
-react-dom@15.4.2:
+react-dom@15.4.2, react-dom@^15.3.1:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
@@ -5601,7 +5620,7 @@ react-tree-walker@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-1.0.0.tgz#061f719232a5b77b01fbab21b8ee6a3ab7be7085"
 
-react@15.4.2:
+react@15.4.2, react@^15.3.1:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:
