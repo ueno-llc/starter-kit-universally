@@ -15,6 +15,7 @@
     "development": "babel-node internal/development",
     "lint": "eslint src config tools",
     "preinstall": "node internal/scripts/preinstall",
+    "postinstall": "if [ \"x$NODE_ENV\" != \"x\" ] && [ \"$NODE_ENV\" != \"development\" ]; then npm run build; fi;",
     "start": "node build/server",
     "test:coverage": "jest --coverage",
     "test": "jest"

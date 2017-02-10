@@ -1,0 +1,31 @@
+{
+  "name": "Starter kit",
+  "description": "",
+  "keywords": [
+    "starter kit",
+    "www"
+  ],
+  "scripts": {},
+  "website": "https://github.com/ueno-llc/starter-kit-universally#readme",
+  "repository": "https://github.com/ueno-llc/starter-kit-universally.git",
+  "env": {
+    "NODE_ENV": {
+      "description": "Environment to build",
+      "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "description": "Has to be true for devDependencies to install",
+      "value": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [],
+  "image": "heroku/nodejs",
+  "buildpacks": [{
+    "url": "heroku/nodejs"
+  }]
+}
