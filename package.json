@@ -69,6 +69,7 @@
   "dependencies": {
     "app-root-dir": "1.0.2",
     "assets-webpack-plugin": "3.5.1",
+    "autoprefixer": "^6.7.2",
     "babel-cli": "^6.22.2",
     "babel-core": "6.22.1",
     "babel-loader": "6.2.10",
@@ -117,6 +118,7 @@
     "normalize.css": "5.0.0",
     "offline-plugin": "4.5.5",
     "postcss": "^5.2.12",
+    "postcss-csso": "^1.1.2",
     "postcss-loader": "^1.2.2",
     "react": "15.4.2",
     "react-addons-test-utils": "15.4.2",

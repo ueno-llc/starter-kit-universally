@@ -1,5 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // PostCSS-Loader config options
 module.exports = {
-  plugins: [],
+  plugins: [
+    require('autoprefixer'),
+    require('postcss-csso'),
+  ],
 };
