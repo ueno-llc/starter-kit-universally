@@ -31,7 +31,10 @@
     ],
     "padded-blocks": 0,
     "consistent-return": 0,
-    "no-confusing-arrow": 0
+    "no-confusing-arrow": 0,
+    "react/require-extension": 0,
+    "import/no-named-as-default": 0,
+    "import/no-extraneous-dependencies": 0
   },
   "settings": {
     "import/resolver": {
@@ -47,5 +50,8 @@
         ]
       }
     }
+  },
+  "globals": {
+    "__CLIENT__": true
   }
 }
