@@ -430,7 +430,7 @@ export default function webpackConfigFactory(buildOptions) {
                 sourceMap: true,
                 modules: true,
                 importLoaders: 1,
-                localIdentName: '[hash:base64:10]',
+                localIdentName: '[name]_[local]_[hash:base64:5]',
               },
             },
             { path: 'postcss-loader' },
