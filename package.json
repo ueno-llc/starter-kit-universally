@@ -13,10 +13,12 @@
     "clean": "babel-node internal/scripts/clean",
     "deploy": "babel-node internal/scripts/deploy",
     "development": "babel-node internal/development",
-    "lint": "eslint src config tools",
+    "eslint": "eslint src config tools",
+    "lint": "npm run eslint; npm run stylelint",
     "preinstall": "node internal/scripts/preinstall",
     "postinstall": "if [ \"x$NODE_ENV\" != \"x\" ] && [ \"$NODE_ENV\" != \"development\" ]; then npm run build; fi;",
     "start": "node build/server",
+    "stylelint": "stylelint \"shared/**/*.scss\" --syntax scss",
     "test:coverage": "jest --coverage",
     "test": "jest"
   },
@@ -153,6 +155,8 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "3.0.2",
     "eslint-plugin-react": "6.9.0",
-    "jest": "18.1.0"
+    "jest": "18.1.0",
+    "stylelint": "^7.8.0",
+    "stylelint-config-primer": "^1.4.0"
   }
 }
