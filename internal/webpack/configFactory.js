@@ -6,7 +6,6 @@ import AssetsPlugin from 'assets-webpack-plugin';
 import nodeExternals from 'webpack-node-externals';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
-import { factory as componentResolver } from 'component-webpack-resolver-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import appRootDir from 'app-root-dir';
 import WebpackMd5Hash from 'webpack-md5-hash';
@@ -211,9 +210,6 @@ export default function webpackConfigFactory(buildOptions) {
         path.resolve(appRootDir.get(), 'shared'),
         'node_modules',
       ],
-
-      // Component resolver plugin
-      plugins: [componentResolver()],
     },
 
     plugins: removeNil([
