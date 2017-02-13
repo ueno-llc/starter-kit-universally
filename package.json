@@ -4,7 +4,7 @@
   "description": "A starter kit giving you the minimum requirements for a modern universal react application.",
   "main": "build/server/index.js",
   "engines": {
-    "node": ">=6"
+    "node": ">=7.5 <8"
   },
   "scripts": {
     "analyze": "cross-env NODE_ENV=production babel-node internal/scripts/analyze",
