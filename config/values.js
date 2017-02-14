@@ -83,16 +83,16 @@ const values = {
   // Extended configuration for the Content Security Policy (CSP)
   // @see src/server/middleware/security for more info.
   cspExtensions: {
-    childSrc: [],
-    connectSrc: [],
-    defaultSrc: [],
-    fontSrc: [],
-    imgSrc: [],
-    mediaSrc: [],
-    manifestSrc: [],
-    objectSrc: [],
-    scriptSrc: [],
-    styleSrc: [],
+    childSrc: ["'self'"],
+    connectSrc: ["'self'", 'ws:', 'swapi.co'],
+    defaultSrc: ["'self'"],
+    fontSrc: ["'self'", 'fonts.gstatic.com'],
+    frameSrc: ["'none'"],
+    imgSrc: ["'self' 'unsafe-inline'", 'data:;'],
+    mediaSrc: ["'none'"],
+    objectSrc: ["'none'"],
+    scriptSrc: ["'self' 'unsafe-inline' 'unsafe-eval'", 'cdn.polyfill.io'],
+    styleSrc: ["'self' 'unsafe-inline'", 'fonts.googleapis.com', 'blob:;'],
   },
 
   // Path to the public assets that will be served off the root of the

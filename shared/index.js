@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Switch, Route } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ import Planets from './routes/planets';
 import PlanetDetails from './routes/planet-details';
 import NotFound from './routes/not-found';
 
-export default function App() {
+export default function App({ children }) {
   return (
     <AppLayout>
       <Header>
@@ -32,7 +32,12 @@ export default function App() {
           <Route path="/planets/:id" component={PlanetDetails} />
           <Route component={NotFound} />
         </Switch>
+        {children}
       </Content>
     </AppLayout>
   );
 }
+
+App.propTypes = {
+  children: PropTypes.node,
+};

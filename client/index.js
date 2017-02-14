@@ -8,7 +8,8 @@ import { Provider } from 'mobx-react';
 import { toJS } from 'mobx';
 import stringify from 'json-stringify-safe';
 import Store from 'store';
-import ReactHotLoader from './components/ReactHotLoader';
+import ReactHotLoader from './components/react-hot-loader';
+import DevTools from './components/devtools';
 import App from '../shared';
 
 // Get the DOM Element that will host our React application.
@@ -22,7 +23,9 @@ function renderApp(TheApp) {
     <ReactHotLoader>
       <Provider {...store}>
         <BrowserRouter>
-          <TheApp />
+          <TheApp>
+            <DevTools />
+          </TheApp>
         </BrowserRouter>
       </Provider>
     </ReactHotLoader>
