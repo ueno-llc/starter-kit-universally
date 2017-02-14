@@ -13,6 +13,7 @@
     "clean": "babel-node internal/scripts/clean",
     "deploy": "babel-node internal/scripts/deploy",
     "development": "babel-node internal/development",
+    "dev": "babel-node internal/development",
     "eslint": "eslint src config tools",
     "lint": "npm run eslint; npm run stylelint",
     "preinstall": "node internal/scripts/preinstall",
