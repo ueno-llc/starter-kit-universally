@@ -2,7 +2,7 @@ import React from 'react';
 
 const showDevTools = (process.env.NODE_ENV !== 'production');
 const MobxDevTools = showDevTools && require('mobx-react-devtools').default;
-const GridOverlay = showDevTools && require('../grid-overlay').default;
+const GridOverlay = showDevTools && require('components/grid-overlay').default;
 
 // eslint-disable-next-line
 const DevTools = showDevTools ? () => (
@@ -10,6 +10,6 @@ const DevTools = showDevTools ? () => (
     <MobxDevTools />
     <GridOverlay columns={12} />
   </div>
-) : null;
+) : (() => null);
 
 export default DevTools;
