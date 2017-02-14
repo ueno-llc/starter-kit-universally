@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { StaticRouter } from 'react-router';
+import { StaticRouter } from 'react-router-dom';
 import { withAsyncComponents } from 'react-async-component';
 import { Provider, useStaticRendering } from 'mobx-react';
 import { serverWaitRender } from 'utils/mobx-server-wait';
@@ -41,13 +41,14 @@ function reactApplicationMiddleware(request, response, next) {
 
   // First create a context for <StaticRouter>, which will allow us to
   // query for the results of the render.
-  // const reactRouterContext = createServerRenderContext();
+  const reactRouterContext = {};
+
+  // Initialize the store
   const store = new Store();
-  const context = {};
 
   // Create our React application.
   const app = (
-    <StaticRouter location={request.url} context={context}>
+    <StaticRouter location={request.url} context={reactRouterContext}>
       <Provider {...store}>
         <App />
       </Provider>
@@ -75,8 +76,8 @@ function reactApplicationMiddleware(request, response, next) {
           />,
         );
 
-        if (context.url) {
-          response.status(301).setHeader('Location', context.url);
+        if (reactRouterContext.url) {
+          response.writeHead(302, { Location: reactRouterContext.url });
           response.end();
           return;
         }

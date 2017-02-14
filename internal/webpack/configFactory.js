@@ -65,6 +65,9 @@ export default function webpackConfigFactory(buildOptions) {
     throw new Error('No bundle configuration exists for target:', target);
   }
 
+  // Local identname
+  const localIdentName = ifDev('[name]_[local]_[hash:base64:5]', '[hash:base64:10]');
+
   const webpackConfig = {
     target: isClient
       // Only our client bundle will target the web as a runtime.
@@ -426,7 +429,7 @@ export default function webpackConfigFactory(buildOptions) {
                 sourceMap: true,
                 modules: true,
                 importLoaders: 1,
-                localIdentName: '[name]_[local]_[hash:base64:5]',
+                localIdentName,
               },
             },
             { path: 'postcss-loader' },
@@ -627,7 +630,7 @@ export default function webpackConfigFactory(buildOptions) {
                 'classnames-loader',
                 ExtractTextPlugin.extract({
                   fallbackLoader: 'style-loader',
-                  loader: ['css-loader?modules=1&sourceMap&importLoaders=1&localIdentName=[hash:base64:10]!postcss-loader!sass-loader?outputStyle=expanded&sourceMap'],
+                  loader: [`css-loader?modules=1&sourceMap&importLoaders=1&localIdentName=${localIdentName}!postcss-loader!sass-loader?outputStyle=expanded&sourceMap`],
                 }),
               ],
             })),
@@ -636,7 +639,7 @@ export default function webpackConfigFactory(buildOptions) {
             ifNode({
               loaders: [
                 'classnames-loader',
-                'css-loader/locals?modules=1&importLoaders=1&localIdentName=[hash:base64:10]',
+                `css-loader/locals?modules=1&importLoaders=1&localIdentName=${localIdentName}`,
                 'postcss-loader',
                 'sass-loader',
               ],
