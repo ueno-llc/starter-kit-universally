@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+/* eslint-disable no-console */
 
 import React from 'react';
 import { render } from 'react-dom';
@@ -63,4 +64,12 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept(
     () => renderApp(require('../shared').default),
   );
+
+  const consoleWarn = console.warn;
+
+  console.warn = (first, ...args) => {
+    const noStoreChange = /Provided store (.*) has changed/;
+    if (first && noStoreChange.test(first)) return;
+    consoleWarn.call(console, first, ...args);
+  };
 }
