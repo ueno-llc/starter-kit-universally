@@ -5665,9 +5665,9 @@ react-addons-test-utils@15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-async-component@0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/react-async-component/-/react-async-component-0.2.1.tgz#b33d6971a95fb3a902bbef5ca3bde01562a4bb53"
+react-async-component@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/react-async-component/-/react-async-component-0.2.2.tgz#243e7551673e749fe7b90e2d8b675d3612c97a2a"
   dependencies:
     react-tree-walker "^1.0.0"
 

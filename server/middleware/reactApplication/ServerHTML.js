@@ -80,7 +80,7 @@ function ServerHTML(props) {
     // Bind our async components state so the client knows which ones
     // to initialise so that the checksum matches the server response.
     onlyIf(
-      asyncComponents,
+      process.env.NODE_ENV !== 'development' && asyncComponents,
       () => inlineScript(
         `window.${asyncComponents.STATE_IDENTIFIER}=${serialize(asyncComponents.state)};`,
       ),
