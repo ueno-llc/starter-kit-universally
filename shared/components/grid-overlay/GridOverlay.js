@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component, PropTypes } from 'react';
 import autobind from 'core-decorators/lib/autobind';
 import s from './GridOverlay.scss';

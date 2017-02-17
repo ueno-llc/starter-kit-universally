@@ -143,7 +143,7 @@ ServerHTML.propTypes = {
   nonce: PropTypes.string,
   reactAppString: PropTypes.string,
   // eslint-disable-next-line react/forbid-prop-types
-  initialState: PropTypes.object,
+  initialState: PropTypes.string,
 };
 
 // EXPORT

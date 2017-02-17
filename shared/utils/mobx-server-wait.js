@@ -182,6 +182,7 @@ export function serverWaitRender({
         // Handle errors
         onError(err);
       } else {
+        // eslint-disable-next-line no-console
         console.warn('Unhandled error: ', err);
       }
     }
