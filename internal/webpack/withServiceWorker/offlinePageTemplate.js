@@ -14,7 +14,7 @@ module.exports = function generate(context) {
   const ClientConfig = context.htmlWebpackPlugin.options.custom.ClientConfig;
   const html = renderToStaticMarkup(
     <HTML
-      title={config('htmlPage.defaultTitle')}
+      title={<title>{config('htmlPage.defaultTitle')}</title>}
       description={config('htmlPage.description')}
       bodyElements={<ClientConfig nonce="OFFLINE_PAGE_NONCE_PLACEHOLDER" />}
     />,
