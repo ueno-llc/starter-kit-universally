@@ -34,7 +34,12 @@ function reactApplicationMiddleware(request, response, next) {
     }
     // SSR is disabled so we will just return an empty html page and will
     // rely on the client to initialize and render the react application.
-    const html = renderToStaticMarkup(<ServerHTML nonce={nonce} />);
+    const html = renderToStaticMarkup(
+      <ServerHTML
+        helmet={Helmet.rewind()}
+        nonce={nonce}
+      />,
+    );
     response.status(200).send(html);
     return;
   }
