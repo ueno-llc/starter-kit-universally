@@ -7,17 +7,16 @@
 
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-
 import HTML from 'components/html';
 
 module.exports = function generate(context) {
-  const getConfig = context.htmlWebpackPlugin.options.custom.getConfig;
-  const ClientConfigScript = context.htmlWebpackPlugin.options.custom.ClientConfigScript;
+  const config = context.htmlWebpackPlugin.options.custom.config;
+  const ClientConfig = context.htmlWebpackPlugin.options.custom.ClientConfig;
   const html = renderToStaticMarkup(
     <HTML
-      title={getConfig('htmlPage.defaultTitle')}
-      description={getConfig('htmlPage.description')}
-      bodyElements={<ClientConfigScript />}
+      title={config('htmlPage.defaultTitle')}
+      description={config('htmlPage.description')}
+      bodyElements={<ClientConfig nonce="OFFLINE_PAGE_NONCE_PLACEHOLDER" />}
     />,
   );
   return `<!DOCTYPE html>${html}`;

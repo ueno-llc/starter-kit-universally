@@ -3,13 +3,12 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
 import { withAsyncComponents } from 'react-async-component';
 import { Provider } from 'mobx-react';
 import { toJS } from 'mobx';
 import stringify from 'json-stringify-safe';
 import Store from 'store';
-import ReactHotLoader from './components/react-hot-loader';
 import App from '../shared';
 
 // Get the DOM Element that will host our React application.
@@ -18,19 +17,22 @@ const container = document.querySelector('#app');
 // eslint-disable-next-line
 let store = window.store = new Store(window.__INITIAL_STATE__);
 
+/**
+ * Renders the given React Application component.
+ */
 function renderApp(TheApp) {
+  // Firstly, define our full application component, wrapping the given
+  // component app with a browser based version of react router.
   const app = (
-    <ReactHotLoader>
-      <Provider {...store}>
-        <BrowserRouter>
-          <TheApp />
-        </BrowserRouter>
-      </Provider>
-    </ReactHotLoader>
+    <Provider {...store}>
+      <BrowserRouter>
+        <TheApp />
+      </BrowserRouter>
+    </Provider>
   );
 
-  // We use the react-async-component in order to support super easy code splitting
-  // within our application.  It's important to use this helper
+  // We use the react-async-component in order to support code splitting of
+  // our bundle output. It's important to use this helper.
   // @see https://github.com/ctrlplusb/react-async-component
   withAsyncComponents(app).then(({ appWithAsyncComponents }) =>
     render(appWithAsyncComponents, container),
@@ -46,7 +48,7 @@ renderApp(App);
 require('./registerServiceWorker');
 
 // The following is needed so that we can support hot reloading our application.
-if (process.env.NODE_ENV === 'development' && module.hot) {
+if (process.env.BUILD_FLAG_IS_DEV && module.hot) {
 
   if (module.hot.data && module.hot.data.store) {
     // Create new store with previous store state

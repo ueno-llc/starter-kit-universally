@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { withAsyncComponents } from 'react-async-component';
@@ -7,7 +8,7 @@ import { serverWaitRender } from 'utils/mobx-server-wait';
 import Helmet from 'react-helmet';
 import Store from 'store';
 
-import getConfig from '../../../config/get';
+import config from '../../../config';
 import App from '../../../shared';
 
 import ServerHTML from './ServerHTML';
@@ -17,9 +18,9 @@ useStaticRendering(true);
 /**
  * React application middleware, supports server side rendering.
  */
-function reactApplicationMiddleware(request, response, next) {
-  // We should have had a nonce provided to us.  See the server/index.js for
-  // more information on what this is.
+export default function reactApplicationMiddleware(request, response, next) {
+  // Ensure a nonce has been provided to us.
+  // See the server/middleware/security.js for more info.
   if (typeof response.locals.nonce !== 'string') {
     throw new Error('A "nonce" value has not been attached to the response');
   }
@@ -27,12 +28,12 @@ function reactApplicationMiddleware(request, response, next) {
 
   // It's possible to disable SSR, which can be useful in development mode.
   // In this case traditional client side only rendering will occur.
-  if (getConfig('disableSSR')) {
-    if (process.env.NODE_ENV === 'development') {
+  if (config('disableSSR')) {
+    if (process.env.BUILD_FLAG_IS_DEV) {
       // eslint-disable-next-line no-console
       console.log('==> Handling react route without SSR');
     }
-    // SSR is disabled so we will just return an empty html page and will
+    // SSR is disabled so we will return an "empty" html page and
     // rely on the client to initialize and render the react application.
     const html = renderToStaticMarkup(
       <ServerHTML
@@ -51,7 +52,7 @@ function reactApplicationMiddleware(request, response, next) {
   // Initialize the store
   const store = new Store();
 
-  // Create our React application.
+  // Declare our React application.
   const app = (
     <StaticRouter location={request.url} context={reactRouterContext}>
       <Provider {...store}>
@@ -60,10 +61,9 @@ function reactApplicationMiddleware(request, response, next) {
     </StaticRouter>
   );
 
-  // Wrap our app with react-async-component helper so that our async components
-  // will be resolved and rendered with the response.
+  // Pass our app into the react-async-component helper so that any async
+  // components are resolved for the render.
   withAsyncComponents(app).then(({ appWithAsyncComponents, state, STATE_IDENTIFIER }) => {
-
     serverWaitRender({
       store,
       root: appWithAsyncComponents,
@@ -81,17 +81,25 @@ function reactApplicationMiddleware(request, response, next) {
           />,
         );
 
+        // Check if the router context contains a redirect, if so we need to set
+        // the specific status and redirect header and end the response.
         if (reactRouterContext.url) {
-          response.writeHead(302, { Location: reactRouterContext.url });
+          response.status(302).setHeader('Location', reactRouterContext.url);
           response.end();
           return;
         }
 
-        response.status(200).send(`<!DOCTYPE html>${html}`);
+        response
+          .status(
+            reactRouterContext.missed
+              // If the renderResult contains a "missed" match then we set a 404 code.
+              // Our App component will handle the rendering of an Error404 view.
+              ? 404
+              // Otherwise everything is all good and we send a 200 OK status.
+              : 200,
+          )
+          .send(`<!DOCTYPE html>${html}`);
       },
     });
-
   });
 }
-
-export default reactApplicationMiddleware;

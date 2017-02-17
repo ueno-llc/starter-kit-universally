@@ -1,5 +1,5 @@
 /**
- * Helper for resolving environment specific configuration.
+ * Helper for resolving environment specific configuration files.
  *
  * It resolves .env files that are supported by the `dotenv` library.
  *
@@ -11,16 +11,13 @@ import colors from 'colors/safe';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
-import userHome from 'user-home';
-
-import pkg from '../../package.json';
 import onlyIf from '../../internal/utils/logic/onlyIf';
 import removeNil from '../../internal/utils/arrays/removeNil';
 
 // PRIVATES
 
 function registerEnvFile() {
-  const CONF_ENV = process.env.CONF_ENV;
+  const NODE_ENV = process.env.NODE_ENV;
   const envFile = '.env';
 
   // This is the order in which we will try to resolve an environment configuration
@@ -28,18 +25,11 @@ function registerEnvFile() {
   const envFileResolutionOrder = removeNil([
     // Is there an environment config file at the app root for our target
     // environment name?
-    // e.g. /projects/react-universally/.env.development
-    onlyIf(CONF_ENV, path.resolve(appRootDir.get(), `${envFile}.${CONF_ENV}`)),
+    // e.g. /projects/react-universally/.env.staging
+    onlyIf(NODE_ENV, path.resolve(appRootDir.get(), `${envFile}.${NODE_ENV}`)),
     // Is there an environment config file at the app root?
     // e.g. /projects/react-universally/.env
     path.resolve(appRootDir.get(), envFile),
-    // Is there an environment config file in the executing user's home dir
-    // that is targetting the specific environment?
-    // e.g. /Users/ctrlplusb/.config/react-universally/.env.development
-    onlyIf(CONF_ENV, path.resolve(userHome, '.config', pkg.name, `${envFile}.${CONF_ENV}`)),
-    // Is there an environment config file in the executing user's home dir?
-    // e.g. /Users/ctrlplusb/.config/react-universally/.env
-    path.resolve(userHome, '.config', pkg.name, envFile),
   ]);
 
   // Find the first env file path match.
@@ -60,11 +50,27 @@ registerEnvFile();
 
 // EXPORTED HELPERS
 
+/**
+ * Gets a string environment variable by the given name.
+ *
+ * @param  {String} name - The name of the environment variable.
+ * @param  {String} defaultVal - The default value to use.
+ *
+ * @return {String} The value.
+ */
 export function string(name, defaultVal) {
   return process.env[name] || defaultVal;
 }
 
-export function int(name, defaultVal) {
+/**
+ * Gets a number environment variable by the given name.
+ *
+ * @param  {String} name - The name of the environment variable.
+ * @param  {number} defaultVal - The default value to use.
+ *
+ * @return {number} The value.
+ */
+export function number(name, defaultVal) {
   return process.env[name]
     ? parseInt(process.env[name], 10)
     : defaultVal;

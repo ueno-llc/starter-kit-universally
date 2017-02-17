@@ -1,1 +1,1 @@
-export default from '../../config/get';
+export default from '../../config/index';

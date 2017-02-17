@@ -1,1 +1,1 @@
-export { default } from './HTML';
+export default from './HTML';
