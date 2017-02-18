@@ -63,6 +63,11 @@
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
+    "moduleDirectories": ["node_modules", "shared"],
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/internal/jest/styleMock.js",
+      "\\.(je?pg|png|gif|ico|otf|ttf|eot|woff|woff2|svg)$": "<rootDir>/internal/jest/assetMock.js"
+    },
     "testPathIgnorePatterns": [
       "<rootDir>/(build|internal|node_modules|flow-typed|public)/"
     ]
