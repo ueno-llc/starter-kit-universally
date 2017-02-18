@@ -83,8 +83,6 @@ const values = {
     fontSrc: ["'self'", 'fonts.gstatic.com'],
     frameSrc: ["'none'"],
     imgSrc: ["'self' 'unsafe-inline'", 'data:;'],
-    mediaSrc: ["'none'"],
-    objectSrc: ["'none'"],
     scriptSrc: [
       "'self' 'unsafe-inline' 'unsafe-eval'",
       // Allow scripts from https://cdn.polyfill.io so that we can import the
