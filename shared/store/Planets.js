@@ -17,7 +17,7 @@ export default class Planets {
   /**
    * @var {string} API endpoint
    */
-  apiUrl = 'http://swapi.co/api/planets';
+  apiUrl = 'https://swapi.co/api/planets';
 
   /**
    * Fetch all planets
