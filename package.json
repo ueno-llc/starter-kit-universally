@@ -9,8 +9,8 @@
   "scripts": {
     "analyze:client": "babel-node internal/scripts/analyze --client",
     "analyze:server": "babel-node internal/scripts/analyze --server",
-    "build": "npm run clean && babel-node internal/scripts/build --optimize",
-    "build:dev": "npm run clean && babel-node internal/scripts/build",
+    "build": "npm run clean && cross-env NODE_ENV=production babel-node internal/scripts/build --optimize",
+    "build:dev": "npm run clean && cross-env NODE_ENV=development babel-node internal/scripts/build",
     "clean": "rm -rf ./build",
     "deploy": "babel-node internal/scripts/deploy",
     "dev": "babel-node internal/development",
