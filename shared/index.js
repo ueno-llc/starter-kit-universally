@@ -26,7 +26,7 @@ export default function App() {
       </Header>
       <Content>
         <Switch>
-          <Route exact path="/" component ={Home} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
           <Route exact path="/planets" component={Planets} />
           <Route path="/planets/:id" component={PlanetDetails} />
