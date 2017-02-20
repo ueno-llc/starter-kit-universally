@@ -43,6 +43,9 @@ const values = {
   // Disable server side rendering?
   disableSSR: false,
 
+  // Maximum time in milliseconds to produce server side rendered markup
+  maxServerWait: 1200,
+
   // How long should we set the browser cache for the served assets?
   // Don't worry, we add hashes to the files, so if they change the new files
   // will be served to browsers.

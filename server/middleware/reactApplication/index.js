@@ -68,7 +68,7 @@ export default function reactApplicationMiddleware(request, response, next) {
       store,
       root: appWithAsyncComponents,
       onError: next,
-      maxWait: 1200,
+      maxWait: config('maxServerWait'),
       debug: console.log, // eslint-disable-line
       render(reactAppString, initialState) {
         const html = renderToStaticMarkup(
