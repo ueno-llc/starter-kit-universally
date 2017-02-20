@@ -289,6 +289,9 @@ const values = {
       }
      */
 
+      // Decorators for everybody
+      babelConfig.plugins.push('transform-decorators-legacy');
+
       return babelConfig;
     },
 

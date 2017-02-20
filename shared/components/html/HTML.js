@@ -11,6 +11,9 @@
 
 import React, { PropTypes } from 'react';
 
+/**
+ * The is the HTML shell for our React Application.
+ */
 function HTML(props) {
   const {
     appName,
