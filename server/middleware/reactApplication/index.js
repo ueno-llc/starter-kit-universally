@@ -69,7 +69,7 @@ export default function reactApplicationMiddleware(request, response, next) {
       root: appWithAsyncComponents,
       onError: next,
       maxWait: config('maxServerWait'),
-      debug: console.log, // eslint-disable-line
+      debug: process.env.BUILD_FLAG_IS_DEV ? console.log : undefined, // eslint-disable-line
       render(reactAppString, initialState) {
         const html = renderToStaticMarkup(
           <ServerHTML
