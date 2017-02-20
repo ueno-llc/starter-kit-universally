@@ -18,6 +18,7 @@
     "postinstall": "if [ \"x$NODE_ENV\" != \"x\" ] && [ \"$NODE_ENV\" != \"development\" ]; then npm run build; fi;",
     "start": "node build/server",
     "lint": "npm run eslint; npm run stylelint",
+    "lint-staged": "lint-staged",
     "eslint": "eslint client server shared config internal",
     "stylelint": "stylelint \"shared/**/*.scss\" --syntax scss",
     "test": "jest",
@@ -63,7 +64,10 @@
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
-    "moduleDirectories": ["node_modules", "shared"],
+    "moduleDirectories": [
+      "node_modules",
+      "shared"
+    ],
     "moduleNameMapper": {
       "\\.(css|scss)$": "<rootDir>/internal/jest/styleMock.js",
       "\\.(je?pg|png|gif|ico|otf|ttf|eot|woff|woff2|svg)$": "<rootDir>/internal/jest/assetMock.js"
@@ -71,6 +75,10 @@
     "testPathIgnorePatterns": [
       "<rootDir>/(build|internal|node_modules|flow-typed|public)/"
     ]
+  },
+  "pre-commit": "lint-staged",
+  "lint-staged": {
+    "shared/*.js": "eslint"
   },
   "dependencies": {
     "app-root-dir": "1.0.2",
@@ -161,6 +169,8 @@
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.10.0",
     "jest": "18.1.0",
+    "lint-staged": "^3.3.1",
+    "pre-commit": "^1.2.2",
     "stylelint": "7.8.0",
     "stylelint-config-primer": "1.4.0",
     "webpack-bundle-analyzer": "2.3.0",
