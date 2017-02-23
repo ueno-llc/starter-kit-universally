@@ -56,6 +56,20 @@ npm run development
 
 Now go make some changes to the `Home` component to see the tooling in action.
 
+## Updating from upstream
+
+```bash
+git remote add upstream https://github.com/ctrlplusb/react-universally.git
+git fetch upstream
+git merge upstream/next # or upstream/master
+
+# These are the usual conflicts
+git rm -r -f shared/components/DemoApp
+git checkout --ours shared/README.md
+git checkout --ours package.json
+```
+
+
 ## Docs
 
  - [Project Overview](/internal/docs/PROJECT_OVERVIEW.md)
