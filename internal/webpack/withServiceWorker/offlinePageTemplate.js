@@ -6,16 +6,17 @@
  */
 
 import React from 'react';
+import Helmet from 'react-helmet';
 import { renderToStaticMarkup } from 'react-dom/server';
 import HTML from 'components/html';
 
 module.exports = function generate(context) {
   const config = context.htmlWebpackPlugin.options.custom.config;
   const ClientConfig = context.htmlWebpackPlugin.options.custom.ClientConfig;
+
   const html = renderToStaticMarkup(
     <HTML
-      title={<title>{config('htmlPage.defaultTitle')}</title>}
-      description={config('htmlPage.description')}
+      helmet={<Helmet {...config('helmet')} /> && Helmet.rewind()}
       bodyElements={<ClientConfig nonce="OFFLINE_PAGE_NONCE_PLACEHOLDER" />}
     />,
   );

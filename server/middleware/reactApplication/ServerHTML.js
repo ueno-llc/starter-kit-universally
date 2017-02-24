@@ -62,6 +62,7 @@ function ServerHTML(props) {
   );
 
   const headerElements = removeNil([
+    ...onlyIf(helmet, () => helmet.title.toComponent()),
     ...onlyIf(helmet, () => helmet.meta.toComponent()),
     ...onlyIf(helmet, () => helmet.link.toComponent()),
     onlyIf(
@@ -120,12 +121,11 @@ function ServerHTML(props) {
 
   return (
     <HTML
-      appName={config('htmlPage.appName')}
-      title={helmet.title.toComponent()}
       appBodyString={reactAppString}
       headerElements={
         headerElements.map((x, idx) => <KeyedComponent key={idx}>{x}</KeyedComponent>)
       }
+      htmlAttributes={onlyIf(helmet.htmlAttributes, () => helmet.htmlAttributes.toComponent())}
       bodyElements={
         bodyElements.map((x, idx) => <KeyedComponent key={idx}>{x}</KeyedComponent>)
       }
