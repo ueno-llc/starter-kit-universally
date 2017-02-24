@@ -31,9 +31,9 @@ function HTML(props) {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="msapplication-TileColor" content="#2b2b2b" />
+        <meta name="msapplication-TileColor" content="#00E2AD" />
         <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png" />
-        <meta name="theme-color" content="#2b2b2b" />
+        <meta name="theme-color" content="#00E2AD" />
         {/*
           A great reference for favicons:
           https://github.com/audreyr/favicon-cheat-sheet
@@ -57,7 +57,7 @@ function HTML(props) {
         <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32" />
         <link rel="icon" sizes="16x16 32x32" href="/favicon.ico" />
-        <meta name="msapplication-TileColor" content="#2b2b2b" />
+        <meta name="msapplication-TileColor" content="#00E2AD" />
         <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png" />
         <meta name="msapplication-square70x70logo" content="/favicons/mstile-70x70.png" />
         <meta name="msapplication-square150x150logo" content="/favicons/mstile-150x150.png" />
