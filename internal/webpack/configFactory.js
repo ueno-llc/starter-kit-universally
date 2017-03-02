@@ -165,19 +165,6 @@ export default function webpackConfigFactory(buildOptions) {
         {
           modernizr$: path.resolve(appRootDir.get(), './.modernizrrc'),
         },
-        // For our optimised builds we will alias to the optimised versions
-        // of React and ReactDOM.
-        ifOptimize({
-          react$: path.resolve(
-            appRootDir.get(), './node_modules/react/dist/react.min.js',
-          ),
-          'react-dom$': path.resolve(
-            appRootDir.get(), './node_modules/react-dom/dist/react-dom.min.js',
-          ),
-          'react-dom/server$': path.resolve(
-            appRootDir.get(), './node_modules/react-dom/dist/react-dom-server.min.js',
-          ),
-        }),
       ),
 
       // UENO: The ./shared is now a resolved root.
@@ -275,6 +262,7 @@ export default function webpackConfigFactory(buildOptions) {
       // confusion we instead use the webpack alias feature to target the
       // pre-optimised dist versions of React/ReactDOM when required.
       new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(isDev ? 'development' : 'production'),
         // Is this the "client" bundle?
         'process.env.BUILD_FLAG_IS_CLIENT': JSON.stringify(isClient),
         // Is this the "server" bundle?
@@ -459,6 +447,8 @@ export default function webpackConfigFactory(buildOptions) {
       new CaseSensitivePathsPlugin(),
     ]),
     module: {
+      // Don't parse the file that exports process.env
+      noParse: /config\/utils\/processEnv/,
       rules: removeNil([
         // JAVASCRIPT
         {

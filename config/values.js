@@ -40,6 +40,8 @@ const values = {
   // the client and server bundles.
   welcomeMessage: EnvVars.string('WELCOME_MSG', 'Hello world!'),
 
+  NODE_ENV: EnvVars.string('NODE_ENV', 'development'),
+
   // Disable server side rendering?
   disableSSR: false,
 

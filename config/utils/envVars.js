@@ -13,11 +13,12 @@ import fs from 'fs';
 import path from 'path';
 import onlyIf from '../../internal/utils/logic/onlyIf';
 import removeNil from '../../internal/utils/arrays/removeNil';
+import env from './processEnv';
 
 // PRIVATES
 
 function registerEnvFile() {
-  const NODE_ENV = process.env.NODE_ENV;
+  const NODE_ENV = env.NODE_ENV;
   const envFile = '.env';
 
   // This is the order in which we will try to resolve an environment configuration
@@ -59,7 +60,7 @@ registerEnvFile();
  * @return {String} The value.
  */
 export function string(name, defaultVal) {
-  return process.env[name] || defaultVal;
+  return env[name] || defaultVal;
 }
 
 /**
@@ -71,13 +72,13 @@ export function string(name, defaultVal) {
  * @return {number} The value.
  */
 export function number(name, defaultVal) {
-  return process.env[name]
-    ? parseInt(process.env[name], 10)
+  return env[name]
+    ? parseInt(env[name], 10)
     : defaultVal;
 }
 
 export function bool(name, defaultVal) {
-  return process.env[name]
-    ? process.env[name] === 'true' || process.env[name] === '1'
+  return env[name]
+    ? env[name] === 'true' || env[name] === '1'
     : defaultVal;
 }
