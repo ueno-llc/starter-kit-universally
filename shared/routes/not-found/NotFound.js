@@ -5,13 +5,13 @@ import Segment from 'components/segment';
 export default class NotFound extends Component {
 
   static contextTypes = {
-    router: PropTypes.shape({
+    history: PropTypes.shape({
       staticContext: PropTypes.object,
     }).isRequired,
   };
 
   componentWillMount() {
-    const { staticContext } = this.context.router;
+    const { staticContext } = this.context.history;
     if (staticContext) {
       staticContext.missed = true;
     }
