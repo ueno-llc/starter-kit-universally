@@ -17,6 +17,9 @@ const container = document.querySelector('#app');
 // eslint-disable-next-line
 let store = window.store = new Store(window.__INITIAL_STATE__);
 
+// Does the user's browser support the HTML5 history API?
+const supportsHistory = 'pushState' in window.history;
+
 /**
  * Renders the given React Application component.
  */
@@ -25,7 +28,7 @@ function renderApp(TheApp) {
   // component app with a browser based version of react router.
   const app = (
     <Provider {...store}>
-      <BrowserRouter>
+      <BrowserRouter forceRefresh={!supportsHistory}>
         <TheApp />
       </BrowserRouter>
     </Provider>

@@ -11,7 +11,7 @@ import colors from 'colors/safe';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
-import onlyIf from '../../internal/utils/logic/onlyIf';
+import ifElse from '../../internal/utils/logic/ifElse';
 import removeNil from '../../internal/utils/arrays/removeNil';
 import env from './processEnv';
 
@@ -27,7 +27,7 @@ function registerEnvFile() {
     // Is there an environment config file at the app root for our target
     // environment name?
     // e.g. /projects/react-universally/.env.staging
-    onlyIf(NODE_ENV, path.resolve(appRootDir.get(), `${envFile}.${NODE_ENV}`)),
+    ifElse(NODE_ENV)(path.resolve(appRootDir.get(), `${envFile}.${NODE_ENV}`)),
     // Is there an environment config file at the app root?
     // e.g. /projects/react-universally/.env
     path.resolve(appRootDir.get(), envFile),
