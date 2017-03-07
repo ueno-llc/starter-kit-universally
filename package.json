@@ -14,7 +14,7 @@
     "clean": "rm -rf ./build",
     "deploy": "babel-node internal/scripts/deploy",
     "dev": "babel-node internal/development",
-    "heroku-yarn": "yarn add --force --ignore-scripts --exact node-sass",
+    "heroku-yarn": "npm rebuild node-sass",
     "preinstall": "node internal/scripts/preinstall",
     "postinstall": "if [ \"x$NODE_ENV\" != \"x\" ] && [ \"$NODE_ENV\" != \"development\" ]; then (npm run heroku-yarn && npm run build); fi;",
     "start": "node build/server",
