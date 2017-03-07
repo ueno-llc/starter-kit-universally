@@ -15,7 +15,7 @@
     "deploy": "babel-node internal/scripts/deploy",
     "dev": "babel-node internal/development",
     "preinstall": "node internal/scripts/preinstall",
-    "postinstall": "if [ \"x$NODE_ENV\" != \"x\" ] && [ \"$NODE_ENV\" != \"development\" ]; then npm run build; fi;",
+    "postinstall": "if [ \"x$NODE_ENV\" != \"x\" ] && [ \"$NODE_ENV\" != \"development\" ]; then (yarn add --force node-sass && npm run build); fi;",
     "start": "node build/server",
     "lint": "npm run eslint; npm run stylelint",
     "lint-staged": "lint-staged",
