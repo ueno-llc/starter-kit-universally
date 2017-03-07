@@ -9,16 +9,18 @@ import pRetry from 'p-retry';
  */
 export default class Network {
 
+  constructor({ network = {} }) {
+    // Set history from state
+    this.history.replace(network.history);
+  }
+
   /**
    * Keep a history map of network requests for
    * throttling them.
    * @var {Map} The key is url.
    */
   @observable
-  static history = new ObservableMap();
-
-  // Symlink static method to private method
-  fetch = Network.fetch;
+  history = new ObservableMap();
 
   /**
    * Extended fetch method with credentials needed
@@ -29,9 +31,9 @@ export default class Network {
    */
   @autobind
   @serverWait
-  static fetch(url, { maxAge = Infinity, retries = 1, force = false } = {}) {
+  fetch(url, { maxAge = Infinity, retries = 1, force = false } = {}) {
 
-    const { history } = Network;
+    const { history } = this;
 
     if (!history.has(url)) {
       history.set(url, {});
