@@ -20,7 +20,12 @@ export default class Planets extends Component {
    * @return {void}
    */
   componentWillMount() {
-    this.planets = this.props.planets.fetchAll();
+    // This component is lazy loaded.
+    // We want to wait for the real componentWillMount to fire.
+    // Otherwise `forceUpdate` warning will appear.
+    if (!this.context.ASYNC_WALKER_BOUNDARY) {
+      this.planets = this.props.planets.fetchAll();
+    }
   }
 
   /**

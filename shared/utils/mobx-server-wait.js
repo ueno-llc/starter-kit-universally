@@ -1,5 +1,5 @@
-import { autorun, toJS, ObservableMap } from 'mobx';
-import { fromPromise } from 'mobx-utils';
+/* eslint no-underscore-dangle: 0 */
+import { observable, action, autorun, toJS, ObservableMap } from 'mobx';
 import ReactDOMServer from 'react-dom/server';
 import stringify from 'json-stringify-safe';
 import _once from 'lodash/once';
@@ -28,6 +28,59 @@ const getMethodName = (target, name, args) => {
   return `${constr.displayName || constr.name}.${name}${keyFnArgs}`;
 };
 
+export type PromiseState = 'pending' | 'fulfilled' | 'rejected';
+export const PENDING = 'pending';
+export const FULFILLED = 'fulfilled';
+export const REJECTED = 'rejected';
+
+class PromiseBasedObservable {
+
+  _observable;
+  _state = observable();
+  _reason = observable.shallowBox();
+
+  constructor(promise, initialValue, initialState = PENDING) {
+    this._state.set(initialState);
+    this._observable = observable.box(initialValue);
+    promise.then(
+      action('observableFromPromise-resolve', (value) => {
+        this._observable.set(value);
+        this._state.set('fulfilled');
+      }),
+      action('observableFromPromise-reject', (reason) => {
+        this._reason.set(reason);
+        this._observable.set(reason);
+        this._state.set('rejected');
+      }),
+    );
+  }
+
+  get value() {
+    return this._observable.get();
+  }
+
+  get state() {
+    return this._state.get();
+  }
+
+  get reason() {
+    return this._reason.get();
+  }
+
+  case(handlers = {}) {
+    switch (this.state) {
+      case 'pending': return handlers.pending && handlers.pending();
+      case 'rejected': return handlers.rejected && handlers.rejected(this.value);
+      case 'fulfilled': return handlers.fulfilled && handlers.fulfilled(this.value);
+      default:
+    }
+  }
+}
+
+function fromPromise(promise, initialValue, initialState) {
+  return new PromiseBasedObservable(promise, initialValue, initialState);
+}
+
 const isClient = (typeof window !== 'undefined');
 
 // Promises container
@@ -46,7 +99,7 @@ const ensurePromise = promise =>
  * @param {object} Configuration
  * @return {void}
  */
-const serverWaitProxy = ({ maxWait, retryRejected }) =>
+const serverWaitProxy = ({ maxWait }) =>
   function serverWaitMethod(target, name, descriptor) {
     // Get and store provided method
     const method = descriptor.value;
@@ -62,8 +115,8 @@ const serverWaitProxy = ({ maxWait, retryRejected }) =>
       if (!promises.has(key)) {
 
         // Fire up the promise
-        const action = method.apply(this, args);
-        const promise = fromPromise(ensurePromise(action));
+        const methodCallback = method.apply(this, args);
+        const promise = fromPromise(ensurePromise(methodCallback));
 
         // Add the promise and given options to the promise map
         promises.set(key, {
@@ -72,30 +125,11 @@ const serverWaitProxy = ({ maxWait, retryRejected }) =>
           isClient,
         });
 
-        return promise;
-
       } else if (isClient) {
-        const item = promises.get(key);
-        const { _state: state, _observable: value } = item.promise;
-
-        // Check if server gave pending state
-        // Or rejected and it's allowed to continue after rejection.
-        if (state === 'pending' || (retryRejected && state === 'rejected') || item.isClient) {
-          const action = method.apply(this, args);
-          const promise = fromPromise(ensurePromise(action));
-          item.isClient = true;
-          return promise;
-        }
-
-        item.isClient = true;
-
-        // Continue from fulfilled server action
-        // We need to get the client to """NOT""" trigger `pending`.
-        return {
-          state: 'fulfilled',
-          value,
-          case: ({ fulfilled }) => _isFunction(fulfilled) && fulfilled(value),
-        };
+        const { promise } = promises.get(key);
+        const { _state: state, _observable: value } = promise;
+        const methodCallback = method.apply(this, args);
+        promises.get(key).promise = fromPromise(ensurePromise(methodCallback), value, state);
       }
 
       return promises.get(key).promise;
@@ -126,8 +160,13 @@ export default function serverWait(...props) {
  * @param {object} List of promises
  */
 export function fillServerWait(obj, key = 'serverWaitPromises') {
-  // Use the mobx's map merge method.
-  promises.merge((obj && obj[key]) || {});
+  if (isClient) {
+    // Use the mobx's map merge method.
+    promises.merge((obj && obj[key]) || {});
+  } else {
+    // Clear the promises map on every request.
+    promises.clear();
+  }
 }
 
 /**
@@ -150,18 +189,34 @@ export function serverWaitRender({
     start: process.hrtime(),
   };
 
-  // Clear the promises map on every request.
-  promises.clear();
-
   // Final render method
   // Only callable once
   const renderOnce = _once(() => {
     // Cancel previous listeners
     req.cancel();
 
+    const jsonPromises = {};
+
+    Object.entries(toJS(promises))
+    .forEach(([key, item]) => {
+      const { promise, ...rest } = item;
+      let value = toJS(promise._observable);
+      if (promise.state === 'rejected') {
+        value = JSON.parse(JSON.stringify(promise.reason, ['message', 'type', 'name']));
+      }
+      jsonPromises[key] = {
+        ...rest,
+        promise: {
+          _observable: value,
+          _state: promise.state,
+          _reason: promise.reason,
+        },
+      };
+    });
+
     // Add current state of promises to the store
     // TODO: This needs to be configurable.
-    store[storeKey] = promises; // eslint-disable-line
+    store[storeKey] = jsonPromises; // eslint-disable-line
 
     // Get total time of render
     const [s, ns] = process.hrtime(req.start);

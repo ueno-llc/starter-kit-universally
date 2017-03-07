@@ -4502,10 +4502,6 @@ mobx-react@4.1.0:
   dependencies:
     hoist-non-react-statics "^1.2.0"
 
-mobx-utils@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-2.0.1.tgz#6460d6436f991b2d3250d51995cbcae2c5707b67"
-
 mobx@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.1.0.tgz#e5f15b475efdd1eea1f5c43a0afccde6e6f322ee"
@@ -4976,6 +4972,12 @@ output-file-sync@^1.1.0:
 p-finally@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
+
+p-retry@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/p-retry/-/p-retry-1.0.0.tgz#3927332a4b7d70269b535515117fc547da1a6968"
+  dependencies:
+    retry "^0.10.0"
 
 pako@~0.2.0:
   version "0.2.9"
@@ -5952,6 +5954,10 @@ restore-cursor@^1.0.1:
   dependencies:
     exit-hook "^1.0.0"
     onetime "^1.0.0"
+
+retry@^0.10.0:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/retry/-/retry-0.10.1.tgz#e76388d217992c252750241d3d3956fed98d8ff4"
 
 right-align@^0.1.1:
   version "0.1.3"

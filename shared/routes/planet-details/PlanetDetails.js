@@ -25,9 +25,14 @@ export default class PlanetDetails extends Component {
   componentWillMount() {
     const { planets, match } = this.props;
 
-    // Fetch initial data needed
-    this.planets = planets.fetchAll();
-    this.planet = planets.fetchById(match.params.id);
+    // This component is lazy loaded.
+    // We want to wait for the real componentWillMount to fire.
+    // Otherwise `forceUpdate` warning will appear.
+    if (!this.context.ASYNC_WALKER_BOUNDARY) {
+      // Fetch initial data needed
+      this.planets = planets.fetchAll();
+      this.planet = planets.fetchById(match.params.id);
+    }
   }
 
   /**
@@ -70,7 +75,7 @@ export default class PlanetDetails extends Component {
       <div>
         <Helmet title="Planet loading..." />
         <Segment>
-          {this.planet.case({
+          {this.planet && this.planet.case({
             pending: () => (<div>Loading planet...</div>),
             rejected: error => (<div>Error fetching planet: {error.message}</div>),
             fulfilled: ({ name, gravity, terrain, climate, population, diameter }) => (
