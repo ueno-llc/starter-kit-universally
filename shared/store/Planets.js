@@ -34,6 +34,6 @@ export default class Planets {
    * @return {Promise}
    */
   fetchById(id) {
-    return this.fetch(`${this.apiUrl}/${id}`);
+    return this.fetch(`${this.apiUrl}/${id}/`);
   }
 }
