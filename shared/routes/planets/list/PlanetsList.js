@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { PropTypes as MobxPropTypes, observer, inject } from 'mobx-react';
 import { observable, computed } from 'mobx';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,8 @@ export default class Planets extends Component {
 
   static propTypes = {
     planets: MobxPropTypes.observableObject,
+    history: PropTypes.object, // eslint-disable-line
+    match: PropTypes.object, // eslint-disable-line
   };
 
   /**
@@ -24,8 +26,18 @@ export default class Planets extends Component {
     // We want to wait for the real componentWillMount to fire.
     // Otherwise `forceUpdate` warning will appear.
     if (!this.context.ASYNC_WALKER_BOUNDARY) {
-      this.planets = this.props.planets.fetchAll();
+      this.fetchData(this.props);
     }
+  }
+
+  componentWillReceiveProps(props) {
+    this.fetchData(props);
+  }
+
+  fetchData(props) {
+    const page = Number(props.match.params.page || 1);
+    this.page = page;
+    this.planets = this.props.planets.fetchAll({ page });
   }
 
   /**
@@ -43,11 +55,9 @@ export default class Planets extends Component {
     const pagestr = url.match(/page=(\d+)/);
     const page = parseInt(pagestr && pagestr[1], 10) || 1;
 
-    // Fetch the next wanted page. (it may or may not already exist in the cache).
-    this.planets = this.props.planets.fetchAll({ page });
-
-    // Set current page
-    this.page = page;
+    // this.context.history.push()
+    const { match, history } = this.props;
+    history.push(match.path.replace(':page', page));
   }
 
   /**
@@ -94,7 +104,7 @@ export default class Planets extends Component {
                 <ul>
                   {results.map(({ name, url }) => (
                     <li key={`planet_${name}`}>
-                      <Link to={`/planets/${url.match(/(\d+)\/$/)[1]}`}>{name}</Link>
+                      <Link to={`/planets/detail/${url.match(/(\d+)\/$/)[1]}`}>{name}</Link>
                     </li>
                   ))}
                 </ul>

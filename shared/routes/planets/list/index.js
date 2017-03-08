@@ -1,7 +1,7 @@
 import { createAsyncComponent } from 'react-async-component';
 
 export default createAsyncComponent({
-  resolve: () => System.import('./PlanetDetails'),
+  resolve: () => System.import('./PlanetsList'),
   ssrMode: 'boundary',
-  name: 'PlanetDetails',
+  name: 'PlanetsList',
 });

@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { PropTypes as MobxPropTypes, observer, inject } from 'mobx-react';
+import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import Segment from 'components/segment';
@@ -7,32 +7,30 @@ import autobind from 'core-decorators/lib/autobind';
 
 @inject(['planets'])
 @observer
-export default class PlanetDetails extends Component {
-
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string,
-      }),
-    }),
-    planets: MobxPropTypes.observableObject,
-  };
+export default class PlanetsDetail extends Component {
 
   /**
    * Fired when component will mount.
    * @return {void}
    */
   componentWillMount() {
-    const { planets, match } = this.props;
-
     // This component is lazy loaded.
     // We want to wait for the real componentWillMount to fire.
     // Otherwise `forceUpdate` warning will appear.
     if (!this.context.ASYNC_WALKER_BOUNDARY) {
       // Fetch initial data needed
-      this.planets = planets.fetchAll();
-      this.planet = planets.fetchById(match.params.id);
+      this.fetchData(this.props);
     }
+  }
+
+  componentWillReceiveProps(props) {
+    this.fetchData(props);
+  }
+
+  fetchData(props) {
+    const { planets, match } = props;
+    this.planets = planets.fetchAll();
+    this.planet = planets.fetchById(match.params.id);
   }
 
   /**
@@ -59,7 +57,11 @@ export default class PlanetDetails extends Component {
         <h3>Planets with similar diameter</h3>
         <ul>
           {items.map(related => (
-            <li key={`related_${related.name}`}>{related.name} ({related.diameter})</li>
+            <li key={`related_${related.name}`}>
+              <Link to={`/planets/detail/${related.url.match(/(\d+)\/$/)[1]}`}>
+                {related.name} ({related.diameter})
+              </Link>
+            </li>
           ))}
         </ul>
       </div>

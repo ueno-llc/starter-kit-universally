@@ -13,7 +13,6 @@ import DevTools from 'components/devtools';
 import Home from './routes/home';
 import About from './routes/about';
 import Planets from './routes/planets';
-import PlanetDetails from './routes/planet-details';
 import NotFound from './routes/not-found';
 
 export default function App() {
@@ -31,8 +30,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/planets" component={Planets} />
-          <Route path="/planets/:id" component={PlanetDetails} />
+          <Route path="/planets" component={Planets} />
           <Route component={NotFound} />
         </Switch>
         <DevTools />
