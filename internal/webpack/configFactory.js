@@ -538,15 +538,10 @@ export default function webpackConfigFactory(buildOptions) {
         // SVG IMPORT loader
         {
           test: /\.svg$/,
-          loaders: ['babel-loader', {
-            loader: 'react-svgdom-loader',
-            query: {
-              svgo: {
-                plugins: [{ removeTitle: false }],
-                floatPrecision: 2,
-              },
-            },
-          }],
+          loaders: [
+            'babel-loader',
+            'react-svgdom-loader',
+          ],
         },
 
         // MODERNIZR
