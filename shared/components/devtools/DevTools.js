@@ -8,7 +8,7 @@ const GridOverlay = showDevTools && require('components/grid-overlay').default;
 const DevTools = showDevTools ? () => (
   <div>
     <MobxDevTools />
-    <GridOverlay columns={12} />
+    <GridOverlay columns={12} baseline={16} />
   </div>
 ) : (() => null);
 
