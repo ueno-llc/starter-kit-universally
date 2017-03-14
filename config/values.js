@@ -26,11 +26,14 @@ const values = {
     helmet: true,
   },
 
-  // The host on which the server should run.
+  // The host on which the server should bind to.
   host: EnvVars.string('HOST', '0.0.0.0'),
 
-  // The port on which the server should run.
+  // The port on which the server should bind to.
   port: EnvVars.number('PORT', 3000),
+
+  // This is the hostname which the client bundle development server should run.
+  clientDevServerHost: EnvVars.string('CLIENT_DEV_HOST', '127.0.0.1'),
 
   // The port on which the client bundle development server should run.
   clientDevServerPort: EnvVars.number('CLIENT_DEV_PORT', 7331),
