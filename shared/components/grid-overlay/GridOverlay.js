@@ -17,6 +17,7 @@ export default class GridOverlay extends Component {
 
   static defaultProps = {
     columns: 12,
+    baseline: 16,
   };
 
   // Initial state
@@ -60,10 +61,12 @@ export default class GridOverlay extends Component {
    * @return {void}
    */
   setup(props = null) {
-    const { columns } = props || this.props;
+    const { columns, baseline } = props || this.props;
     const isVisible = (localStorage.getItem(LOCAL_STORAGE_KEY) === 'true');
     this.setState({ isVisible });
     this.grid.style.setProperty('--grid-column-count', columns);
+    this.grid.style.setProperty('--grid-baseline', `${baseline}px`);
+    this.grid.style.setProperty('--grid-baseline-calc', baseline);
   }
 
   /**
