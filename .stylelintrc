@@ -1,11 +1,18 @@
 {
   "extends": "stylelint-config-primer",
+  "plugins": [
+    "stylelint-order"
+  ],
   "rules": {
     "no-unsupported-browser-features": null,
     "string-quotes": "single",
     "max-empty-lines": 5,
     "selector-class-pattern": null,
-    "declaration-block-properties-order": [
+    "media-feature-no-missing-punctuation": null,
+    "rule-nested-empty-line-before": null,
+    "rule-non-nested-empty-line-before": null,
+    "declaration-block-properties-order":  null,
+    "order/properties-order": [
       [
         {
           order: "flexible",
