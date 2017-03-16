@@ -112,12 +112,12 @@ export default class GridOverlay extends Component {
           </div>
         </div>
 
-        <button className={s('grid__button', { horizontalIsVisible })} onClick={this.onToggleHorizontal}>
-          Grid horizontal
-        </button>
-
         <button className={s('grid__button', { verticalIsVisible })} onClick={this.onToggleVertical}>
           Grid vertical
+        </button>
+
+        <button className={s('grid__button', { horizontalIsVisible })} onClick={this.onToggleHorizontal}>
+          Grid horizontal
         </button>
       </div>
     );
