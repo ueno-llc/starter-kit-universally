@@ -79,7 +79,7 @@
   },
   "pre-commit": "lint-staged",
   "lint-staged": {
-    "{shared,client,server}/*.js": "eslint"
+    "{shared,client,server,config,internal}/**/*.js": "eslint"
   },
   "dependencies": {
     "app-root-dir": "1.0.2",
