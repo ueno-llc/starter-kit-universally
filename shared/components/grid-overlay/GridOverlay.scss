@@ -19,13 +19,6 @@
 
   transform-origin: 50% 0%;
 
-  &.isVisible {
-    background:
-      linear-gradient(to bottom, rgba(0, 0, 0, 0) calc(100% - (1 / var(--grid-baseline-calc) * 100%)), rgba(0, 0, 0, 0.05) calc(100% - (1 / var(--grid-baseline-calc) * 100%))),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0) calc(100% - (1 / var(--grid-baseline-calc) * 100%)), rgba(255, 255, 255, 0.15) calc(100% - (1 / var(--grid-baseline-calc) * 100%)));
-    background-size: var(--grid-baseline) var(--grid-baseline);
-  }
-
   &__container {
     @include container;
 
@@ -35,8 +28,15 @@
     transition: opacity 0.2s;
   }
 
-  &.isVisible &__container {
+  &.verticalIsVisible &__container {
     opacity: 1;
+  }
+
+  &.horizontalIsVisible {
+    background:
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) calc(100% - (1 / var(--grid-baseline-calc) * 100%)), rgba(0, 0, 0, 0.05) calc(100% - (1 / var(--grid-baseline-calc) * 100%))),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) calc(100% - (1 / var(--grid-baseline-calc) * 100%)), rgba(255, 255, 255, 0.15) calc(100% - (1 / var(--grid-baseline-calc) * 100%)));
+    background-size: var(--grid-baseline) var(--grid-baseline);
   }
 
   &__row {
@@ -107,12 +107,29 @@
 
     &:hover {
       color: #000;
+
+      g { // stylelint-disable-line
+        fill: #000;
+      }
     }
 
-    &.isVisible {
-      &,
-      &:hover {
-        color: #328bf3;
+    &:first-of-type {
+      right: 236px;
+    }
+
+    &__svg {
+      margin-top: 4px;
+
+      g { // stylelint-disable-line
+        fill: #8D8D8D;
+      }
+    }
+
+    &.horizontalIsVisible,
+    &.verticalIsVisible {
+      g,
+      &:hover g { // stylelint-disable-line
+        fill: #328bf3;
       }
     }
   }
