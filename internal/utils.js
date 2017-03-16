@@ -3,6 +3,7 @@ import notifier from 'node-notifier';
 import colors from 'colors/safe';
 import { execSync } from 'child_process';
 import appRootDir from 'app-root-dir';
+import config from '../config';
 
 // Generates a HappyPack plugin.
 // @see https://github.com/amireh/happypack/
@@ -18,7 +19,7 @@ export function happyPackPlugin({ name, loaders }) {
 export function log(options) {
   const title = `${options.title.toUpperCase()}`;
 
-  if (options.notify) {
+  if (options.notify && config('notifier')) {
     notifier.notify({
       title,
       message: options.message,
