@@ -40,7 +40,11 @@ const values = {
   // the client and server bundles.
   welcomeMessage: EnvVars.string('WELCOME_MSG', 'Hello world!'),
 
+  // Expose environment
   NODE_ENV: EnvVars.string('NODE_ENV', 'development'),
+
+  // Enable node-notifier?
+  notifier: EnvVars.bool('NOTIFIER', true),
 
   // Disable server side rendering?
   disableSSR: false,
