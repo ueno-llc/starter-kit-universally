@@ -4,7 +4,8 @@ import autobind from 'core-decorators/lib/autobind';
 import s from './GridOverlay.scss';
 
 // Key to store visibility state of the grid overlay
-const LOCAL_STORAGE_KEY = '_devtoolsGridVisible';
+const LOCAL_STORAGE_KEY_HORIZONTAL = '_devtoolsHorizontalGridVisible';
+const LOCAL_STORAGE_KEY_VERTICAL = '_devtoolsVerticalGridVisible';
 
 /**
  * Grid Overlay component
@@ -22,7 +23,8 @@ export default class GridOverlay extends Component {
 
   // Initial state
   state = {
-    isVisible: false,
+    horizontalIsVisible: false,
+    verticalIsVisible: false,
   };
 
   /**
@@ -45,14 +47,25 @@ export default class GridOverlay extends Component {
   }
 
   /**
-   * Fired when the grid is meant to be toggled.
+   * Fired when the horizontal grid is meant to be toggled.
    * @return {void}
    */
   @autobind
-  onToggle() {
-    const isVisible = !this.state.isVisible;
-    localStorage.setItem(LOCAL_STORAGE_KEY, isVisible);
-    this.setState({ isVisible });
+  onToggleHorizontal() {
+    const isVisible = !this.state.horizontalIsVisible;
+    localStorage.setItem(LOCAL_STORAGE_KEY_HORIZONTAL, isVisible);
+    this.setState({ horizontalIsVisible: isVisible });
+  }
+
+  /**
+   * Fired when the vertical grid is meant to be toggled.
+   * @return {void}
+   */
+  @autobind
+  onToggleVertical() {
+    const isVisible = !this.state.verticalIsVisible;
+    localStorage.setItem(LOCAL_STORAGE_KEY_VERTICAL, isVisible);
+    this.setState({ verticalIsVisible: isVisible });
   }
 
   /**
@@ -62,8 +75,15 @@ export default class GridOverlay extends Component {
    */
   setup(props = null) {
     const { columns, baseline } = props || this.props;
-    const isVisible = (localStorage.getItem(LOCAL_STORAGE_KEY) === 'true');
-    this.setState({ isVisible });
+
+    const horizontalIsVisible = (localStorage.getItem(LOCAL_STORAGE_KEY_HORIZONTAL) === 'true');
+    const verticalIsVisible = (localStorage.getItem(LOCAL_STORAGE_KEY_VERTICAL) === 'true');
+
+    this.setState({
+      horizontalIsVisible,
+      verticalIsVisible,
+    });
+
     this.grid.style.setProperty('--grid-column-count', columns);
     this.grid.style.setProperty('--grid-baseline', `${baseline}px`);
     this.grid.style.setProperty('--grid-baseline-calc', baseline);
@@ -75,10 +95,13 @@ export default class GridOverlay extends Component {
    */
   render() {
     const { columns } = this.props;
-    const { isVisible } = this.state;
+    const { horizontalIsVisible, verticalIsVisible } = this.state;
 
     return (
-      <div className={s('grid', { isVisible })} ref={el => (this.grid = el)}>
+      <div
+        className={s('grid', { horizontalIsVisible }, { verticalIsVisible })}
+        ref={el => (this.grid = el)}
+      >
         <div className={s.grid__container}>
           <div className={s.grid__row} data-columns={columns}>
             {Array(columns).fill(0).map((_, i) => (
@@ -89,8 +112,12 @@ export default class GridOverlay extends Component {
           </div>
         </div>
 
-        <button className={s('grid__button', { isVisible })} onClick={this.onToggle}>
-          Grid
+        <button className={s('grid__button', { horizontalIsVisible })} onClick={this.onToggleHorizontal}>
+          Grid horizontal
+        </button>
+
+        <button className={s('grid__button', { verticalIsVisible })} onClick={this.onToggleVertical}>
+          Grid vertical
         </button>
       </div>
     );
