@@ -114,7 +114,7 @@ export default class GridOverlay extends Component {
 
         <button className={s('grid__button', { verticalIsVisible })} onClick={this.onToggleVertical}>
           <svg className={s.grid__button__svg} width="14px" height="14px" viewBox="0 0 14 14">
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(7.000000, 7.000000) rotate(-270.000000) translate(-7.000000, -7.000000)">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
               <rect x="0" y="0" width="2" height="14" />
               <rect x="4" y="0" width="2" height="14" />
               <rect x="8" y="0" width="2" height="14" />
@@ -125,7 +125,7 @@ export default class GridOverlay extends Component {
 
         <button className={s('grid__button', { horizontalIsVisible })} onClick={this.onToggleHorizontal}>
           <svg className={s.grid__button__svg} width="14px" height="14px" viewBox="0 0 14 14">
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" transform="translate(7.000000, 7.000000) rotate(-270.000000) translate(-7.000000, -7.000000)">
               <rect x="0" y="0" width="2" height="14" />
               <rect x="4" y="0" width="2" height="14" />
               <rect x="8" y="0" width="2" height="14" />
