@@ -18,6 +18,13 @@
       "value": true
     }
   },
+  "environments": {
+    "test": {
+      "env": {
+        "NODE_ENV": "test"
+      }
+    }
+  },
   "formation": {
     "web": {
       "quantity": 1
