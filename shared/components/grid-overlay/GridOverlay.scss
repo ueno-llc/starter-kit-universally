@@ -107,18 +107,30 @@
 
     &:hover {
       color: #000;
-    }
 
-    &.horizontalIsVisible,
-    &.verticalIsVisible, {
-      &,
-      &:hover {
-        color: #328bf3;
+      g { // stylelint-disable-line
+        fill: #000;
       }
     }
 
     &:first-of-type {
-      right: 332px;
+      right: 236px;
+    }
+
+    &__svg {
+      margin-top: 4px;
+
+      g { // stylelint-disable-line
+        fill: #8D8D8D;
+      }
+    }
+
+    &.horizontalIsVisible,
+    &.verticalIsVisible {
+      g,
+      &:hover g { // stylelint-disable-line
+        fill: #328bf3;
+      }
     }
   }
 }
