@@ -1,5 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React, { Component, PropTypes } from 'react';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 import autobind from 'core-decorators/lib/autobind';
 import s from './GridOverlay.scss';
 
@@ -10,6 +12,7 @@ const LOCAL_STORAGE_KEY_VERTICAL = '_devtoolsVerticalGridVisible';
 /**
  * Grid Overlay component
  */
+@observer
 export default class GridOverlay extends Component {
 
   static propTypes = {
@@ -20,6 +23,12 @@ export default class GridOverlay extends Component {
     columns: 12,
     baseline: 16,
   };
+
+  @observable
+  isHorizontalVisible = false;
+
+  @observable
+  isVerticalVisible = false;
 
   // Initial state
   state = {
@@ -52,9 +61,8 @@ export default class GridOverlay extends Component {
    */
   @autobind
   onToggleHorizontal() {
-    const isVisible = !this.state.horizontalIsVisible;
-    localStorage.setItem(LOCAL_STORAGE_KEY_HORIZONTAL, isVisible);
-    this.setState({ horizontalIsVisible: isVisible });
+    this.isHorizontalVisible = !this.isHorizontalVisible;
+    localStorage.setItem(LOCAL_STORAGE_KEY_HORIZONTAL, this.isHorizontalVisible);
   }
 
   /**
@@ -63,9 +71,8 @@ export default class GridOverlay extends Component {
    */
   @autobind
   onToggleVertical() {
-    const isVisible = !this.state.verticalIsVisible;
-    localStorage.setItem(LOCAL_STORAGE_KEY_VERTICAL, isVisible);
-    this.setState({ verticalIsVisible: isVisible });
+    this.isVerticalVisible = !this.isVerticalVisible;
+    localStorage.setItem(LOCAL_STORAGE_KEY_VERTICAL, this.isVerticalVisible);
   }
 
   /**
@@ -76,13 +83,8 @@ export default class GridOverlay extends Component {
   setup(props = null) {
     const { columns, baseline } = props || this.props;
 
-    const horizontalIsVisible = (localStorage.getItem(LOCAL_STORAGE_KEY_HORIZONTAL) === 'true');
-    const verticalIsVisible = (localStorage.getItem(LOCAL_STORAGE_KEY_VERTICAL) === 'true');
-
-    this.setState({
-      horizontalIsVisible,
-      verticalIsVisible,
-    });
+    this.isHorizontalVisible = (localStorage.getItem(LOCAL_STORAGE_KEY_HORIZONTAL) === 'true');
+    this.isVerticalVisible = (localStorage.getItem(LOCAL_STORAGE_KEY_VERTICAL) === 'true');
 
     this.grid.style.setProperty('--grid-column-count', columns);
     this.grid.style.setProperty('--grid-baseline', `${baseline}px`);
@@ -95,7 +97,8 @@ export default class GridOverlay extends Component {
    */
   render() {
     const { columns } = this.props;
-    const { horizontalIsVisible, verticalIsVisible } = this.state;
+    const verticalIsVisible = this.isVerticalVisible;
+    const horizontalIsVisible = this.isHorizontalVisible;
 
     return (
       <div
