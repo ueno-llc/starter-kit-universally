@@ -457,7 +457,7 @@ export default function webpackConfigFactory(buildOptions) {
           // named "happypack-javascript".
           // See the respective plugin within the plugins section for full
           // details on what loader is being implemented.
-          loader: 'happypack/loader?id=happypack-javascript',
+          use: 'happypack/loader?id=happypack-javascript',
           include: removeNil([
             ...bundleConfig.srcPaths.map(srcPath =>
               path.resolve(appRootDir.get(), srcPath),
@@ -480,7 +480,7 @@ export default function webpackConfigFactory(buildOptions) {
             // See the respective plugin within the plugins section for full
             // details on what loader is being implemented.
             ifDevClient({
-              loaders: ['happypack/loader?id=happypack-devclient-css'],
+              use: 'happypack/loader?id=happypack-devclient-css',
             }),
             // For a production client build we use the ExtractTextPlugin which
             // will extract our CSS into CSS files. We don't use happypack here
@@ -489,22 +489,26 @@ export default function webpackConfigFactory(buildOptions) {
             // Note: The ExtractTextPlugin needs to be registered within the
             // plugins section too.
             ifOptimizeClient(() => ({
-              loaders: [
+              use: [
                 'classnames-loader',
-                ExtractTextPlugin.extract({
-                  fallbackLoader: 'style-loader',
-                  loader: [`css-loader?modules=1&sourceMap&importLoaders=1&localIdentName=${localIdentName}!postcss-loader!sass-loader?outputStyle=expanded&sourceMap`],
+                ...ExtractTextPlugin.extract({
+                  fallback: 'style-loader',
+                  use: [
+                    `css-loader?modules=1&importLoaders=1&localIdentName=${localIdentName}`,
+                    'postcss-loader',
+                    'sass-loader?outputStyle=expanded',
+                  ],
                 }),
               ],
             })),
             // When targetting the server we use the "/locals" version of the
             // css loader, as we don't need any css files for the server.
             ifNode({
-              loaders: [
+              use: [
                 'classnames-loader',
-                `css-loader/locals?modules=1&importLoaders=1&localIdentName=${localIdentName}`,
+                `css-loader/locals?modules=1&sourceMap&importLoaders=1&localIdentName=${localIdentName}`,
                 'postcss-loader',
-                'sass-loader',
+                'sass-loader?outputStyle=expanded&sourceMap',
               ],
             }),
           ),
@@ -538,7 +542,7 @@ export default function webpackConfigFactory(buildOptions) {
         // SVG IMPORT loader
         {
           test: /\.svg$/,
-          loaders: [
+          use: [
             'babel-loader',
             'react-svgdom-loader',
           ],
@@ -550,11 +554,14 @@ export default function webpackConfigFactory(buildOptions) {
         // @see https://github.com/peerigon/modernizr-loader
         ifClient({
           test: /\.modernizrrc.js$/,
-          loader: 'modernizr-loader',
+          use: 'modernizr-loader',
         }),
         ifClient({
           test: /\.modernizrrc(\.json)?$/,
-          loader: 'modernizr-loader!json-loader',
+          use: [
+            'modernizr-loader',
+            'json-loader',
+          ],
         }),
       ]),
     },

@@ -12,10 +12,13 @@
     "NODE_ENV": {
       "description": "Environment to build",
       "required": true
-    },
-    "NPM_CONFIG_PRODUCTION": {
-      "description": "Has to be true for devDependencies to install",
-      "value": true
+    }
+  },
+  "environments": {
+    "test": {
+      "env": {
+        "NODE_ENV": "test"
+      }
     }
   },
   "formation": {

@@ -2,7 +2,6 @@ import { observable, ObservableMap } from 'mobx';
 import { autobind } from 'core-decorators';
 import serverWait from 'utils/mobx-server-wait';
 import fetch from 'isomorphic-fetch';
-import pRetry from 'p-retry';
 
 /**
  * This store handles network requests.
@@ -31,7 +30,7 @@ export default class Network {
    */
   @autobind
   @serverWait
-  fetch(url, { maxAge = Infinity, retries = 1, force = false } = {}) {
+  fetch(url, { maxAge = Infinity, force = false } = {}) {
 
     const { history } = this;
 
@@ -57,11 +56,11 @@ export default class Network {
     }
 
     // Create a promisified callback function to be ran by p-retry.
-    const run = () => fetch(url)
+    const promise = fetch(url)
       .then((res) => {
         // Catch 404 errors to stop retrying
         if (res.status === 404) {
-          throw new pRetry.AbortError('404 Not found');
+          throw new Error('404 Not found');
         }
         return res.json();
       })
@@ -69,16 +68,9 @@ export default class Network {
         // Set timestamp and data to history cache
         item.ts = new Date().getTime();
         item.data = data;
-        return data;
-      }));
-
-    // Create a promise of p-retry running the fetch
-    const promise = pRetry(run, { retries })
-      .then((data) => {
-        // Delete promise so we know we're not running anyting for this url anymore.
         delete item.promise;
         return data;
-      })
+      }))
       .catch((err) => {
         // Delete promise so we know we're not running anyting for this url anymore.
         delete item.promise;
