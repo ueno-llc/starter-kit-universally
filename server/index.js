@@ -10,6 +10,7 @@ import clientBundle from './middleware/clientBundle';
 import serviceWorker from './middleware/serviceWorker';
 import offlinePage from './middleware/offlinePage';
 import errorHandlers from './middleware/errorHandlers';
+import devServerProxy from './middleware/devServerProxy';
 import config from '../config';
 
 // Create our express based server.
@@ -33,6 +34,12 @@ if (!process.env.BUILD_FLAG_IS_DEV && config('serviceWorker.enabled')) {
     `${config('bundles.client.webPath')}${config('serviceWorker.offlinePageFileName')}`,
     offlinePage,
   );
+}
+
+// Proxy hot module reload development server when flagged to do so.
+// Uses the path
+if (process.env.BUILD_FLAG_IS_DEV && config('clientDevProxy')) {
+  app.use(devServerProxy());
 }
 
 // Configure serving of our client bundle.

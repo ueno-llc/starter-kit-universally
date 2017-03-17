@@ -44,6 +44,7 @@ export default function webpackConfigFactory(buildOptions) {
   const ifClient = ifElse(isClient);
   const ifDevClient = ifElse(isDev && isClient);
   const ifOptimizeClient = ifElse(isOptimize && isClient);
+  const ifPublicUrl = ifElse(config('publicUrl'));
 
   console.log(`==> Creating ${isOptimize ? 'an optimised' : 'a development'} bundle configuration for the "${target}"`);
 
@@ -57,8 +58,20 @@ export default function webpackConfigFactory(buildOptions) {
     throw new Error('No bundle configuration exists for target:', target);
   }
 
-  // Local identname
+  // UENO: Local identname
   const localIdentName = ifDev('[name]_[local]_[hash:base64:5]', '[hash:base64:10]');
+
+  // UENO: Get public url for webpack dev server based on if it is proxied or not.
+  const publicUrl = ifElse(config('clientDevProxy'))(
+    ifPublicUrl(
+      `${config('publicUrl')}/webpack`,
+      `http://${config('host')}:${config('port')}/webpack`,
+    ),
+    ifPublicUrl(
+      config('publicUrl'),
+      `http://${config('host')}:${config('clientDevServerPort')}`,
+    ),
+  );
 
   let webpackConfig = {
     // Define our entry chunks for our bundle.
@@ -67,7 +80,7 @@ export default function webpackConfigFactory(buildOptions) {
       // import bundle output files (e.g. `import server from './build/server';`)
       index: removeNil([
         // Required to support hot reloading of our client.
-        ifDevClient(() => `webpack-hot-middleware/client?reload=true&path=http://${config('host')}:${config('clientDevServerPort')}/__webpack_hmr`),
+        ifDevClient(() => `webpack-hot-middleware/client?reload=true&path=${publicUrl}/__webpack_hmr`),
         // We are using polyfill.io instead of the very heavy babel-polyfill.
         // Therefore we need to add the regenerator-runtime as polyfill.io
         // doesn't support this.
@@ -104,7 +117,7 @@ export default function webpackConfigFactory(buildOptions) {
       publicPath: ifDev(
         // As we run a seperate development server for our client and server
         // bundles we need to use an absolute http path for the public path.
-        `http://${config('host')}:${config('clientDevServerPort')}${config('bundles.client.webPath')}`,
+        `${publicUrl}${config('bundles.client.webPath')}`,
         // Otherwise we expect our bundled client to be served from this path.
         bundleConfig.webPath,
       ),
