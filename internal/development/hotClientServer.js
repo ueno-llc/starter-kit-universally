@@ -2,6 +2,7 @@ import express from 'express';
 import createWebpackMiddleware from 'webpack-dev-middleware';
 import createWebpackHotMiddleware from 'webpack-hot-middleware';
 import ListenerManager from './listenerManager';
+import config from '../../config';
 import { log } from '../utils';
 
 class HotClientServer {
@@ -16,9 +17,6 @@ class HotClientServer {
       );
     }
 
-    // eslint-disable-next-line no-unused-vars
-    const [_, host, port] = httpPathRegex.exec(httpPath);
-
     this.webpackDevMiddleware = createWebpackMiddleware(compiler, {
       quiet: true,
       noInfo: true,
@@ -28,13 +26,13 @@ class HotClientServer {
       // Ensure that the public path is taken from the compiler webpack config
       // as it will have been created as an absolute path to avoid conflicts
       // with an node servers.
-      publicPath: compiler.options.output.publicPath,
+      publicPath: config('bundles.client.webPath'),
     });
 
     app.use(this.webpackDevMiddleware);
     app.use(createWebpackHotMiddleware(compiler));
 
-    const listener = app.listen(port, host);
+    const listener = app.listen(config('clientDevServerPort'));
 
     this.listenerManager = new ListenerManager(listener, 'client');
 
