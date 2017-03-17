@@ -32,6 +32,9 @@ const values = {
   // The port on which the server should bind to.
   port: EnvVars.number('PORT', 3000),
 
+  // Should the webpack dev server be proxied through app server?
+  clientDevProxy: EnvVars.bool('CLIENT_DEV_PROXY', false),
+
   // The port on which the client bundle development server should run.
   clientDevServerPort: EnvVars.number('CLIENT_DEV_PORT', 7331),
 
