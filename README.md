@@ -4,6 +4,33 @@
   <p align='center'>A starter kit for universal react applications.</p>
 </p>
 
+# Ueno.
+
+## Updating from upstream
+
+```bash
+git remote add upstream https://github.com/ctrlplusb/react-universally.git
+git fetch upstream
+git merge upstream/next # or upstream/master
+
+# These are the usual conflicts
+git rm -r -f shared/components/DemoApp
+git checkout --ours package.json
+```
+
+## Remote development
+
+Now supports ngrok and other ways to access your development build.
+
+```bash
+# outside wifi
+ngrok http 3000
+CLIENT_DEV_PROXY=1 PUBLIC_PATH=http://xxxxxx.ngrok.io yarn run dev
+# or local network
+HOST=192.168.123.456 PORT=3000 yarn run dev
+```
+
+
 ## About
 
 This starter kit contains all the build tooling and configuration you need to kick off your next universal React project, whilst containing a minimal "project" set up allowing you to make your own architecture decisions (Redux/MobX etc).
@@ -55,20 +82,6 @@ npm run development
 ```
 
 Now go make some changes to the `Home` component to see the tooling in action.
-
-## Updating from upstream
-
-```bash
-git remote add upstream https://github.com/ctrlplusb/react-universally.git
-git fetch upstream
-git merge upstream/next # or upstream/master
-
-# These are the usual conflicts
-git rm -r -f shared/components/DemoApp
-git checkout --ours shared/README.md
-git checkout --ours package.json
-```
-
 
 ## Docs
 

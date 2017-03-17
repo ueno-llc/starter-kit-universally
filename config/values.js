@@ -26,13 +26,16 @@ const values = {
     helmet: true,
   },
 
+  // The public facing url of the app
+  publicUrl: EnvVars.string('PUBLIC_URL'),
+
   // The host on which the server should bind to.
   host: EnvVars.string('HOST', 'localhost'),
 
   // The port on which the server should bind to.
   port: EnvVars.number('PORT', 3000),
 
-  // Should the webpack dev server be proxied through app server?
+  // Should the webpack dev server be proxied through the public url
   clientDevProxy: EnvVars.bool('CLIENT_DEV_PROXY', false),
 
   // The port on which the client bundle development server should run.
