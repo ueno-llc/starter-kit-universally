@@ -121,17 +121,19 @@
       margin-top: 4px;
 
       g { // stylelint-disable-line
-        fill: #8D8D8D;
+        fill: #8d8d8d;
       }
     }
 
+    // stylelint-disable
     &.horizontalIsVisible,
     &.verticalIsVisible {
       g,
-      &:hover g { // stylelint-disable-line
+      &:hover g {
         fill: #328bf3;
       }
     }
+    // stylelint-enable
   }
 }
 
