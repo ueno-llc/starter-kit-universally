@@ -168,6 +168,7 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.10.0",
+    "http-proxy-middleware": "0.17.4",
     "jest": "19.0.2",
     "lint-staged": "3.4.0",
     "pre-commit": "1.2.2",
