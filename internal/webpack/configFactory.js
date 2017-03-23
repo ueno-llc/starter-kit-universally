@@ -150,7 +150,7 @@ export default function webpackConfigFactory(buildOptions) {
         || config('includeSourceMapsForOptimisedClientBundle'),
       )(
       // Produces an external source map (lives next to bundle output files).
-      'source-map',
+      config('sourcemap') || 'eval',
       // Produces no source map.
       'hidden-source-map',
     ),

@@ -167,6 +167,11 @@ const values = {
   // Where does our build output live?
   buildOutputPath: './build',
 
+  // Which sourcemaps to use in development mode.
+  // See https://webpack.js.org/configuration/devtool/ for latest info
+  // about build speeds vs accuracity.
+  sourcemap: 'eval-source-map',
+
   // Do you want to included source maps for optimised builds of the client
   // bundle?
   includeSourceMapsForOptimisedClientBundle: false,
