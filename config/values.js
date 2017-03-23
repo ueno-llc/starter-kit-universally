@@ -26,6 +26,14 @@ const values = {
     helmet: true,
   },
 
+  // sourcemaps, switch between faster build times and more detailed stack traces
+  // source-map -- most detailed, slowest
+  // eval-source-map -- almost as good, faster in rebuilds
+  // eval-cheap-module-source-map -- only lines
+  // eval-cheap-source-map -- only lines, not for modules
+  // eval -- best perf but only source per module
+  sourcemap: 'source-map',
+
   // The public facing url of the app
   publicUrl: EnvVars.string('PUBLIC_URL'),
 
