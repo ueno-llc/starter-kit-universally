@@ -3264,7 +3264,7 @@ http-proxy-middleware@0.17.4:
     lodash "^4.17.2"
     micromatch "^2.3.11"
 
-http-proxy@1.16.2, http-proxy@^1.16.2:
+http-proxy@^1.16.2:
   version "1.16.2"
   resolved "https://registry.yarnpkg.com/http-proxy/-/http-proxy-1.16.2.tgz#06dff292952bf64dbe8471fa9df73066d4f37742"
   dependencies:
@@ -6271,6 +6271,10 @@ source-list-map@^0.1.7, source-list-map@~0.1.7:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
 
+source-list-map@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-1.0.1.tgz#cc1fc17122ae0a51978024c2cc0f8c35659026b8"
+
 source-map-support@0.4.13, source-map-support@^0.4.2:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.13.tgz#9782e6f7deb424d5f173327a1879eb46453bdcd4"
@@ -6761,7 +6765,7 @@ ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
 
-uglify-js@2.8.x, uglify-js@^2.6, uglify-js@^2.7.5:
+uglify-js@2.8.x, uglify-js@^2.6, uglify-js@^2.8.5:
   version "2.8.12"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.12.tgz#8a50f5d482243650b7108f6080aa3a6afe2a6c55"
   dependencies:
@@ -6911,7 +6915,7 @@ watch@~0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/watch/-/watch-0.10.0.tgz#77798b2da0f9910d595f1ace5b0c2258521f21dc"
 
-watchpack@^1.2.0:
+watchpack@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.3.1.tgz#7d8693907b28ce6013e7f3610aa2a1acf07dad87"
   dependencies:
@@ -6970,16 +6974,23 @@ webpack-node-externals@1.5.4:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/webpack-node-externals/-/webpack-node-externals-1.5.4.tgz#ea05ba17108a23e776c35c42e7bb0e86c225be00"
 
-webpack-sources@^0.1.0, webpack-sources@^0.1.4:
+webpack-sources@^0.1.0:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-0.1.5.tgz#aa1f3abf0f0d74db7111c40e500b84f966640750"
   dependencies:
     source-list-map "~0.1.7"
     source-map "~0.5.3"
 
-webpack@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.2.1.tgz#7bb1d72ae2087dd1a4af526afec15eed17dda475"
+webpack-sources@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-0.2.0.tgz#fea93ba840f16cdd3f246f0ee95f88a9492c69fb"
+  dependencies:
+    source-list-map "^1.0.1"
+    source-map "~0.5.3"
+
+webpack@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.3.1.tgz#55bce8baffe7c1f9dc3029adc048643b448318a8"
   dependencies:
     acorn "^4.0.4"
     acorn-dynamic-import "^2.0.0"
@@ -6997,9 +7008,9 @@ webpack@2.2.1:
     source-map "^0.5.3"
     supports-color "^3.1.0"
     tapable "~0.2.5"
-    uglify-js "^2.7.5"
-    watchpack "^1.2.0"
-    webpack-sources "^0.1.4"
+    uglify-js "^2.8.5"
+    watchpack "^1.3.1"
+    webpack-sources "^0.2.0"
     yargs "^6.0.0"
 
 whatwg-encoding@^1.0.1:
