@@ -79,7 +79,8 @@
   },
   "pre-commit": "lint-staged",
   "lint-staged": {
-    "{shared,client,server,config,internal}/**/*.js": "eslint"
+    "*.js": "eslint -c .eslintrc.staged",
+    "*.{css,scss}": "stylelint"
   },
   "dependencies": {
     "app-root-dir": "1.0.2",

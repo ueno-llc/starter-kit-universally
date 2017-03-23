@@ -1,0 +1,7 @@
+// for linting of *only* staged files, extends our config and disables
+// the import/resolver which causes the linting to take foreeeever since
+// it traverses every referenced module
+{
+  "extends": "./.eslintrc",
+  "settings": {}
+}
