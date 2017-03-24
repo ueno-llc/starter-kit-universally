@@ -96,7 +96,7 @@ export default class Planets extends Component {
         <Segment>
           {this.planets && this.planets.case({
             pending: () => (<div>Loading planets...</div>),
-            rejected: error => (<div>Could fetch planets: {error.message}</div>),
+            rejected: error => (<div>Could not fetch planets: {error.message}</div>),
             fulfilled: ({ results, count, previous, next }) => (
               <div>
                 <p>Showing {this.from}-{Math.min(this.to, count)} of {count} planets available.</p>
