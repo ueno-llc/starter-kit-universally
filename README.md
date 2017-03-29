@@ -9,9 +9,10 @@
 ## Updating from upstream
 
 ```bash
-git remote add upstream https://github.com/ctrlplusb/react-universally.git
+git remote add upstream https://github.com/ueno-llc/starter-kit-universally.git
+git remote set-url --push upstream no_push # disable push to upstream
 git fetch upstream
-git merge upstream/next # or upstream/master
+git merge upstream/master
 
 # These are the usual conflicts
 git rm -r -f shared/components/DemoApp
