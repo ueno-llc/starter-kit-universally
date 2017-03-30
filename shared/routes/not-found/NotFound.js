@@ -4,14 +4,12 @@ import Segment from 'components/segment';
 
 export default class NotFound extends Component {
 
-  static contextTypes = {
-    history: PropTypes.shape({
-      staticContext: PropTypes.object,
-    }).isRequired,
+  static propTypes = {
+    staticContext: PropTypes.object, // eslint-disable-line
   };
 
   componentWillMount() {
-    const { staticContext } = this.context.history;
+    const { staticContext } = this.props;
     if (staticContext) {
       staticContext.missed = true;
     }
