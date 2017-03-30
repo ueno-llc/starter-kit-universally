@@ -487,6 +487,8 @@ export default function webpackConfigFactory(buildOptions) {
           mergeDeep(
             {
               test: /(\.scss|\.css)$/,
+              // Dont add css-modules to node_modules css files.
+              exclude: /node_modules.*\.css$/,
             },
             // For development clients we will defer all our css processing to the
             // happypack plugin named "happypack-devclient-css".
@@ -526,6 +528,18 @@ export default function webpackConfigFactory(buildOptions) {
             }),
           ),
         ),
+
+        // Dont CSS modules on css files from node_modules folder
+        ifElse(isClient || isServer)({
+          test: /node_modules.*\.css$/,
+          use: ifOptimizeClient(ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader', 'postcss-loader'],
+          }), [
+            ...ifNode(['css-loader/locals'], ['style-loader', 'css-loader']),
+            'postcss-loader',
+          ]),
+        }),
 
         // ASSETS (Images/Fonts/etc)
         // This is bound to our server/client bundles as we only expect to be
