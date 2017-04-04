@@ -1,6 +1,6 @@
-import { createAsyncComponent } from 'react-async-component';
+import { asyncComponent } from 'react-async-component';
 
-export default createAsyncComponent({
+export default asyncComponent({
   resolve: () => System.import('./PlanetsList'),
   ssrMode: 'boundary',
   name: 'PlanetsList',
