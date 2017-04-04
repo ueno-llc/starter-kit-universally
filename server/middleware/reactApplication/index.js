@@ -2,7 +2,8 @@ import React from 'react';
 
 import { renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import { withAsyncComponents } from 'react-async-component';
+import { AsyncComponentProvider, createAsyncContext } from 'react-async-component';
+import asyncBootstrapper from 'react-async-bootstrapper';
 import { Provider, useStaticRendering } from 'mobx-react';
 import { serverWaitRender } from 'utils/mobx-server-wait';
 import Helmet from 'react-helmet';
@@ -45,7 +46,10 @@ export default function reactApplicationMiddleware(request, response, next) {
     return;
   }
 
-  // First create a context for <StaticRouter>, which will allow us to
+  // Create a context for our AsyncComponentProvider.
+  const asyncComponentsContext = createAsyncContext();
+
+  // Create a context for <StaticRouter>, which will allow us to
   // query for the results of the render.
   const reactRouterContext = {};
 
@@ -54,19 +58,21 @@ export default function reactApplicationMiddleware(request, response, next) {
 
   // Declare our React application.
   const app = (
-    <StaticRouter location={request.url} context={reactRouterContext}>
-      <Provider {...store}>
-        <App />
-      </Provider>
-    </StaticRouter>
+    <AsyncComponentProvider asyncContext={asyncComponentsContext}>
+      <StaticRouter location={request.url} context={reactRouterContext}>
+        <Provider {...store}>
+          <App />
+        </Provider>
+      </StaticRouter>
+    </AsyncComponentProvider>
   );
 
   // Pass our app into the react-async-component helper so that any async
   // components are resolved for the render.
-  withAsyncComponents(app).then(({ appWithAsyncComponents, state, STATE_IDENTIFIER }) => {
+  asyncBootstrapper(app).then(() => {
     serverWaitRender({
       store,
-      root: appWithAsyncComponents,
+      root: app,
       onError: next,
       maxWait: config('maxServerWait'),
       debug: process.env.BUILD_FLAG_IS_DEV ? console.log : undefined, // eslint-disable-line
@@ -77,7 +83,7 @@ export default function reactApplicationMiddleware(request, response, next) {
             nonce={nonce}
             initialState={initialState}
             helmet={Helmet.rewind()}
-            asyncComponents={{ state, STATE_IDENTIFIER }}
+            asyncComponentsState={asyncComponentsContext.getState()}
           />,
         );
 

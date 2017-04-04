@@ -12,10 +12,8 @@ const cspConfig = {
     connectSrc: ['*'], // ["'self'", 'ws:'],
     defaultSrc: ["'self'"],
     imgSrc: [
-      "'self'",
-      // If you use Base64 encoded images (i.e. inlined images), then you will
-      // need the following:
-      // 'data:',
+      "'self' 'unsafe-inline'",
+      'data:',
     ],
     fontSrc: ["'self'"],
     objectSrc: ["'self'"],
