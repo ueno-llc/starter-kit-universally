@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
@@ -9,25 +9,30 @@ import autobind from 'core-decorators/lib/autobind';
 @observer
 export default class PlanetsDetail extends Component {
 
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        id: PropTypes.string,
+      }),
+    }),
+  };
+
   /**
    * Fired when component will mount.
    * @return {void}
    */
   componentWillMount() {
-    // This component is lazy loaded.
-    // We want to wait for the real componentWillMount to fire.
-    // Otherwise `forceUpdate` warning will appear.
-    if (!this.context.ASYNC_WALKER_BOUNDARY) {
-      // Fetch initial data needed
-      this.fetchData(this.props);
-    }
+    this.fetchData(this.props);
   }
 
   componentWillReceiveProps(props) {
-    this.fetchData(props);
+    if (this.props.match.params.id !== props.match.params.id) {
+      this.fetchData(props);
+    }
   }
 
   fetchData(props) {
+    if (this.context.asyncComponents) return;
     const { planets, match } = props;
     this.planets = planets.fetchAll();
     this.planet = planets.fetchById(match.params.id);

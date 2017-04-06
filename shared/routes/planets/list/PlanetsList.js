@@ -13,8 +13,14 @@ export default class Planets extends Component {
 
   static propTypes = {
     planets: MobxPropTypes.observableObject,
-    history: PropTypes.object, // eslint-disable-line
-    match: PropTypes.object, // eslint-disable-line
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }),
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        page: PropTypes.string,
+      }),
+    }),
   };
 
   /**
@@ -22,19 +28,11 @@ export default class Planets extends Component {
    * @return {void}
    */
   componentWillMount() {
-    // This component is lazy loaded.
-    // We want to wait for the real componentWillMount to fire.
-    // Otherwise `forceUpdate` warning will appear.
-    if (!this.context.ASYNC_WALKER_BOUNDARY) {
-      this.fetchData(this.props);
-    }
-  }
-
-  componentWillReceiveProps(props) {
-    this.fetchData(props);
+    this.fetchData(this.props);
   }
 
   fetchData(props) {
+    if (this.context.asyncComponents) return;
     const page = Number(props.match.params.page || 1);
     this.page = page;
     this.planets = this.props.planets.fetchAll({ page });
