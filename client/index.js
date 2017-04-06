@@ -62,7 +62,7 @@ renderApp(App);
 require('./registerServiceWorker');
 
 // The following is needed so that we can support hot reloading our application.
-if (process.env.BUILD_FLAG_IS_DEV && module.hot) {
+if (process.env.BUILD_FLAG_IS_DEV === 'true' && module.hot) {
 
   if (module.hot.data && module.hot.data.store) {
     // Create new store with previous store state

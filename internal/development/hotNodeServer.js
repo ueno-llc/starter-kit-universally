@@ -119,7 +119,9 @@ class HotNodeServer {
       this.watcher.close(resolve);
     });
 
-    return stopWatcher.then(() => { if (this.server) this.server.kill(); });
+    return stopWatcher.then(() => {
+      if (this.server) this.server.kill();
+    });
   }
 }
 

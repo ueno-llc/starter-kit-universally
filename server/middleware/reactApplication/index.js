@@ -30,7 +30,7 @@ export default function reactApplicationMiddleware(request, response, next) {
   // It's possible to disable SSR, which can be useful in development mode.
   // In this case traditional client side only rendering will occur.
   if (config('disableSSR')) {
-    if (process.env.BUILD_FLAG_IS_DEV) {
+    if (process.env.BUILD_FLAG_IS_DEV === 'true') {
       // eslint-disable-next-line no-console
       console.log('==> Handling react route without SSR');
     }

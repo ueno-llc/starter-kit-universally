@@ -46,13 +46,15 @@ export default function webpackConfigFactory(buildOptions) {
   const ifProdClient = ifElse(isProd && isClient);
   const ifPublicUrl = ifElse(config('publicUrl'));
 
-  console.log(`==> Creating ${isProd ? 'an optimised' : 'a development'} bundle configuration for the "${target}"`);
+  console.log(
+    `==> Creating ${isProd ? 'an optimised' : 'a development'} bundle configuration for the "${target}"`,
+  );
 
   const bundleConfig = isServer || isClient
-    // This is either our "server" or "client" bundle.
-    ? config(['bundles', target])
-    // Otherwise it must be an additional node bundle.
-    : config(['additionalNodeBundles', target]);
+    ? // This is either our "server" or "client" bundle.
+      config(['bundles', target])
+    : // Otherwise it must be an additional node bundle.
+      config(['additionalNodeBundles', target]);
 
   if (!bundleConfig) {
     throw new Error('No bundle configuration exists for target:', target);
@@ -88,7 +90,10 @@ export default function webpackConfigFactory(buildOptions) {
         // polyfills above it.
         ifDevClient('react-hot-loader/patch'),
         // Required to support hot reloading of our client.
-        ifDevClient(() => `webpack-hot-middleware/client?reload=true&path=${publicUrl}/__webpack_hmr`),
+        ifDevClient(
+          () =>
+            `webpack-hot-middleware/client?reload=true&path=${publicUrl}/__webpack_hmr`,
+        ),
         // The source entry file for the bundle.
         path.resolve(appRootDir.get(), bundleConfig.srcEntryFile),
       ]),
@@ -128,10 +133,10 @@ export default function webpackConfigFactory(buildOptions) {
     },
 
     target: isClient
-      // Only our client bundle will target the web as a runtime.
-      ? 'web'
-      // Any other bundle must be targetting node as a runtime.
-      : 'node',
+      ? // Only our client bundle will target the web as a runtime.
+        'web'
+      : // Any other bundle must be targetting node as a runtime.
+        'node',
 
     // Ensure that webpack polyfills the following node features for use
     // within any bundles that are targetting node as a runtime. This will be
@@ -143,16 +148,16 @@ export default function webpackConfigFactory(buildOptions) {
 
     // Source map settings.
     devtool: ifElse(
-        // Include source maps for ANY node bundle so that we can support
-        // nice stack traces for errors (the source maps get consumed by
-        // the `node-source-map-support` module to allow for this).
-        isNode
+      // Include source maps for ANY node bundle so that we can support
+      // nice stack traces for errors (the source maps get consumed by
+      // the `node-source-map-support` module to allow for this).
+      isNode ||
         // Always include source maps for any development build.
-        || isDev
+        isDev ||
         // Allow for the following flag to force source maps even for production
         // builds.
-        || config('includeSourceMapsForOptimisedClientBundle'),
-      )(
+        config('includeSourceMapsForOptimisedClientBundle'),
+    )(
       // Produces an external source map (lives next to bundle output files).
       config('sourcemap') || 'eval',
       // Produces no source map.
@@ -196,25 +201,23 @@ export default function webpackConfigFactory(buildOptions) {
     // library to help us generate an externals configuration that will
     // ignore all the node_modules.
     externals: removeNil([
-      ifNode(
-        () => nodeExternals(
+      ifNode(() =>
+        nodeExternals(
           // Some of our node_modules may contain files that depend on our
           // webpack loaders, e.g. CSS or SASS.
           // For these cases please make sure that the file extensions are
           // registered within the following configuration setting.
           {
-            whitelist:
-              removeNil([
-                // We always want the source-map-support included in
-                // our node target bundles.
-                'source-map-support/register',
-              ])
+            whitelist: removeNil([
+              // We always want the source-map-support included in
+              // our node target bundles.
+              'source-map-support/register',
+            ])
               // And any items that have been whitelisted in the config need
               // to be included in the bundling process too.
               .concat(config('nodeExternalsFileTypeWhitelist') || []),
           },
-        ),
-      ),
+        )),
     ]),
 
     plugins: removeNil([
@@ -223,11 +226,14 @@ export default function webpackConfigFactory(buildOptions) {
       // bundles.
       // We use the BannerPlugin to make sure all of our chunks will get the
       // source maps support installed.
-      ifNode(() => new webpack.BannerPlugin({
-        banner: 'require("source-map-support").install();',
-        raw: true,
-        entryOnly: false,
-      })),
+      ifNode(
+        () =>
+          new webpack.BannerPlugin({
+            banner: 'require("source-map-support").install();',
+            raw: true,
+            entryOnly: false,
+          }),
+      ),
 
       // We use this so that our generated [chunkhash]'s are only different if
       // the content for our respective chunks have changed.  This optimises
@@ -245,14 +251,14 @@ export default function webpackConfigFactory(buildOptions) {
       // the associated values below.
       //
       // For example you may have the following in your code:
-      //   if (process.env.BUILD_FLAG_IS_CLIENT === true) {
+      //   if (process.env.BUILD_FLAG_IS_CLIENT === 'true') {
       //     console.log('Foo');
       //   }
       //
       // If the BUILD_FLAG_IS_CLIENT was assigned a value of `false` the above
       // code would be converted to the following by the webpack bundling
       // process:
-      //   if (false === true) {
+      //   if ('false' === 'true') {
       //     console.log('Foo');
       //   }
       //
@@ -261,18 +267,22 @@ export default function webpackConfigFactory(buildOptions) {
       // final output. This is helpful for extreme cases where you want to
       // ensure that code is only included/executed on specific targets, or for
       // doing debugging.
+      //
+      // NOTE: We are stringifying the values to keep them in line with the
+      // expected type of a typical process.env member (i.e. string).
+      // @see https://github.com/ctrlplusb/react-universally/issues/395
       new webpack.EnvironmentPlugin({
         // It is really important to use NODE_ENV=production in order to use
         // optimised versions of some node_modules, such as React.
         NODE_ENV: isProd ? 'production' : 'development',
         // Is this the "client" bundle?
-        BUILD_FLAG_IS_CLIENT: isClient,
+        BUILD_FLAG_IS_CLIENT: JSON.stringify(isClient),
         // Is this the "server" bundle?
-        BUILD_FLAG_IS_SERVER: isServer,
+        BUILD_FLAG_IS_SERVER: JSON.stringify(isServer),
         // Is this a node bundle?
-        BUILD_FLAG_IS_NODE: isNode,
+        BUILD_FLAG_IS_NODE: JSON.stringify(isNode),
         // Is this a development build?
-        BUILD_FLAG_IS_DEV: isDev,
+        BUILD_FLAG_IS_DEV: JSON.stringify(isDev),
       }),
 
       // Generates a JSON file containing a map of all the output files for
@@ -280,11 +290,12 @@ export default function webpackConfigFactory(buildOptions) {
       // as we need to interogate these files in order to know what JS/CSS
       // we need to inject into our HTML. We only need to know the assets for
       // our client bundle.
-      ifClient(() =>
-        new AssetsPlugin({
-          filename: config('bundleAssetsFileName'),
-          path: path.resolve(appRootDir.get(), bundleConfig.outputPath),
-        }),
+      ifClient(
+        () =>
+          new AssetsPlugin({
+            filename: config('bundleAssetsFileName'),
+            path: path.resolve(appRootDir.get(), bundleConfig.outputPath),
+          }),
       ),
 
       // We don't want webpack errors to occur during development as it will
@@ -297,38 +308,42 @@ export default function webpackConfigFactory(buildOptions) {
       // For our production client we need to make sure we pass the required
       // configuration to ensure that the output is minimized/optimized.
       ifProdClient(
-        () => new webpack.LoaderOptionsPlugin({
-          minimize: true,
-        }),
+        () =>
+          new webpack.LoaderOptionsPlugin({
+            minimize: true,
+          }),
       ),
 
       // For our production client we need to make sure we pass the required
       // configuration to ensure that the output is minimized/optimized.
       ifProdClient(
-        () => new webpack.optimize.UglifyJsPlugin({
-          sourceMap: config('includeSourceMapsForOptimisedClientBundle'),
-          compress: {
-            screw_ie8: true,
-            warnings: false,
-          },
-          mangle: {
-            screw_ie8: true,
-            // UENO: We like this.
-            keep_fnames: true,
-          },
-          output: {
-            comments: false,
-            screw_ie8: true,
-          },
-        }),
+        () =>
+          new webpack.optimize.UglifyJsPlugin({
+            sourceMap: config('includeSourceMapsForOptimisedClientBundle'),
+            compress: {
+              screw_ie8: true,
+              warnings: false,
+            },
+            mangle: {
+              screw_ie8: true,
+              // UENO: We like this.
+              keep_fnames: true,
+            },
+            output: {
+              comments: false,
+              screw_ie8: true,
+            },
+          }),
       ),
 
       // For the production build of the client we need to extract the CSS into
       // CSS files.
       ifProdClient(
-        () => new ExtractTextPlugin({
-          filename: '[name]-[chunkhash].css', allChunks: true,
-        }),
+        () =>
+          new ExtractTextPlugin({
+            filename: '[name]-[chunkhash].css',
+            allChunks: true,
+          }),
       ),
 
       // -----------------------------------------------------------------------
@@ -350,65 +365,70 @@ export default function webpackConfigFactory(buildOptions) {
       happyPackPlugin({
         name: 'happypack-javascript',
         // We will use babel to do all our JS processing.
-        loaders: [{
-          path: 'babel-loader',
-          // We will create a babel config and pass it through the plugin
-          // defined in the project configuration, allowing additional
-          // items to be added.
-          query: config('plugins.babelConfig')(
-            // Our "standard" babel config.
-            {
-              // We need to ensure that we do this otherwise the babelrc will
-              // get interpretted and for the current configuration this will mean
-              // that it will kill our webpack treeshaking feature as the modules
-              // transpilation has not been disabled within in.
-              babelrc: false,
+        loaders: [
+          {
+            path: 'babel-loader',
+            // We will create a babel config and pass it through the plugin
+            // defined in the project configuration, allowing additional
+            // items to be added.
+            query: config('plugins.babelConfig')(
+              // Our "standard" babel config.
+              {
+                // We need to ensure that we do this otherwise the babelrc will
+                // get interpretted and for the current configuration this will mean
+                // that it will kill our webpack treeshaking feature as the modules
+                // transpilation has not been disabled within in.
+                babelrc: false,
 
-              presets: [
-                // JSX
-                'react',
-                // For our client bundles we transpile all the latest ratified
-                // ES201X code into ES5, safe for browsers.  We exclude module
-                // transilation as webpack takes care of this for us, doing
-                // tree shaking in the process.
-                ifClient(['env', { es2015: { modules: false } }]),
-                'stage-0',
-                // For a node bundle we use the specific target against
-                // babel-preset-env so that only the unsupported features of
-                // our target node version gets transpiled.
-                ifNode(['env', { targets: { node: true } }]),
-              ].filter(x => x != null),
+                presets: [
+                  // JSX
+                  'react',
+                  // Stage 3 javascript syntax.
+                  // "Candidate: complete spec and initial browser implementations."
+                  // Add anything lower than stage 3 at your own risk. :)
+                  'stage-3',
+                  // For our client bundles we transpile all the latest ratified
+                  // ES201X code into ES5, safe for browsers.  We exclude module
+                  // transilation as webpack takes care of this for us, doing
+                  // tree shaking in the process.
+                  ifClient(['env', { es2015: { modules: false } }]),
+                  // For a node bundle we use the specific target against
+                  // babel-preset-env so that only the unsupported features of
+                  // our target node version gets transpiled.
+                  ifNode(['env', { targets: { node: true } }]),
+                ].filter(x => x != null),
 
-              plugins: [
-                // Required to support react hot loader.
-                ifDevClient('react-hot-loader/babel'),
-                // This decorates our components with  __self prop to JSX elements,
-                // which React will use to generate some runtime warnings.
-                ifDev('transform-react-jsx-self'),
-                // Adding this will give us the path to our components in the
-                // react dev tools.
-                ifDev('transform-react-jsx-source'),
-                // Replaces the React.createElement function with one that is
-                // more optimized for production.
-                // NOTE: Symbol needs to be polyfilled. Ensure this feature
-                // is enabled in the polyfill.io configuration.
-                ifProd('transform-react-inline-elements'),
-                // Hoists element creation to the top level for subtrees that
-                // are fully static, which reduces call to React.createElement
-                // and the resulting allocations. More importantly, it tells
-                // React that the subtree hasn’t changed so React can completely
-                // skip it when reconciling.
-                ifProd('transform-react-constant-elements'),
-              ].filter(x => x != null),
-            },
-            buildOptions,
-          ),
-        }],
+                plugins: [
+                  // Required to support react hot loader.
+                  ifDevClient('react-hot-loader/babel'),
+                  // This decorates our components with  __self prop to JSX elements,
+                  // which React will use to generate some runtime warnings.
+                  ifDev('transform-react-jsx-self'),
+                  // Adding this will give us the path to our components in the
+                  // react dev tools.
+                  ifDev('transform-react-jsx-source'),
+                  // Replaces the React.createElement function with one that is
+                  // more optimized for production.
+                  // NOTE: Symbol needs to be polyfilled. Ensure this feature
+                  // is enabled in the polyfill.io configuration.
+                  ifProd('transform-react-inline-elements'),
+                  // Hoists element creation to the top level for subtrees that
+                  // are fully static, which reduces call to React.createElement
+                  // and the resulting allocations. More importantly, it tells
+                  // React that the subtree hasn’t changed so React can completely
+                  // skip it when reconciling.
+                  ifProd('transform-react-constant-elements'),
+                ].filter(x => x != null),
+              },
+              buildOptions,
+            ),
+          },
+        ],
       }),
 
       // HappyPack 'css' instance for development client.
-      ifDevClient(
-        () => happyPackPlugin({
+      ifDevClient(() =>
+        happyPackPlugin({
           name: 'happypack-devclient-css',
           loaders: [
             'classnames-loader',
@@ -432,8 +452,7 @@ export default function webpackConfigFactory(buildOptions) {
               },
             },
           ],
-        }),
-      ),
+        })),
 
       // END: HAPPY PACK PLUGINS
       // -----------------------------------------------------------------------
@@ -454,9 +473,7 @@ export default function webpackConfigFactory(buildOptions) {
           // details on what loader is being implemented.
           use: 'happypack/loader?id=happypack-javascript',
           include: removeNil([
-            ...bundleConfig.srcPaths.map(srcPath =>
-              path.resolve(appRootDir.get(), srcPath),
-            ),
+            ...bundleConfig.srcPaths.map(srcPath => path.resolve(appRootDir.get(), srcPath)),
             ifProdClient(path.resolve(appRootDir.get(), 'src/html')),
           ]),
         },
@@ -536,11 +553,11 @@ export default function webpackConfigFactory(buildOptions) {
             // server bundles in order to ensure that SSR paths match the
             // paths used on the client.
             publicPath: isDev
-              // When running in dev mode the client bundle runs on a
-              // seperate port so we need to put an absolute path here.
-              ? `http://${config('host')}:${config('clientDevServerPort')}${config('bundles.client.webPath')}`
-              // Otherwise we just use the configured web path for the client.
-              : config('bundles.client.webPath'),
+              ? // When running in dev mode the client bundle runs on a
+                // seperate port so we need to put an absolute path here.
+                `http://${config('host')}:${config('clientDevServerPort')}${config('bundles.client.webPath')}`
+              : // Otherwise we just use the configured web path for the client.
+                config('bundles.client.webPath'),
             // We only emit files when building a web bundle, for the server
             // bundle we only care about the file loader being able to create
             // the correct asset URLs.

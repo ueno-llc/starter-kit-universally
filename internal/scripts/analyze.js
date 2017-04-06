@@ -26,22 +26,19 @@ else if (analyzeClient) target = 'client';
 else throw new Error('Please specify --server OR --client as target');
 
 const anaylzeFilePath = pathResolve(
-  appRootDir.get(), config('bundles.client.outputPath'), '__analyze__.json',
+  appRootDir.get(),
+  config('bundles.client.outputPath'),
+  '__analyze__.json',
 );
 
-const clientCompiler = webpack(
-  webpackConfigFactory({ target, optimize: true }),
-);
+const clientCompiler = webpack(webpackConfigFactory({ target, optimize: true }));
 
 clientCompiler.run((err, stats) => {
   if (err) {
     console.error(err);
   } else {
     // Write out the json stats file.
-    fs.writeFileSync(
-      anaylzeFilePath,
-      JSON.stringify(stats.toJson('verbose'), null, 4),
-    );
+    fs.writeFileSync(anaylzeFilePath, JSON.stringify(stats.toJson('verbose'), null, 4));
 
     // Run the bundle analyzer against the stats file.
     const cmd = `webpack-bundle-analyzer ${anaylzeFilePath} ${config('bundles.client.outputPath')}`;

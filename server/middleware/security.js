@@ -47,20 +47,17 @@ const cspConfig = {
 const cspExtensions = config('cspExtensions');
 Object.keys(cspExtensions).forEach((key) => {
   if (cspConfig.directives[key]) {
-    cspConfig.directives[key] = cspConfig.directives[key]
-      .concat(cspExtensions[key]);
+    cspConfig.directives[key] = cspConfig.directives[key].concat(cspExtensions[key]);
   } else {
     cspConfig.directives[key] = cspExtensions[key];
   }
 });
 
-if (process.env.BUILD_FLAG_IS_DEV) {
+if (process.env.BUILD_FLAG_IS_DEV === 'true') {
   // When in development mode we need to add our secondary express server that
   // is used to host our client bundle to our csp config.
   Object.keys(cspConfig.directives).forEach((directive) => {
-    cspConfig.directives[directive].push(
-      `${config('host')}:${config('clientDevServerPort')}`,
-    );
+    cspConfig.directives[directive].push(`${config('host')}:${config('clientDevServerPort')}`);
   });
 }
 

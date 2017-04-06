@@ -18,9 +18,9 @@ import React, { PropTypes } from 'react';
 function HTML(props) {
   const {
     htmlAttributes,
-    appBodyString,
     headerElements,
     bodyElements,
+    appBodyString,
   } = props;
 
   return (
@@ -37,11 +37,11 @@ function HTML(props) {
 }
 
 HTML.propTypes = {
-  appBodyString: PropTypes.string,
-  headerElements: PropTypes.node,
   // eslint-disable-next-line react/forbid-prop-types
   htmlAttributes: PropTypes.object,
+  headerElements: PropTypes.node,
   bodyElements: PropTypes.node,
+  appBodyString: PropTypes.string,
 };
 
 HTML.defaultProps = {
