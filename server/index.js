@@ -10,7 +10,7 @@ import clientBundle from './middleware/clientBundle';
 import serviceWorker from './middleware/serviceWorker';
 import offlinePage from './middleware/offlinePage';
 import errorHandlers from './middleware/errorHandlers';
-import requireHttps from './middleware/requireHttps';
+import enforceHttps from './middleware/enforceHttps';
 import config from '../config';
 
 // Create our express based server.
