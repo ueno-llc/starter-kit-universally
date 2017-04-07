@@ -39,21 +39,6 @@
     "express",
     "webpack"
   ],
-  "contributors": [
-    "Alin Porumb",
-    "Benjamin Kniffler <bkniffler@me.com>",
-    "Carson Perrotti <carsonperrotti@gmail.com>",
-    "Christian Glombek <christian.glombek@rwth-aachen.de>",
-    "Christoph Werner",
-    "David Edmondson",
-    "Dion Dirza",
-    "Evgeny Boxer",
-    "Joe Kohlmann <kohlmannj@mac.com>",
-    "Lucian Lature <lucian.lature@gmail.com>",
-    "Steven Enten <steven@enten.fr>",
-    "Sean Matheson <sean@ctrlplusb.com>",
-    "Steven Truesdell <steven@strues.io>"
-  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ctrlplusb/react-universally/issues"
@@ -137,8 +122,8 @@
     "postcss-csso": "2.0.0",
     "postcss-loader": "1.3.3",
     "react": "15.4.2",
-    "react-async-bootstrapper": "1.0.1",
-    "react-async-component": "1.0.0-beta.1",
+    "react-async-bootstrapper": "1.1.1",
+    "react-async-component": "1.0.0-beta.2",
     "react-dom": "15.4.2",
     "react-helmet": "5.0.2",
     "react-hot-loader": "3.0.0-beta.6",
