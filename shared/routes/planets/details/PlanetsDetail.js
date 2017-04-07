@@ -13,6 +13,7 @@ import RelatedPlanets from './components/related-planets';
   shouldWorkAgain: (prev, next) => prev.match.params.id !== next.match.params.id,
 })
 export default class PlanetsDetail extends Component {
+
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,
@@ -24,9 +25,10 @@ export default class PlanetsDetail extends Component {
 
   /**
    * Render method
-   * @return {React.Component}
+   * @return {Component}
    */
   render() {
+    // eslint-disable-next-line
     const { jobResult: planet } = this.props;
     const { name, gravity, terrain, climate, population, diameter } = planet;
     return (

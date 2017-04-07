@@ -44,7 +44,7 @@ export default class Network {
     // Return cache if still valid
     if (item.data) {
       const now = new Date().getTime();
-      if (now / 1000 - item.ts / 1000 <= maxAge) {
+      if ((now / 1000) - (item.ts / 1000) <= maxAge) {
         return Promise.resolve(item.data);
       }
     }

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { observer, inject } from 'mobx-react';
+import { inject } from 'mobx-react';
 import { observable, computed } from 'mobx';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
@@ -8,42 +8,20 @@ import Segment from 'components/segment';
 import Button from 'components/button';
 import { autobind } from 'core-decorators';
 
-const planetsJob = {
-  /**
-   * Get this work done before rendering the component.
-   * @param {object} props Component properties
-   * @return {mixed} You can return a promise for asyncronous work.
-   */
-  work({ match, planets }) {
-    const page = Number(match.params.page || 1);
-    return planets.fetchAll({ page });
-  },
+const LoadingComponent = () => (
+  <Segment>
+    <div>Loading list of planets....</div>
+  </Segment>
+);
 
-  /**
-   * Check wether to get the work done again or not.
-   * @param {object} prevProps Previous properties
-   * @param {object} nextProps Next properties
-   * @param {object} jobStatus Job status with shape of { completed, data, error }
-   */
+@inject('planets')
+@withJob({
+  work: ({ match, planets }) => planets.fetchAll({ page: Number(match.params.page || 1) }),
   shouldWorkAgain: (prev, next) => prev.match.params.page !== next.match.params.page,
-
-  /**
-   * Component to show while loading data
-   * @return {Component}
-   */
-  LoadingComponent() {
-    return (
-      <Segment>
-        <div>Loading....</div>
-      </Segment>
-    );
-  },
-};
-
-@inject(['planets'])
-@withJob(planetsJob)
-@observer
+  LoadingComponent,
+})
 export default class Planets extends Component {
+
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,
@@ -83,26 +61,30 @@ export default class Planets extends Component {
   /**
    * @var {observableObject} Promise that contains fetched data.
    */
-  @observable planets = null;
+  @observable
+  planets = null;
 
   /**
    * @var {observableObject} Current page
    */
-  @computed get page() {
+  @computed
+  get page() {
     return Number(this.props.match.params.page || 1);
   }
 
   /**
    * @var {Number} Calculate every time the current page changes.
    */
-  @computed get from() {
-    return this.page * 10 - 9;
+  @computed
+  get from() {
+    return (this.page * 10) - 9;
   }
 
   /**
    * @var {Number} Calculate every time the current page changes.
    */
-  @computed get to() {
+  @computed
+  get to() {
     return this.page * 10;
   }
 

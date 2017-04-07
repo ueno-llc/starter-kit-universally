@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
   work: ({ planets }) => planets.fetchAll(),
 })
 export default class RelatedPlanets extends Component {
+
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,
