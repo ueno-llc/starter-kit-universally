@@ -55,15 +55,16 @@ const values = {
   // Disable server side rendering?
   disableSSR: false,
 
-  // Maximum time in milliseconds to produce server side rendered markup
-  maxServerWait: 1200,
-
   // How long should we set the browser cache for the served assets?
   // Don't worry, we add hashes to the files, so if they change the new files
   // will be served to browsers.
   // We are using the "ms" format to set the length.
   // @see https://www.npmjs.com/package/ms
   browserCacheMaxAge: '365d',
+
+  // Enforce HTTPS when behind a load balancer/external router (e.g. Heroku)
+  // redirects all requests to their https counterparts
+  enforceHttps: EnvVars.bool('ENFORCE_HTTPS', false),
 
   // We use the polyfill.io service which provides the polyfills that a
   // client needs, which is far more optimal than the large output
