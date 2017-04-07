@@ -41,8 +41,8 @@ if (process.env.BUILD_FLAG_IS_DEV && config('clientDevProxy')) {
   app.use(require('./middleware/devServerProxy'));
 }
 
-if (!process.env.BUILD_FLAG_IS_DEV && config('requireHttps')) {
-  app.use(requireHttps);
+if (!process.env.BUILD_FLAG_IS_DEV && config('enforceHttps')) {
+  app.use(enforceHttps);
 }
 
 // Configure serving of our client bundle.
