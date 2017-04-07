@@ -6,6 +6,7 @@ import { render } from 'react-dom';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import asyncBootstrapper from 'react-async-bootstrapper';
 import { AsyncComponentProvider } from 'react-async-component';
+import { JobProvider } from 'react-jobs';
 import { Provider } from 'mobx-react';
 import { toJS } from 'mobx';
 import stringify from 'json-stringify-safe';
@@ -18,7 +19,7 @@ import App from '../shared';
 const container = document.querySelector('#app');
 
 // eslint-disable-next-line
-let store = window.store = new Store(window.__INITIAL_STATE__);
+let store = (window.store = new Store());
 
 // Does the user's browser support the HTML5 history API?
 // If the user's browser doesn't support the HTML5 history API then we
@@ -29,6 +30,10 @@ const supportsHistory = 'pushState' in window.history;
 // eslint-disable-next-line no-underscore-dangle
 const asyncComponentsRehydrateState = window.__ASYNC_COMPONENTS_REHYDRATE_STATE__;
 
+// Get any "rehydrate" state sent back by the server
+// eslint-disable-next-line no-underscore-dangle
+const rehydrateState = window.__JOBS_STATE__;
+
 /**
  * Renders the given React Application component.
  */
@@ -38,11 +43,13 @@ function renderApp(TheApp) {
   const app = (
     <ReactHotLoader>
       <AsyncComponentProvider rehydrateState={asyncComponentsRehydrateState}>
-        <Provider {...store}>
-          <BrowserRouter forceRefresh={!supportsHistory}>
-            <TheApp />
-          </BrowserRouter>
-        </Provider>
+        <JobProvider rehydrateState={rehydrateState}>
+          <Provider {...store}>
+            <BrowserRouter forceRefresh={!supportsHistory}>
+              <TheApp />
+            </BrowserRouter>
+          </Provider>
+        </JobProvider>
       </AsyncComponentProvider>
     </ReactHotLoader>
   );
@@ -63,7 +70,6 @@ require('./registerServiceWorker');
 
 // The following is needed so that we can support hot reloading our application.
 if (process.env.BUILD_FLAG_IS_DEV === 'true' && module.hot) {
-
   if (module.hot.data && module.hot.data.store) {
     // Create new store with previous store state
     store = new Store(JSON.parse(module.hot.data.store));
@@ -77,9 +83,7 @@ if (process.env.BUILD_FLAG_IS_DEV === 'true' && module.hot) {
   // Accept changes to this file for hot reloading.
   module.hot.accept('./index.js');
   // Any changes to our App will cause a hotload re-render.
-  module.hot.accept(
-    () => renderApp(require('../shared').default),
-  );
+  module.hot.accept(() => renderApp(require('../shared').default));
 
   const consoleWarn = console.warn;
 

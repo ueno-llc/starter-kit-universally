@@ -41,7 +41,7 @@ function scriptTag(jsFilePath) {
 function ServerHTML(props) {
   const {
     asyncComponentsState,
-    initialState,
+    jobsState,
     helmet,
     nonce,
     reactAppString,
@@ -72,13 +72,8 @@ function ServerHTML(props) {
     ifElse(asyncComponentsState)(() =>
       inlineScript(
         `window.__ASYNC_COMPONENTS_REHYDRATE_STATE__=${serialize(asyncComponentsState)};`,
-      ),
-    ),
-    ifElse(initialState)(() =>
-      inlineScript(
-        `window.__INITIAL_STATE__=${initialState}`,
-      ),
-    ),
+      )),
+    ifElse(jobsState)(() => inlineScript(`window.__JOBS_STATE__=${serialize(jobsState)}`)),
     // Enable the polyfill io script?
     // This can't be configured within a react-helmet component as we
     // may need the polyfill's before our client JS gets parsed.
@@ -116,11 +111,11 @@ ServerHTML.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   asyncComponentsState: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types
+  jobsState: PropTypes.object,
+  // eslint-disable-next-line react/forbid-prop-types
   helmet: PropTypes.object,
   nonce: PropTypes.string,
   reactAppString: PropTypes.string,
-  // eslint-disable-next-line react/forbid-prop-types
-  initialState: PropTypes.string,
 };
 
 // EXPORT
