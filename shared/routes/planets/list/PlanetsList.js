@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { inject } from 'mobx-react';
-import { observable, computed } from 'mobx';
+import { computed } from 'mobx';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
@@ -44,7 +44,8 @@ export default class Planets extends Component {
    * @param {Event} Click-event.
    * @return {void}
    */
-  @autobind onClickPage(e) {
+  @autobind
+  onClickPage(e) {
     // Prevent default click behaviour
     e.preventDefault();
 
@@ -57,12 +58,6 @@ export default class Planets extends Component {
     const { match, history } = this.props;
     history.push(match.path.replace(':page', page));
   }
-
-  /**
-   * @var {observableObject} Promise that contains fetched data.
-   */
-  @observable
-  planets = null;
 
   /**
    * @var {observableObject} Current page
@@ -85,7 +80,7 @@ export default class Planets extends Component {
    */
   @computed
   get to() {
-    return this.page * 10;
+    return Math.min(this.page * 10, this.props.jobResult.count);
   }
 
   /**
@@ -100,7 +95,7 @@ export default class Planets extends Component {
 
         <Segment>
           <div>
-            <p>Showing {this.from}-{Math.min(this.to, count)} of {count} planets available.</p>
+            <p>Showing {this.from}-{this.to} of {count} planets available.</p>
 
             <ul>
               {results.map(({ name, url }) => (
