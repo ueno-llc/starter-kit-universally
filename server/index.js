@@ -10,6 +10,7 @@ import clientBundle from './middleware/clientBundle';
 import serviceWorker from './middleware/serviceWorker';
 import offlinePage from './middleware/offlinePage';
 import errorHandlers from './middleware/errorHandlers';
+import enforceHttps from './middleware/enforceHttps';
 import config from '../config';
 
 // Create our express based server.
@@ -38,6 +39,10 @@ if (process.env.BUILD_FLAG_IS_DEV === 'false' && config('serviceWorker.enabled')
 // Proxy hot module reload development server when flagged to do so.
 if (process.env.BUILD_FLAG_IS_DEV === 'true' && config('clientDevProxy')) {
   app.use(require('./middleware/devServerProxy'));
+}
+
+if (!process.env.BUILD_FLAG_IS_DEV && config('enforceHttps')) {
+  app.use(enforceHttps);
 }
 
 // Configure serving of our client bundle.

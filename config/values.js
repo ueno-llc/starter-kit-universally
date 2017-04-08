@@ -173,7 +173,7 @@ const values = {
   // Which sourcemaps to use in development mode.
   // See https://webpack.js.org/configuration/devtool/ for latest info
   // about build speeds vs accuracity.
-  sourcemap: 'eval-source-map',
+  sourcemap: 'source-map',
 
   // Do you want to included source maps for optimised builds of the client
   // bundle?
