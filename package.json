@@ -15,7 +15,6 @@
     "deploy": "babel-node internal/scripts/deploy",
     "dev": "DEPLOYMENT=development babel-node internal/development",
     "heroku-yarn": "npm rebuild node-sass",
-    "precommit": "lint-staged",
     "preinstall": "node internal/scripts/preinstall",
     "postinstall": "if [ \"x$NODE_ENV\" != \"x\" ] && [ \"$NODE_ENV\" != \"development\" ]; then (npm run heroku-yarn && npm run build); fi;",
     "start": "NODE_ENV=production node build/server",
@@ -63,10 +62,9 @@
       "<rootDir>/(build|internal|node_modules|flow-typed|public)/"
     ]
   },
+  "pre-commit": "lint-staged",
   "lint-staged": {
-    "*.{js,jsx}": [
-      "prettier-eslint"
-    ],
+    "*.{js,jsx}": "./node_modules/.bin/eslint",
     "*.{css,scss}": "./node_modules/.bin/stylelint"
   },
   "dependencies": {
@@ -160,9 +158,7 @@
     "jest": "19.0.2",
     "lint-staged": "3.4.0",
     "node-notifier": "5.1.2",
-    "prettier": "0.22.0",
-    "prettier-eslint": "4.4.0",
-    "prettier-eslint-cli": "3.2.0",
+    "pre-commit": "1.2.2",
     "react-addons-test-utils": "15.4.2",
     "stylelint": "7.9.0",
     "stylelint-config-primer": "1.4.0",
