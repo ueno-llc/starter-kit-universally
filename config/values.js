@@ -280,11 +280,16 @@ const values = {
         // webpack loaders in order to be processed (e.g. CSS/SASS etc).
         // For these cases you don't want to include them in the Vendor DLL.
         include: [
+          'react-async-bootstrapper',
           'react-async-component',
+          'react-jobs',
           'react',
           'react-dom',
           'react-helmet',
           'react-router-dom',
+          'mobx',
+          'mobx-react',
+          'core-decorators',
         ],
 
         // The name of the vendor DLL.
