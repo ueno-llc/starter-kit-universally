@@ -16,17 +16,29 @@ export function happyPackPlugin({ name, loaders }) {
   });
 }
 
+// Get level verbosity
+// 3 = verbose, 0 = off
+function toLevel(str) {
+  switch (str) {
+    case 'info': return 3;
+    case 'warn': return 2;
+    case 'error': return 1;
+    default: return 0;
+  }
+}
+
 export function log(options) {
   const title = `${options.title.toUpperCase()}`;
+  const level = options.level || 'info';
+  const notify = config('notifier');
 
-  if (options.notify && config('notifier')) {
+  if (options.notify && toLevel(notify) >= toLevel(level)) {
     notifier.notify({
       title,
       message: options.message,
     });
   }
 
-  const level = options.level || 'info';
   const msg = `==> ${title} -> ${options.message}`;
 
   switch (level) {

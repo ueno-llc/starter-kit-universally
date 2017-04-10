@@ -50,13 +50,10 @@ const values = {
   NODE_ENV: EnvVars.string('NODE_ENV', 'development'),
 
   // Enable node-notifier?
-  notifier: EnvVars.bool('NOTIFIER', true),
+  notifier: EnvVars.string('NOTIFIER', 'warn'),
 
   // Disable server side rendering?
   disableSSR: false,
-
-  // Maximum time in milliseconds to produce server side rendered markup
-  maxServerWait: 1200,
 
   // How long should we set the browser cache for the served assets?
   // Don't worry, we add hashes to the files, so if they change the new files
