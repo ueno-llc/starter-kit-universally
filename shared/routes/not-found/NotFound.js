@@ -5,13 +5,15 @@ import Segment from 'components/segment';
 export default class NotFound extends Component {
 
   static propTypes = {
-    staticContext: PropTypes.object, // eslint-disable-line
+    staticContext: PropTypes.shape({
+      status: PropTypes.number,
+    }),
   };
 
   componentWillMount() {
     const { staticContext } = this.props;
     if (staticContext) {
-      staticContext.missed = true;
+      staticContext.status = 404;
     }
   }
 

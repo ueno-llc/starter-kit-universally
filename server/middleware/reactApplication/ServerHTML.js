@@ -42,6 +42,7 @@ function ServerHTML(props) {
   const {
     asyncComponentsState,
     jobsState,
+    routerState,
     helmet,
     nonce,
     reactAppString,
@@ -74,6 +75,7 @@ function ServerHTML(props) {
         `window.__ASYNC_COMPONENTS_REHYDRATE_STATE__=${serialize(asyncComponentsState)};`,
       )),
     ifElse(jobsState)(() => inlineScript(`window.__JOBS_STATE__=${serialize(jobsState)}`)),
+    ifElse(routerState)(() => inlineScript(`window.__ROUTER_STATE__=${serialize(routerState)}`)),
     // Enable the polyfill io script?
     // This can't be configured within a react-helmet component as we
     // may need the polyfill's before our client JS gets parsed.
@@ -112,6 +114,8 @@ ServerHTML.propTypes = {
   asyncComponentsState: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types
   jobsState: PropTypes.object,
+  // eslint-disable-next-line react/forbid-prop-types
+  routerState: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types
   helmet: PropTypes.object,
   nonce: PropTypes.string,
