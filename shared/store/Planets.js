@@ -1,4 +1,5 @@
 import { extendObservable } from 'mobx';
+import timing from 'utils/timing';
 
 /**
  * This store planets.
@@ -24,6 +25,7 @@ export default class Planets {
    * @param {Number} Page number
    * @return {Promise}
    */
+  @timing.promise
   fetchAll({ page = 1 } = {}) {
     return this.fetch(`${this.apiUrl}/?page=${page}`);
   }
@@ -33,6 +35,7 @@ export default class Planets {
    * @param {string} Planet Id
    * @return {Promise}
    */
+  @timing.promise
   fetchById(id) {
     return this.fetch(`${this.apiUrl}/${id}/`);
   }

@@ -25,7 +25,8 @@ export default class Network {
    * @param {object} Options
    * @return {Promise}
    */
-  @autobind fetch(url, { maxAge = Infinity, force = false } = {}) {
+  @autobind
+  fetch(url, { maxAge = Infinity, force = false } = {}) {
     const { history } = this;
 
     if (!history.has(url)) {

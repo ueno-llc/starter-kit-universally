@@ -7,6 +7,7 @@ import asyncBootstrapper from 'react-async-bootstrapper';
 import { Provider, useStaticRendering } from 'mobx-react';
 import Helmet from 'react-helmet';
 import Store from 'store';
+import timing from 'utils/timing';
 
 import config from '../../../config';
 import App from '../../../shared';
@@ -66,10 +67,15 @@ export default function reactApplicationMiddleware(request, response) {
     </AsyncComponentProvider>
   );
 
+  // Measure the time it takes to complete the async boostrapper runtime.
+  const { end: endRuntimeTiming } = timing.start('Server runtime');
+
   // Pass our app into the react-async-component helper so that any async
   // components are resolved for the render.
   asyncBootstrapper(app).then(() => {
+    const { end: endRenderTiming } = timing.start('Render app');
     const appString = renderToString(app);
+    endRenderTiming();
 
     const html = renderToStaticMarkup(
       <ServerHTML
@@ -88,6 +94,12 @@ export default function reactApplicationMiddleware(request, response) {
       response.end();
       return;
     }
+
+    // End the measurement
+    endRuntimeTiming();
+
+    // Set server timings header for Chrome network tab timings.
+    response.set('Server-Timing', timing.toString());
 
     response
       .status(
