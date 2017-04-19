@@ -65,7 +65,6 @@ if (process.env.BUILD_FLAG_IS_DEV === 'true') {
 // inline scripts as being safe for execution against our content security policy.
 // @see https://helmetjs.github.io/docs/csp/
 function nonceMiddleware(req, res, next) {
-  // eslint-disable-next-line no-param-reassign
   res.locals.nonce = uuid.v4();
   next();
 }

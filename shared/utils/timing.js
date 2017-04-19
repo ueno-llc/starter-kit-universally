@@ -48,7 +48,6 @@ class Timing {
     const key = `${displayName}.${name}`;
     const method = descriptor.value;
 
-    // eslint-disable-next-line no-param-reassign
     descriptor.value = function promiseTiming(...args) {
       const { end, cancel } = start(key);
       return method.apply(this, args)

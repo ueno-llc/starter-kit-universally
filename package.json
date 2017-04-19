@@ -22,7 +22,6 @@
     "lint-staged": "lint-staged",
     "eslint": "eslint client server shared config internal",
     "stylelint": "stylelint \"shared/**/*.scss\" --syntax scss",
-    "test": "jest",
     "test:coverage": "jest --coverage"
   },
   "repository": {
@@ -64,8 +63,6 @@
   },
   "pre-commit": "lint-staged",
   "lint-staged": {
-    "*.{js,jsx}": "./node_modules/.bin/eslint",
-    "*.{css,scss}": "./node_modules/.bin/stylelint"
   },
   "dependencies": {
     "app-root-dir": "1.0.2",

@@ -29,7 +29,13 @@
     "import/no-extraneous-dependencies": 0,
     "class-methods-use-this": 0,
     // For proper unit testing, remove next line.
-    "react/forbid-prop-types": ["error", { forbid: ["any"] }],
+    "react/forbid-prop-types": ["error", { "forbid": ["any"] }],
+    // Allow useful console logging
+    "no-console": ["error", { "allow": ["info", "warn", "error"] }],
+    // Allow ++ in for loops
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    // Allow reassigning props of objects, e.g. `foo.bar = 2`
+    "no-param-reassign": ["error", { "props": false }]
   },
   "settings": {
     "import/resolver": {

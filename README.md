@@ -31,6 +31,27 @@ CLIENT_DEV_PROXY=1 PUBLIC_PATH=http://xxxxxx.ngrok.io yarn run dev
 HOST=192.168.123.456 PORT=3000 yarn run dev
 ```
 
+
+## Stricter development
+
+For those so inclined, pre-commit linting hooks can be added by changing `lint-stage` in `package.json` to:
+
+```json
+"lint-staged": {
+  "*.{js,jsx}": "./node_modules/.bin/eslint",
+  "*.{css,scss}": "./node_modules/.bin/stylelint"
+}
+```
+
+Testing can be enabled by adding to `scripts`:
+
+```json
+"test": "jest"
+```
+
+---
+
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-20-orange.svg?style=flat-square)](#contributors)
 
 ## About

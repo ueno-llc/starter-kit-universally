@@ -37,7 +37,6 @@ function HTML(props) {
 }
 
 HTML.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   htmlAttributes: PropTypes.object,
   headerElements: PropTypes.node,
   bodyElements: PropTypes.node,
