@@ -28,7 +28,6 @@ export default class PlanetsDetail extends Component {
    * @return {Component}
    */
   render() {
-    // eslint-disable-next-line
     const { jobResult: planet } = this.props;
     const { name, gravity, terrain, climate, population, diameter } = planet;
     return (

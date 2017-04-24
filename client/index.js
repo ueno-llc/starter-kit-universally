@@ -18,8 +18,8 @@ import App from '../shared';
 // Get the DOM Element that will host our React application.
 const container = document.querySelector('#app');
 
-// eslint-disable-next-line
-let store = (window.store = new Store());
+let store = new Store();
+window.store = store;
 
 // Does the user's browser support the HTML5 history API?
 // If the user's browser doesn't support the HTML5 history API then we
@@ -77,7 +77,7 @@ if (process.env.BUILD_FLAG_IS_DEV === 'true' && module.hot) {
 
   module.hot.dispose((data) => {
     // Deserialize store and keep in hot module data for next replacement
-    data.store = stringify(toJS(store)); // eslint-disable-line
+    data.store = stringify(toJS(store));
   });
 
   // Accept changes to this file for hot reloading.

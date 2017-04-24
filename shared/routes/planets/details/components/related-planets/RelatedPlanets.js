@@ -16,7 +16,7 @@ export default class RelatedPlanets extends Component {
       previous: PropTypes.string,
       next: PropTypes.string,
     }),
-    planet: PropTypes.object, // eslint-disable-line
+    planet: PropTypes.object,
   };
 
   render() {

@@ -14,7 +14,7 @@ const PlanetsRoutes = ({ match }) => (
 );
 
 PlanetsRoutes.propTypes = {
-  match: PropTypes.object, // eslint-disable-line
+  match: PropTypes.object,
 };
 
 export default PlanetsRoutes;
