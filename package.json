@@ -13,7 +13,7 @@
     "build:dev": "npm run clean && cross-env NODE_ENV=development babel-node internal/scripts/build",
     "clean": "rm -rf ./build",
     "deploy": "babel-node internal/scripts/deploy",
-    "dev": "DEPLOYMENT=development babel-node internal/development",
+    "dev": "cross-env DEPLOYMENT=development babel-node internal/development",
     "heroku-yarn": "npm rebuild node-sass",
     "preinstall": "node internal/scripts/preinstall",
     "postinstall": "if [ \"x$NODE_ENV\" != \"x\" ] && [ \"$NODE_ENV\" != \"development\" ]; then (npm run heroku-yarn && npm run build); fi;",
