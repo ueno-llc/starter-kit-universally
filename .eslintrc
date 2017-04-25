@@ -17,6 +17,10 @@
     "react/sort-comp": 0,
     // We use global requires in various places, e.g. code splitting instances.
     "global-require": 0,
+    // ignore linebreak style. the CRLF / LF endings wont matter
+    // if a windows user correctly converts CRLF to LF upon commits otherwise
+    // there are errors every line.
+    "linebreak-style": 0,
     // Other ueno. rules
     "react/prefer-stateless-function": 0,
     "react/require-default-props": 0,
