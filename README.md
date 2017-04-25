@@ -1,16 +1,36 @@
-<p align='center'>
-  <h1 align='center'>React, Universally</h1>
-  <p align='center'><img width='150' src='https://raw.githubusercontent.com/ctrlplusb/assets/master/logos/react-universally.png' /></p>
-  <p align='center'>A starter kit for universal react applications.</p>
-</p>
 
-# Ueno.
+# ueno. starter kit. universally.
+
+## New projects
+
+Clone this repo, use `--depth=1` to get a clean commit history, add the upstream for updates
+
+```bash
+git clone --depth=1 https://github.com/ueno-llc/starter-kit-universally.git my-project
+cd my-project
+git remote add upstream https://github.com/ueno-llc/starter-kit-universally.git
+git remote set-url --push upstream no_push # disable push to upstream
+
+yarn
+yarn run dev
+```
+
+* Change values in `app.json`
+* When adding configuration values and environment specific values, use the [project config](https://github.com/ctrlplusb/react-universally/blob/master/internal/docs/PROJECT_CONFIG.md)
+* In development vendor DLLs are created (see `devVendorDLL` in `config/values.js`) to speed up builds, for large projects you can add your own deps there
+
+## Production build
+
+```bash
+yarn run build
+yarn start
+```
 
 ## Updating from upstream
 
+Make sure you have the `upstream` remote, then:
+
 ```bash
-git remote add upstream https://github.com/ueno-llc/starter-kit-universally.git
-git remote set-url --push upstream no_push # disable push to upstream
 git fetch upstream
 git merge upstream/master
 
@@ -31,7 +51,6 @@ CLIENT_DEV_PROXY=1 PUBLIC_PATH=http://xxxxxx.ngrok.io yarn run dev
 HOST=192.168.123.456 PORT=3000 yarn run dev
 ```
 
-
 ## Stricter development
 
 For those so inclined, pre-commit linting hooks can be added by changing `lint-stage` in `package.json` to:
@@ -50,6 +69,12 @@ Testing can be enabled by adding to `scripts`:
 ```
 
 ---
+
+<p align='center'>
+  <h1 align='center'>React, Universally</h1>
+  <p align='center'><img width='150' src='https://raw.githubusercontent.com/ctrlplusb/assets/master/logos/react-universally.png' /></p>
+  <p align='center'>A starter kit for universal react applications.</p>
+</p>
 
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-20-orange.svg?style=flat-square)](#contributors)
