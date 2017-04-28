@@ -1,6 +1,6 @@
 import React from 'react';
 
-const showDevTools = process.env.BUILD_FLAG_IS_DEV;
+const showDevTools = process.env.BUILD_FLAG_IS_DEV === 'true';
 const MobxDevTools = showDevTools && require('mobx-react-devtools').default;
 const GridOverlay = showDevTools && require('components/grid-overlay').default;
 

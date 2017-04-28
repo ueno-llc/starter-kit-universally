@@ -28,7 +28,9 @@ html { // stylelint-disable-line
   -webkit-overflow-scrolling: touch;
 
   overflow-x: hidden;
-  overflow-y: auto;
+
+  // always show the vertical scrollbar so that content doesn't jump
+  overflow-y: scroll;
 }
 
 body { // stylelint-disable-line
