@@ -570,7 +570,7 @@ export default function webpackConfigFactory(buildOptions) {
           test: /\.svg$/,
           use: [
             'babel-loader',
-            'react-svgdom-loader',
+            'svg-to-jsx-loader',
           ],
         },
 

@@ -1,5 +1,4 @@
 import HappyPack from 'happypack';
-import notifier from 'node-notifier';
 import colors from 'colors/safe';
 import { execSync } from 'child_process';
 import appRootDir from 'app-root-dir';
@@ -33,7 +32,7 @@ export function log(options) {
   const notify = config('notifier');
 
   if (options.notify && toLevel(notify) >= toLevel(level)) {
-    notifier.notify({
+    require('node-notifier').notify({
       title,
       message: options.message,
     });
