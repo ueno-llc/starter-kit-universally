@@ -3,19 +3,24 @@
 
 ## New projects
 
-Clone this repo, use `--depth=1` to get a clean commit history, add the upstream for updates
+Clone this repo, add the upstream for updates
 
 ```bash
-git clone --depth=1 https://github.com/ueno-llc/starter-kit-universally.git my-project
+git clone https://github.com/ueno-llc/starter-kit-universally.git my-project
 cd my-project
 git remote add upstream https://github.com/ueno-llc/starter-kit-universally.git
 git remote set-url --push upstream no_push # disable push to upstream
+```
 
+Change values in `app.json` and `config/values.js`. Delete this part of the readme.
+
+## Developemnt
+
+```
 yarn
 yarn run dev
 ```
 
-* Change values in `app.json`
 * When adding configuration values and environment specific values, use the [project config](https://github.com/ctrlplusb/react-universally/blob/master/internal/docs/PROJECT_CONFIG.md)
 * In development vendor DLLs are created (see `devVendorDLL` in `config/values.js`) to speed up builds, for large projects you can add your own deps there
 
