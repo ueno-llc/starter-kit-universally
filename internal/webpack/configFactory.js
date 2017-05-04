@@ -181,11 +181,8 @@ export default function webpackConfigFactory(buildOptions) {
       // These extensions are tried when resolving a file.
       extensions: config('bundleSrcTypes').map(ext => `.${ext}`),
 
-      // This is required for the modernizr-loader
-      // @see https://github.com/peerigon/modernizr-loader
-      alias: {
-        modernizr$: path.resolve(appRootDir.get(), './.modernizrrc'),
-      },
+      // Empty alias object for easier extendability
+      alias: {},
 
       // UENO: The ./shared is now a resolved root.
       modules: [
@@ -573,22 +570,6 @@ export default function webpackConfigFactory(buildOptions) {
             'svg-to-jsx-loader',
           ],
         },
-
-        // MODERNIZR
-        // This allows you to do feature detection.
-        // @see https://modernizr.com/docs
-        // @see https://github.com/peerigon/modernizr-loader
-        ifClient({
-          test: /\.modernizrrc.js$/,
-          use: 'modernizr-loader',
-        }),
-        ifClient({
-          test: /\.modernizrrc(\.json)?$/,
-          use: [
-            'modernizr-loader',
-            'json-loader',
-          ],
-        }),
       ]),
     },
   };
