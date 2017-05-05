@@ -44,6 +44,16 @@ export default class GridOverlay extends Component {
    */
   componentDidMount() {
     this.setup();
+
+    document.addEventListener('keydown', this.keydownRef = this.onKeyDown);
+  }
+
+  /**
+   * Remove the key event.
+   * @return {void}
+   */
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.keydownRef);
   }
 
   /**
@@ -54,6 +64,18 @@ export default class GridOverlay extends Component {
    */
   componentWillReceiveProps(props) {
     this.setup(props);
+  }
+
+  /**
+   * Let's display the grid with the same shortcut as Sketch.
+   * Because why not
+   * @return {void}
+   */
+  @autobind
+  onKeyDown(e) {
+    if (e.ctrlKey && e.keyCode === 76) {
+      this.onToggleVertical();
+    }
   }
 
   /**
