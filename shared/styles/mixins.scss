@@ -6,22 +6,6 @@
   left: 0;
 }
 
-@mixin font-size($size) {
-  font-size: $size * 0.6;
-
-  @media (min-width: $min-480) {
-    font-size: $size * 0.7;
-  }
-
-  @media (min-width: $min-768) {
-    font-size: $size * 0.8;
-  }
-
-  @media (min-width: $min-1200) {
-    font-size: $size;
-  }
-}
-
 @function strip-unit($number) {
   @if type-of($number) == 'number' and not unitless($number) {
     @return $number / ($number * 0 + 1);
@@ -54,11 +38,11 @@
   }
 
   @else if $media == tablet {
-    @media only screen and (min-width: $tablet) { @content; }
+    @media only screen and (min-width: $min-tablet) { @content; }
   }
 
   @else if $media == desktop {
-    @media only screen and (min-width: $desktop) { @content; }
+    @media only screen and (min-width: $min-desktop) { @content; }
   }
 
   /* stylelint-disable */

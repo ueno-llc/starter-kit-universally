@@ -100,7 +100,7 @@ const values = {
       */
       { httpEquiv: 'X-UA-Compatible', content: 'IE=edge' },
       { name: 'description', content: 'Ueno. description text here!' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, user-scalable=no' }, // prevents inputs from zooming, but iOS still allows normal pinch zoom
       { name: 'msapplication-TileColor', content: '#00E2AD' },
       { name: 'msapplication-TileImage', content: '/favicons/mstile-150x150.png' },
       { name: 'msapplication-square70x70logo', content: '/favicons/mstile-70x70.png' },

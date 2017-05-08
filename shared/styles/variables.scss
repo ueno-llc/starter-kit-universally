@@ -1,6 +1,11 @@
 $gutter: 30px;
+$container-gutter-mobile: $gutter;
+$container-gutter-tablet: 50px;
+$container-gutter-desktop: 70px;
+
+// page dimensions
 $page-width: 1080px;
-$page-limit: 1400px;
+$limit: $page-width + ($container-gutter-desktop * 2);
 
 // Fonts
 $font-family: 'Roboto', sans-serif;
@@ -13,6 +18,7 @@ $line-height: 1.5;
 // Colors
 $color-pink: #aa0078;
 $color-primary: $color-pink;
+$color-placeholder: #ddd;
 
 // Timings
 $transition-enter: 200ms;
@@ -53,28 +59,11 @@ $max-480: 479px;
 $max-375: 374px;
 $max-360: 359px;
 
-// Grid
-$grid-direction: left;
-
 // Predefined breakpoints
 $min-mobile: $min-480;
 $min-tablet: $min-720;
 $min-desktop: $min-1080;
 
-$handset: $min-360;
-$handset-landscape: $min-600;
-
-$tablet: $min-768;
-$tablet-landscape: $min-1024;
-
-$desktop: $min-1200;
-
-// Container gutter
-$container-gutter-mobile: $gutter;
-$container-gutter-tablet: 50px;
-$container-gutter-desktop: 70px;
-
-// Segment spacing
-$segment-gutter-mobile: $gutter * 1;
-$segment-gutter-tablet: $gutter * 3;
-$segment-gutter-desktop: $gutter * 4;
+// Segment
+$segment-padding-mobile: $gutter * 3;
+$segment-padding: 200px; //percentage-based segments spacing

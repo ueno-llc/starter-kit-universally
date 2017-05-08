@@ -36,6 +36,7 @@
 @mixin reset-input {
   @include reset-all;
 
+  border-radius: 0;
   appearance: none;
 
   &:focus {
