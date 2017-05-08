@@ -1,21 +1,16 @@
 @import '~styles/config';
 
 .segment {
-  position: relative;
+  padding-top: $segment-padding-mobile;
+  padding-bottom: $segment-padding-mobile;
 
-  padding: $segment-gutter-mobile 0 ($segment-gutter-mobile - $gutter);
-
-  @include viewport(tablet) {
-    padding: $segment-gutter-tablet 0 ($segment-gutter-tablet - $gutter);
+  @media (min-width: $min-tablet) {
+    padding-top: percentage($segment-padding/$limit);
+    padding-bottom: percentage($segment-padding/$limit);
   }
 
-  @include viewport(desktop) {
-    padding: $segment-gutter-desktop 0 ($segment-gutter-desktop - $gutter);
+  @media (min-width: $limit) {
+    padding-top: $segment-padding;
+    padding-bottom: $segment-padding;
   }
-
-  @include viewport($min-1440) {
-    padding: ($segment-gutter-desktop * 1.75) 0 ($segment-gutter-desktop * 1.75 - $gutter);
-  }
-
-  border-bottom: 1px solid #eee;
 }
