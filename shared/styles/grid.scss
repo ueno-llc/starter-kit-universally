@@ -1,8 +1,15 @@
 // Rows
-@mixin make-row($direction: $grid-direction, $grid-gutter: $gutter) {
+@mixin make-row($direction: ltr, $align: stretch, $justify: flex-start, $grid-gutter: $gutter, $wrap: wrap) {
   display: flex;
+  flex-wrap: $wrap;
 
-  @if $direction == left {
+  align-items: $align;
+  justify-content: $justify;
+
+  margin-left: -($grid-gutter/2);
+  margin-right: -($grid-gutter/2);
+
+  @if $direction == ltr {
     flex-direction: row;
   }
 
@@ -10,25 +17,15 @@
     flex-direction: row-reverse;
   }
 
-  flex-wrap: wrap;
-
-  margin-left: -$grid-gutter/2;
-  margin-right: -$grid-gutter/2;
 }
 
 // Columns
-@mixin make-col($width: 100%, $align: flex-start, $grid-gutter: $gutter) {
-  display: block;
-
+@mixin make-col($width: 100%, $align: stretch, $grid-gutter: $gutter) {
   flex: none;
-  align-items: flex-start;
   align-self: $align;
 
   padding-left: $grid-gutter/2;
   padding-right: $grid-gutter/2;
 
   width: $width;
-  min-height: 1px;
-
-  box-sizing: border-box;
 }
