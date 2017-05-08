@@ -61,6 +61,21 @@
   }
 }
 
+@mixin segment($padding-mobile: $segment-padding-mobile, $padding: $segment-padding) {
+  padding-top: $padding-mobile;
+  padding-bottom: $padding-mobile;
+
+  @media (min-width: $min-tablet) {
+    padding-top: percentage($padding/$limit);
+    padding-bottom: percentage($padding/$limit);
+  }
+
+  @media (min-width: $limit) {
+    padding-top: $padding;
+    padding-bottom: $padding;
+  }
+}
+
 @mixin container() {
   margin: 0 auto;
 
