@@ -194,6 +194,8 @@ const values = {
     'woff',
     'woff2',
     'otf',
+    'mp4',
+    'webm',
   ],
 
   // What should we name the json output file that webpack generates
