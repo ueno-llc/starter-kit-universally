@@ -34,7 +34,7 @@
 
 @mixin viewport($media) {
   @if $media == handset {
-    @media only screen and (max-width: $handset-landscape) { @content; }
+    @media only screen and (max-width: $min-600) { @content; }
   }
 
   @else if $media == tablet {
