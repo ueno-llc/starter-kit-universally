@@ -14,7 +14,7 @@ git remote set-url --push upstream no_push # disable push to upstream
 
 Change values in `app.json` and `config/values.js`. Delete this part of the readme.
 
-## Developemnt
+## Development
 
 ```
 yarn
