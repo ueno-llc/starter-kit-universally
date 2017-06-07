@@ -80,8 +80,10 @@ function ServerHTML(props) {
     // Enable the polyfill io script?
     // This can't be configured within a react-helmet component as we
     // may need the polyfill's before our client JS gets parsed.
+    // The gated flag is added for feature detection,
+    // preventing wrong feature set in chrome simulator
     ifElse(config('polyfillIO.enabled'))(() =>
-      scriptTag(`${config('polyfillIO.url')}?features=${config('polyfillIO.features').join(',')}`),
+      scriptTag(`${config('polyfillIO.url')}?features=${config('polyfillIO.features').join(',')}&flags=gated`),
     ),
     // When we are in development mode our development server will
     // generate a vendor DLL in order to dramatically reduce our
