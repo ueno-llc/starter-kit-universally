@@ -51,7 +51,7 @@ Now supports ngrok and other ways to access your development build.
 ```bash
 # outside wifi
 ngrok http 3000
-CLIENT_DEV_PROXY=1 PUBLIC_PATH=http://xxxxxx.ngrok.io yarn run dev
+CLIENT_DEV_PROXY=1 PUBLIC_URL=http://xxxxxx.ngrok.io yarn run dev
 # or local network
 HOST=192.168.123.456 PORT=3000 yarn run dev
 ```

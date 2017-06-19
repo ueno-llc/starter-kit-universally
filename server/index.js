@@ -38,7 +38,7 @@ if (process.env.BUILD_FLAG_IS_DEV === 'false' && config('serviceWorker.enabled')
 
 // Proxy hot module reload development server when flagged to do so.
 if (process.env.BUILD_FLAG_IS_DEV === 'true' && config('clientDevProxy')) {
-  app.use(require('./middleware/devServerProxy'));
+  app.use(require('./middleware/devServerProxy').default);
 }
 
 if (!process.env.BUILD_FLAG_IS_DEV && config('enforceHttps')) {
