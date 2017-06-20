@@ -41,7 +41,7 @@ if (process.env.BUILD_FLAG_IS_DEV === 'true' && config('clientDevProxy')) {
   app.use(require('./middleware/devServerProxy').default);
 }
 
-if (!process.env.BUILD_FLAG_IS_DEV && config('enforceHttps')) {
+if (process.env.BUILD_FLAG_IS_DEV === 'false' && config('enforceHttps')) {
   app.use(enforceHttps);
 }
 
