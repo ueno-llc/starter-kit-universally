@@ -10,10 +10,18 @@ import { JobProvider } from 'react-jobs';
 import { Provider } from 'mobx-react';
 import { toJS } from 'mobx';
 import stringify from 'json-stringify-safe';
+import ReactGA from 'react-ga';
 import Store from 'store';
+import config from 'utils/config';
 
 import ReactHotLoader from './components/ReactHotLoader';
 import App from '../shared';
+
+// Initialize Google Analytics
+const gaId = config('gaId');
+if (gaId) {
+  ReactGA.initialize(gaId);
+}
 
 // Get the DOM Element that will host our React application.
 const container = document.querySelector('#app');
