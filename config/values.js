@@ -163,7 +163,7 @@ const values = {
     manifestSrc: [],
     objectSrc: [],
     scriptSrc: [
-      "'self' 'unsafe-inline' 'unsafe-eval'",
+      "'self'",
       // Allow scripts from cdn.polyfill.io so that we can import the polyfill.
       'cdn.polyfill.io',
       // For analytics
