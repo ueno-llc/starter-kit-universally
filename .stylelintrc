@@ -30,6 +30,9 @@
             "flex-grow",
             "flex-shrink",
             "flex-basis",
+            "flex-direction",
+            "flex-wrap",
+            "flex-flow",
             "align-items",
             "align-self",
             "justify-content"
@@ -94,6 +97,7 @@
             "line-height",
             "color",
             "text",
+            "text-align",
             "letter-spacing",
             "white-space",
             "vertical-align"
