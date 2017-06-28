@@ -8,6 +8,7 @@ import AppLayout, { Content } from 'components/app-layout';
 import Header from 'components/header';
 import Navigation from 'components/navigation';
 import DevTools from 'components/devtools';
+import Analytics from 'components/analytics';
 
 // Routes
 import Home from './routes/home';
@@ -27,6 +28,7 @@ export default function App() {
         </Navigation>
       </Header>
       <Content>
+        <Route component={Analytics} />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
