@@ -50,13 +50,13 @@ function ServerHTML(props) {
     jobsState,
     routerState,
     helmet,
-    nonce,
+    addHash,
     reactAppString,
   } = props;
 
   // Creates an inline script definition that is protected by the nonce.
   const inlineScript = body => (
-    <script nonce={nonce} type="text/javascript" dangerouslySetInnerHTML={{ __html: body }} />
+    <script type="text/javascript" dangerouslySetInnerHTML={{ __html: addHash(body) }} />
   );
 
   const headerElements = removeNil([
@@ -75,7 +75,7 @@ function ServerHTML(props) {
     // Binds the client configuration object to the window object so
     // that we can safely expose some configuration values to the
     // client bundle that gets executed in the browser.
-    <ClientConfig nonce={nonce} />,
+    <ClientConfig addHash={addHash} />,
     // Bind our async components state so the client knows which ones
     // to initialise so that the checksum matches the server response.
     // @see https://github.com/ctrlplusb/react-async-component
@@ -129,7 +129,7 @@ ServerHTML.propTypes = {
   routerState: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types
   helmet: PropTypes.object,
-  nonce: PropTypes.string,
+  addHash: PropTypes.func,
   reactAppString: PropTypes.string,
 };
 

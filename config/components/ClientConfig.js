@@ -22,21 +22,20 @@ const serializedClientConfig = serialize(clientConfig);
  *
  * They get bound to window.__CLIENT_CONFIG__
  */
-function ClientConfig({ nonce }) {
+function ClientConfig({ addHash }) {
   return (
     <script
       type="text/javascript"
-      nonce={nonce}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
-        __html: `window.__CLIENT_CONFIG__=${serializedClientConfig}`,
+        __html: addHash(`window.__CLIENT_CONFIG__=${serializedClientConfig}`),
       }}
     />
   );
 }
 
 ClientConfig.propTypes = {
-  nonce: PropTypes.string.isRequired,
+  addHash: PropTypes.func.isRequired,
 };
 
 export default ClientConfig;
