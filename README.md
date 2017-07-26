@@ -121,7 +121,7 @@ Redux/MobX, data persistence, modern styling frameworks and all the other bells 
 ## Getting started
 
 ```bash
-git clone https://github.com/ctrlplusb/react-universally my-project
+git clone https://github.com/ueno-llc/starter-kit-universally my-project
 cd my-project
 npm install
 npm run dev
