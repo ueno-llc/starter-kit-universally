@@ -57,9 +57,6 @@ const values = {
   // Disable server side rendering?
   disableSSR: false,
 
-  // Disable server side rendering in dev mode?
-  disableSSRDev: true,
-
   // How long should we set the browser cache for the served assets?
   // Don't worry, we add hashes to the files, so if they change the new files
   // will be served to browsers.

@@ -579,9 +579,7 @@ export default function webpackConfigFactory(buildOptions) {
   }
 
   if (isServer) {
-    const middlewareModuleName = (isProd && config('disableSSR')) || (isDev && config('disableSSRDev')) ?
-        'ssrDisabled' :
-        'ssrEnabled';
+    const middlewareModuleName = config('disableSSR') ? 'ssrDisabled' : 'ssrEnabled';
     const middlewareModulePath = `server/middleware/reactApplication/${middlewareModuleName}`;
     webpackConfig.resolve.alias['./middleware/reactApplication'] = path.resolve(appRootDir.get(), middlewareModulePath);
   }
