@@ -3,6 +3,8 @@ import hpp from 'hpp';
 import helmet from 'helmet';
 import config from '../../config';
 
+// You should NOT add any project specific CSP rules here
+// The proper place to add them is config/values.js
 const cspConfig = {
   directives: {
     childSrc: ["'self'"],
