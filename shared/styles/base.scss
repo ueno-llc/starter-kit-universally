@@ -61,16 +61,16 @@ img { // stylelint-disable-line
 
 // placeholders
 input, textarea, select { // stylelint-disable-line
-  &::-webkit-input-placeholder {
+  &::-webkit-input-placeholder { // stylelint-disable-line
     color: $color-placeholder;
   }
 
-  &::-moz-placeholder {
+  &::-moz-placeholder { // stylelint-disable-line
     opacity: 1;
     color: $color-placeholder;
   }
 
-  &:-ms-input-placeholder {
+  &:-ms-input-placeholder { // stylelint-disable-line
     color: $color-placeholder;
   }
 }
