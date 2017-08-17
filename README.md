@@ -1,5 +1,5 @@
 
-# ueno. starter kit. universally.
+# Hi! I’m Ueno’s starter-kit.
 
 ## New projects
 
@@ -20,6 +20,16 @@ Change values in `app.json` and `config/values.js`. Delete this part of the read
 yarn
 yarn run dev
 ```
+
+### Single route development
+If you’re working on a single route and don’t want to build the entire app you can do so by using the `--route` argument, for example:
+
+```bash
+> yarn run dev -- --route=about
+```
+`about` being the folder name of the targeted route (inside `shared/routes`). This can be very useful when the app gets bigger and rebuilds and HMR start to get slower.
+
+### Notes
 
 * When adding configuration values and environment specific values, use the [project config](https://github.com/ctrlplusb/react-universally/blob/master/internal/docs/PROJECT_CONFIG.md)
 * In development vendor DLLs are created (see `devVendorDLL` in `config/values.js`) to speed up builds, for large projects you can add your own deps there
