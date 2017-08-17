@@ -15,6 +15,19 @@ import withServiceWorker from './withServiceWorker';
 import config from '../../config';
 
 /**
+ * Check for the --route argument
+ */
+// eslint-disable-next-line no-unused-vars
+const [a, b, ...args] = process.argv;
+const index = args.findIndex(arg => arg.includes('--route'));
+let app = 'MainApp';
+let route;
+if (index > -1) {
+  app = 'SingleRouteApp';
+  route = args[index].split('=')[1];
+}
+
+/**
  * Generates a webpack configuration for the target configuration.
  *
  * This function has been configured to support one "client/web" bundle, and any
