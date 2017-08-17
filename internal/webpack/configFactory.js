@@ -194,8 +194,13 @@ export default function webpackConfigFactory(buildOptions) {
       // These extensions are tried when resolving a file.
       extensions: config('bundleSrcTypes').map(ext => `.${ext}`),
 
-      // Empty alias object for easier extendability
-      alias: {},
+      alias: {
+        // Points to the route which is passed with the `--route` argument
+        route: path.resolve(appRootDir.get(), `shared/routes/${route}`),
+        // Points to the version of the App that should be used
+        // A special app for single route development or the complete app
+        App: path.resolve(appRootDir.get(), `shared/${app}`),
+      },
 
       // UENO: The ./shared is now a resolved root.
       modules: [
