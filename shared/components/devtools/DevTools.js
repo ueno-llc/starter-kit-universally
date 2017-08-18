@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import autobind from 'core-decorators/lib/autobind';
+import config from 'utils/config';
 
-const showDevTools = process.env.BUILD_FLAG_IS_DEV === 'true';
+const showDevTools = process.env.BUILD_FLAG_IS_DEV === 'true' || config('herokuDevtools');
 const MobxDevTools = showDevTools && require('mobx-react-devtools').default;
 const GridOverlay = showDevTools && require('components/grid-overlay').default;
 
