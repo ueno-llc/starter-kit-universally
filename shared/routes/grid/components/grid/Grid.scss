@@ -1,0 +1,128 @@
+@import '~styles/config';
+
+@mixin font() {
+  @include responsive-font(14, 14);
+
+  color: $color-light;
+}
+
+@mixin text-col($text) {
+  @include font;
+
+  content: $text;
+
+  position: absolute;
+  top: 10px;
+  left: 25px;
+  right: 25px;
+}
+
+.grid {
+  @include container;
+
+  position: relative;
+
+  margin-top: 140px;
+
+  box-shadow: 0 0 0 1px $color-placeholder;
+
+  &::after {
+    @include font;
+
+    content: '@include container;';
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+  &::before {
+    content: '';
+
+    display: block;
+
+    padding-top: 50px;
+  }
+
+  &__row {
+    @include make-row;
+
+    position: relative;
+
+    padding-top: 50px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+
+    box-shadow: 0 0 0 1px $color-placeholder;
+
+    &::after {
+      @include font;
+
+      content: '@include make-row;';
+
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+  }
+
+  &__inside {
+    height: 100px;
+
+    background-color: $color-placeholder;
+  }
+
+  // Offsets examples
+  &__offsetLeftOne {
+    @include make-offset-left(1);
+  }
+
+  &__offsetRightOne {
+    @include make-offset-right(1);
+  }
+
+  &__offsetRightTwo {
+    @include make-offset-right(2);
+  }
+
+  // Columns examples
+  &__twoCol {
+    @include make-col(2);
+
+    position: relative;
+
+    &::after {
+      @include text-col('@include make-col(2);');
+    }
+  }
+
+  &__threeCol {
+    @include make-col(3);
+
+    position: relative;
+
+    &::after {
+      @include text-col('@include make-col(3); @include make-offset-left(1);');
+    }
+  }
+
+  &__fourCol {
+    @include make-col(4);
+
+    position: relative;
+
+    &::after {
+      @include text-col('@include make-col(4); @include make-offset-left(1); @include make-offset-right(1);');
+    }
+  }
+
+  &__tenCol {
+    @include make-col(10);
+
+    position: relative;
+
+    &::after {
+      @include text-col('@include make-col(10); @include make-offset-left(1);');
+    }
+  }
+}
