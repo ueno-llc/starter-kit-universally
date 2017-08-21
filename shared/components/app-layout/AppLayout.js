@@ -11,9 +11,11 @@ export default class AppLayout extends Component {
   };
 
   render() {
+    const { children } = this.props;
+
     return (
       <div className={s.layout}>
-        {this.props.children}
+        {children}
       </div>
     );
   }
