@@ -1,20 +1,15 @@
 @import '~styles/config';
 
-@mixin font() {
+@mixin text-col($text, $left: 25px, $right: 25px) {
   @include responsive-font(14, 14);
 
-  color: $color-light;
-}
-
-@mixin text-col($text) {
-  @include font;
-
   content: $text;
-
   position: absolute;
   top: 10px;
-  left: 25px;
-  right: 25px;
+  left: $left;
+  right: $right;
+
+  color: $color-light;
 }
 
 .grid {
@@ -27,13 +22,7 @@
   box-shadow: 0 0 0 1px $color-placeholder;
 
   &::after {
-    @include font;
-
-    content: '@include container;';
-
-    position: absolute;
-    top: 10px;
-    left: 10px;
+    @include text-col('@include container;', 10px, 10px);
   }
 
   &::before {
@@ -56,13 +45,7 @@
     box-shadow: 0 0 0 1px $color-placeholder;
 
     &::after {
-      @include font;
-
-      content: '@include make-row;';
-
-      position: absolute;
-      top: 10px;
-      left: 10px;
+      @include text-col('@include make-row;', 10px, 10px);
     }
   }
 
