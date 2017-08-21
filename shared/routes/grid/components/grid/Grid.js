@@ -62,6 +62,8 @@ export default class Grid extends Component {
             <div className={s.grid__inside} />
           </div>
         </div>
+
+        <div className={s.grid__spacer} />
       </div>
     );
   }
