@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import 'styles/fonts.css';
 
 import s from './AppLayout.scss';
-import 'styles/fonts.css';
 
 export default class AppLayout extends Component {
 
