@@ -1,6 +1,6 @@
 @import '~styles/config';
 
-@mixin text-col($text, $left: 25px, $right: 25px) {
+@mixin placeholder($text, $left: 25px, $right: 25px) {
   @include responsive-font(14, 14);
 
   content: $text;
@@ -22,7 +22,7 @@
   box-shadow: 0 0 0 1px $color-placeholder;
 
   &::after {
-    @include text-col('@include container;', 10px, 10px);
+    @include placeholder('@include container;', 10px, 10px);
   }
 
   &::before {
@@ -45,7 +45,7 @@
     box-shadow: 0 0 0 1px $color-placeholder;
 
     &::after {
-      @include text-col('@include make-row;', 10px, 10px);
+      @include placeholder('@include make-row;', 10px, 10px);
     }
   }
 
@@ -79,7 +79,7 @@
     position: relative;
 
     &::after {
-      @include text-col('@include make-col(2);');
+      @include placeholder('@include make-col(2);');
     }
   }
 
@@ -89,7 +89,7 @@
     position: relative;
 
     &::after {
-      @include text-col('@include make-col(3); @include make-offset-left(1);');
+      @include placeholder('@include make-col(3); @include make-offset-left(1);');
     }
   }
 
@@ -99,7 +99,7 @@
     position: relative;
 
     &::after {
-      @include text-col('@include make-col(4); @include make-offset-left(1); @include make-offset-right(1);');
+      @include placeholder('@include make-col(4); @include make-offset-left(1); @include make-offset-right(1);');
     }
   }
 
@@ -109,7 +109,7 @@
     position: relative;
 
     &::after {
-      @include text-col('@include make-col(10); @include make-offset-left(1);');
+      @include placeholder('@include make-col(10); @include make-offset-left(1);');
     }
   }
 }
