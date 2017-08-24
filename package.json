@@ -1,6 +1,6 @@
 {
   "name": "react-universally",
-  "version": "13.0.0",
+  "version": "1.0.0",
   "description": "A starter kit for universal react applications.",
   "main": "build/server/index.js",
   "engines": {
