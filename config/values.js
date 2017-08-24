@@ -26,6 +26,8 @@ const values = {
     helmet: true,
     // Google Analytics is initialized on the client.
     gaId: true,
+    // Expose heroku devtools flag
+    herokuDevtools: true,
   },
 
   // The public facing url of the app
@@ -53,6 +55,9 @@ const values = {
 
   // Enable node-notifier?
   notifier: EnvVars.string('NOTIFIER', 'warn'),
+
+  // Toggle devtools on heroku
+  herokuDevtools: EnvVars.string('HEROKU_DEVTOOLS', false),
 
   // Disable server side rendering?
   disableSSR: false,
