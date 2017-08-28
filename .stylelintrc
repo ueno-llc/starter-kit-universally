@@ -4,14 +4,10 @@
     "stylelint-order"
   ],
   "rules": {
-    "no-unsupported-browser-features": null,
     "string-quotes": "single",
     "max-empty-lines": 5,
     "selector-class-pattern": null,
-    "media-feature-no-missing-punctuation": null,
-    "rule-nested-empty-line-before": null,
-    "rule-non-nested-empty-line-before": null,
-    "declaration-block-properties-order":  null,
+    "plugin/no-unsupported-browser-features": null,
     "order/properties-order": [
       [
         {
