@@ -22,7 +22,10 @@ class HotNodeServer {
         });
       }
 
-      const newServer = spawn('node', [compiledEntryFile, '--color']);
+      // pass all args to our spawn
+      const args = process.argv.slice(2);
+
+      const newServer = spawn('node', [compiledEntryFile, '--color', ...args]);
 
       log({
         title: name,

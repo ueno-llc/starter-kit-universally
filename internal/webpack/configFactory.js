@@ -15,19 +15,6 @@ import withServiceWorker from './withServiceWorker';
 import config from '../../config';
 
 /**
- * Check for the --route argument
- */
-// eslint-disable-next-line no-unused-vars
-const [a, b, ...args] = process.argv;
-const index = args.findIndex(arg => arg.includes('--route'));
-let app = 'MainApp';
-let route;
-if (index > -1) {
-  app = 'SingleRouteApp';
-  route = args[index].split('=')[1];
-}
-
-/**
  * Generates a webpack configuration for the target configuration.
  *
  * This function has been configured to support one "client/web" bundle, and any
@@ -194,13 +181,8 @@ export default function webpackConfigFactory(buildOptions) {
       // These extensions are tried when resolving a file.
       extensions: config('bundleSrcTypes').map(ext => `.${ext}`),
 
-      alias: {
-        // Points to the route which is passed with the `--route` argument
-        route: path.resolve(appRootDir.get(), `shared/routes/${route}`),
-        // Points to the version of the App that should be used
-        // A special app for single route development or the complete app
-        App: path.resolve(appRootDir.get(), `shared/${app}`),
-      },
+      // Empty alias object for easier extendability
+      alias: {},
 
       // UENO: The ./shared is now a resolved root.
       modules: [
