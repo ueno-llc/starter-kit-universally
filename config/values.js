@@ -67,6 +67,8 @@ const values = {
   // Toggle devtools on heroku
   herokuDevtools: EnvVars.string('HEROKU_DEVTOOLS', false),
 
+  passwordProtect: EnvVars.string('PASSWORD_PROTECT', ''),
+
   // Disable server side rendering?
   disableSSR: false,
 
