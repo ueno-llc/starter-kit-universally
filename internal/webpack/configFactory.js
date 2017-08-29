@@ -599,6 +599,13 @@ export default function webpackConfigFactory(buildOptions) {
     webpackConfig = withServiceWorker(webpackConfig, bundleConfig);
   }
 
+  if (isServer) {
+    const moduleName = config('disableSSR') ? 'ssrDisabled' : 'ssrEnabled';
+    const modulePath = `server/middleware/reactApplication/${moduleName}`;
+    const resolvedPath = path.resolve(appRootDir.get(), modulePath);
+    webpackConfig.resolve.alias['./middleware/reactApplication'] = resolvedPath;
+  }
+
   // Apply the configuration middleware.
   return config('plugins.webpackConfig')(webpackConfig, buildOptions);
 }

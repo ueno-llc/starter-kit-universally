@@ -4,7 +4,6 @@ import express from 'express';
 import compression from 'compression';
 import { resolve as pathResolve } from 'path';
 import appRootDir from 'app-root-dir';
-import reactApplication from './middleware/reactApplication';
 import security from './middleware/security';
 import clientBundle from './middleware/clientBundle';
 import serviceWorker from './middleware/serviceWorker';
@@ -12,6 +11,11 @@ import offlinePage from './middleware/offlinePage';
 import errorHandlers from './middleware/errorHandlers';
 import enforceHttps from './middleware/enforceHttps';
 import config from '../config';
+
+// the webpack config aliases the SSR-appropriate react app in the
+// reactApplication directory
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import reactApplication from './middleware/reactApplication';
 
 // Create our express based server.
 const app = express();

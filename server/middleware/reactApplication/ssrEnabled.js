@@ -11,13 +11,12 @@ import timing from 'utils/timing';
 import sha256 from 'sha256';
 import App from 'App';
 
-import config from 'utils/config';
 import ServerHTML from './ServerHTML';
 
 useStaticRendering(true);
 
 /**
- * React application middleware, supports server side rendering.
+ * React application middleware, with server-side rendering.
  */
 export default function reactApplicationMiddleware(request, response) {
   // Add script hashes
@@ -27,25 +26,12 @@ export default function reactApplicationMiddleware(request, response) {
       'content-security-policy',
       response.getHeader('content-security-policy')
         .split(';')
-        .map(directive => directive.indexOf('script-src') >= 0 ? `${directive} sha256-${sha256(content)}` : directive)
+        .map(directive => directive.indexOf('script-src') >= 0 ?
+          `${directive} sha256-${sha256(content)}` : directive)
         .join(';'),
     );
     return content;
   };
-
-  // It's possible to disable SSR, which can be useful in development mode.
-  // In this case traditional client side only rendering will occur.
-  if (config('disableSSR')) {
-    if (process.env.BUILD_FLAG_IS_DEV === 'true') {
-      // eslint-disable-next-line no-console
-      console.log('==> Handling react route without SSR');
-    }
-    // SSR is disabled so we will return an "empty" html page and
-    // rely on the client to initialize and render the react application.
-    const html = renderToStaticMarkup(<ServerHTML helmet={Helmet.rewind()} addHash={addHash} />);
-    response.status(200).send(`<!DOCTYPE html>${html}`);
-    return;
-  }
 
   // Create a context for our AsyncComponentProvider.
   const asyncComponentsContext = createAsyncContext();
