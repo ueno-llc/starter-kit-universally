@@ -538,9 +538,9 @@ export default function webpackConfigFactory(buildOptions) {
             ifNode({
               use: [
                 'classnames-loader',
-                `css-loader/locals?modules=1&sourceMap&importLoaders=1&localIdentName=${localIdentName}`,
+                `css-loader/locals?modules=1&importLoaders=1&localIdentName=${localIdentName}`,
                 'postcss-loader',
-                'sass-loader?outputStyle=expanded&sourceMap',
+                'sass-loader?outputStyle=expanded',
               ],
             }),
           ),
