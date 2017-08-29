@@ -129,7 +129,7 @@ export default class GridOverlay extends Component {
     return (
       <div
         className={s('grid', { horizontalIsVisible }, { verticalIsVisible })}
-        ref={el => (this.grid = el)}
+        ref={(el) => { this.grid = el; }}
       >
         <div className={s.grid__container}>
           <div className={s.grid__row} data-columns={columns}>
