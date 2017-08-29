@@ -5,7 +5,12 @@
  * absolute paths should be resolved during runtime by our build internal/server.
  */
 
+import path from 'path';
+import fs from 'fs';
+import appRootDir from 'app-root-dir';
+
 import * as EnvVars from './utils/envVars';
+import CliVar from './utils/cliVar';
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
@@ -402,6 +407,7 @@ const values = {
     webpackConfig: (webpackConfig, buildOptions) => {
       // eslint-disable-next-line no-unused-vars
       const { target, mode } = buildOptions;
+      const { resolve } = webpackConfig;
 
       // Example:
       /*
@@ -416,6 +422,27 @@ const values = {
         console.log(JSON.stringify(webpackConfig, null, 4));
       }
       */
+
+      // Hook up possible single route development
+      if (mode === 'development') {
+        const route = CliVar('route');
+        const routePath = path.resolve(appRootDir.get(), `shared/routes/${route}`);
+
+        // we can call sync function here since it's only in development
+        const routeIsValid = route !== '' && fs.existsSync(routePath);
+
+        if (routeIsValid) {
+          resolve.alias = {
+            route: routePath,
+            App: path.resolve(appRootDir.get(), 'shared/SingleRouteApp'),
+          };
+        } else {
+          console.warn(`Unable to resolve route "${route}" at ${routePath}`);
+          resolve.alias.App = path.resolve(appRootDir.get(), 'shared/MainApp');
+        }
+      } else {
+        resolve.alias.App = path.resolve(appRootDir.get(), 'shared/MainApp');
+      }
 
       return webpackConfig;
     },
