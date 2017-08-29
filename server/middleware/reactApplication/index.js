@@ -9,9 +9,9 @@ import Helmet from 'react-helmet';
 import Store from 'store';
 import timing from 'utils/timing';
 import sha256 from 'sha256';
+import App from 'App';
 
-import config from '../../../config';
-import App from '../../../shared';
+import config from 'utils/config';
 import ServerHTML from './ServerHTML';
 
 useStaticRendering(true);
