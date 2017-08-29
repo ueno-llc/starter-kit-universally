@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import autobind from 'core-decorators/lib/autobind';
+
 import s from './GridOverlay.scss';
 
 // Key to store visibility state of the grid overlay
@@ -128,7 +129,7 @@ export default class GridOverlay extends Component {
     return (
       <div
         className={s('grid', { horizontalIsVisible }, { verticalIsVisible })}
-        ref={el => (this.grid = el)}
+        ref={(el) => { this.grid = el; }}
       >
         <div className={s.grid__container}>
           <div className={s.grid__row} data-columns={columns}>

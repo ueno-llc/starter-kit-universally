@@ -45,7 +45,7 @@ body { // stylelint-disable-line
   font-family: $font-family;
   font-size: $font-size;
   line-height: $line-height;
-  color: $font-color;
+  color: $color-default;
 
   // iOS on orientation change
   text-size-adjust: 100%;
@@ -61,16 +61,16 @@ img { // stylelint-disable-line
 
 // placeholders
 input, textarea, select { // stylelint-disable-line
-  &::-webkit-input-placeholder {
+  &::-webkit-input-placeholder { // stylelint-disable-line
     color: $color-placeholder;
   }
 
-  &::-moz-placeholder {
+  &::-moz-placeholder { // stylelint-disable-line
     opacity: 1;
     color: $color-placeholder;
   }
 
-  &:-ms-input-placeholder {
+  &:-ms-input-placeholder { // stylelint-disable-line
     color: $color-placeholder;
   }
 }

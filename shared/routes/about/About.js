@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Segment from 'components/segment';
 import Helmet from 'react-helmet';
+
+import Segment from 'components/segment';
 
 export default class About extends Component {
   render() {

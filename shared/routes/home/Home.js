@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
+import config from 'utils/config';
+
 import Segment from 'components/segment';
 import Button from 'components/button';
 
@@ -10,7 +12,7 @@ export default class Home extends Component {
         <Helmet title="Home" />
 
         <Segment>
-          <h1>Nothing feels like ::ffff!</h1>
+          <h1>{config('welcomeMessage')}</h1>
         </Segment>
 
         <Segment>
