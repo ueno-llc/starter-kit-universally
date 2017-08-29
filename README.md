@@ -21,6 +21,10 @@ yarn
 yarn run dev
 ```
 
+### Password protecting
+
+By setting a `PASSWORD_PROTECT` env variable, the server will ask the client to authenticate with basic auth. If the string contains a `:` it will be split and set the username as the first part and the password as the second part, e.g. `Aladdin:OpenSesame`. If no `:` is in the string (or it starts with a `:`), the username will be empty and the password the given string.
+
 ### Single route development
 
 If you’re working on a single route and don’t want to build the entire app you can do so by using the `--route` argument, for example:
