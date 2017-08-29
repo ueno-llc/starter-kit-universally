@@ -22,6 +22,7 @@ yarn run dev
 ```
 
 ### Single route development
+
 If you’re working on a single route and don’t want to build the entire app you can do so by using the `--route` argument, for example:
 
 ```bash
