@@ -53,6 +53,9 @@ const values = {
   // Expose environment
   NODE_ENV: EnvVars.string('NODE_ENV', 'development'),
 
+  // Are we measuring performance?
+  performance: EnvVars.bool('PERFORMANCE', false),
+
   // Enable node-notifier?
   notifier: EnvVars.string('NOTIFIER', 'warn'),
 
