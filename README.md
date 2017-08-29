@@ -73,6 +73,42 @@ Testing can be enabled by adding to `scripts`:
 "test": "jest"
 ```
 
+## Measuring performance
+
+At some point during your projects lifetime, it will suddenly become _slow_. It might be some silly dependency, missed configuration or the alignment of the stars. After suffering through long build times one time to many, you'll start tweaking and tearing stuff apart. While doing that it's nice to know if you're having any effect, so there are some scripts included to help with that, located in `./internal/performance`.
+
+Before starting, set `PERFORMANCE=true` in the env so the build spits out timings.
+
+Measuring initial build times, runs the dev build, kills it, runs it again N times. When finished it writes the average of all the runs to stdout.
+
+```bash
+> chmod +x ./internal/performance/build.sh # allow execution
+> ./internal/performance/build.sh
+Running "yarn run dev" 5 times
+2627.793
+2697.435
+4140.478
+2911.944
+2846.027
+
+2175.239
+```
+
+Measuring hot reload rebuilds, runs the dev task and waits for changes that trigger rebuilds. When the script is interrupted (e.g. by ctrl+c) it writes the average of all runs to stdout.
+
+```bash
+> chmod +x ./internal/performance/hot.sh # allow execution
+> ./internal/performance/hot.sh
+Running "yarn run dev" watching for hot reloads
+Build complete
+794.079
+518.700
+500.460
+492.716
+^C
+576.488
+```
+
 ---
 
 <p align='center'>
