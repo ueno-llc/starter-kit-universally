@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import Container from 'components/container';
+
 import s from './Segment.scss';
 
 /**

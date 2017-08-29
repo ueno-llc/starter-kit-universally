@@ -62,7 +62,6 @@
 }
 
 // segment customisable per-component / instance rather than being forced to work around defaults.
-
 @mixin segment($padding-top: $segment-padding, $padding-bottom: $segment-padding, $padding-top-mobile: $segment-padding-mobile, $padding-bottom-mobile: $segment-padding-mobile) {
   padding-top: $padding-top-mobile;
   padding-bottom: $padding-bottom-mobile;
