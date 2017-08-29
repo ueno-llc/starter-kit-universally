@@ -26,6 +26,8 @@ const values = {
     helmet: true,
     // Google Analytics is initialized on the client.
     gaId: true,
+    // Expose heroku devtools flag
+    herokuDevtools: true,
   },
 
   // The public facing url of the app
@@ -46,13 +48,19 @@ const values = {
   // This is an example environment variable which is used within the react
   // application to demonstrate the usage of environment variables across
   // the client and server bundles.
-  welcomeMessage: EnvVars.string('WELCOME_MSG', 'Hello world!'),
+  welcomeMessage: EnvVars.string('WELCOME_MSG', 'Nothing feels like ::ffff!'),
 
   // Expose environment
   NODE_ENV: EnvVars.string('NODE_ENV', 'development'),
 
+  // Are we measuring performance?
+  performance: EnvVars.bool('PERFORMANCE', false),
+
   // Enable node-notifier?
   notifier: EnvVars.string('NOTIFIER', 'warn'),
+
+  // Toggle devtools on heroku
+  herokuDevtools: EnvVars.string('HEROKU_DEVTOOLS', false),
 
   // Disable server side rendering?
   disableSSR: false,

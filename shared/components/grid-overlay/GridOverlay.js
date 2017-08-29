@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import autobind from 'core-decorators/lib/autobind';
+
 import s from './GridOverlay.scss';
 
 // Key to store visibility state of the grid overlay
