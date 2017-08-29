@@ -42,10 +42,6 @@
     "no-param-reassign": ["error", { "props": false }]
   },
   "settings": {
-    "import/core-modules": [
-      "App",
-      "route",
-    ],
     "import/resolver": {
       "node": {
         "extensions": [
