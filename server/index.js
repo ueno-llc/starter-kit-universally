@@ -12,10 +12,10 @@ import errorHandlers from './middleware/errorHandlers';
 import enforceHttps from './middleware/enforceHttps';
 import config from '../config';
 
-// the webpack config aliases the SSR-appropriate react app in the reactApplicationDirectory
+// the webpack config aliases the SSR-appropriate react app in the
+// reactApplication directory
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import reactApplication from './middleware/reactApplication';
-
 
 // Create our express based server.
 const app = express();

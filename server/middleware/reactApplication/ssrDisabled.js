@@ -19,7 +19,8 @@ export default function reactApplicationMiddleware(request, response) {
       'content-security-policy',
       response.getHeader('content-security-policy')
         .split(';')
-        .map(directive => directive.indexOf('script-src') >= 0 ? `${directive} sha256-${sha256(content)}` : directive)
+        .map(directive => directive.indexOf('script-src') >= 0 ?
+          `${directive} sha256-${sha256(content)}` : directive)
         .join(';'),
     );
     return content;
