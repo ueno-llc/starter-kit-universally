@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ctrlplusb/react-universally.git"
+    "url": "git+https://github.com/ueno-llc/starter-kit-universally"
   },
   "keywords": [
     "react",
@@ -41,9 +41,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ctrlplusb/react-universally/issues"
+    "url": "https://github.com/ueno-llc/starter-kit-universally/issues"
   },
-  "homepage": "https://github.com/ctrlplusb/react-universally#readme",
+  "homepage": "https://github.com/ueno-llc/starter-kit-universally",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"

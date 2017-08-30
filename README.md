@@ -3,7 +3,7 @@
 
 ## New projects
 
-This repo has all upcoming releases in the `development` base branch. All [releases](https://github.com/ueno-llc/starter-kit-universally/releases) are made from the `master` branch. 
+This repo has all upcoming releases in the `development` base branch. All [releases](https://github.com/ueno-llc/starter-kit-universally/releases) are made from the `master` branch.
 
 Clone this repo and switch to `master`, rename origin to upstream for updates and add your own origin:
 
