@@ -65,7 +65,7 @@ const values = {
   notifier: EnvVars.string('NOTIFIER', 'warn'),
 
   // Toggle devtools on heroku
-  herokuDevtools: EnvVars.string('HEROKU_DEVTOOLS', false),
+  herokuDevtools: EnvVars.bool('HEROKU_DEVTOOLS', false),
 
   passwordProtect: EnvVars.string('PASSWORD_PROTECT', ''),
 
