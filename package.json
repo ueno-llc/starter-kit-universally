@@ -1,7 +1,7 @@
 {
-  "name": "react-universally",
+  "name": "starter-kit-universally",
   "version": "1.0.0",
-  "description": "A starter kit for universal react applications.",
+  "description": "A starter kit from Ueno. Based on react-universally",
   "main": "build/server/index.js",
   "engines": {
     "node": ">=7.5 <8"
