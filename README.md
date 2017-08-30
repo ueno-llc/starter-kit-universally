@@ -3,13 +3,17 @@
 
 ## New projects
 
-Clone this repo, add the upstream for updates
+This repo has all upcoming releases in the `development` base branch. All [releases](https://github.com/ueno-llc/starter-kit-universally/releases) are made from the `master` branch. 
+
+Clone this repo and switch to `master`, rename origin to upstream for updates and add your own origin:
 
 ```bash
 git clone https://github.com/ueno-llc/starter-kit-universally.git my-project
 cd my-project
-git remote add upstream https://github.com/ueno-llc/starter-kit-universally.git
+git checkout master
+git remote rename origin upstream
 git remote set-url --push upstream no_push # disable push to upstream
+git remote add origin <my-origin>
 ```
 
 Change values in `app.json` and `config/values.js`. Delete this part of the readme.
@@ -48,7 +52,19 @@ yarn start
 
 ## Updating from upstream
 
-Make sure you have the `upstream` remote, then:
+Make sure you have the `upstream` remote:
+
+```bash
+> git remote -v # should show..
+...
+upstream git@github.com:ueno-llc/starter-kit-universally.git (fetch)
+...
+# if not, run...
+git remote add upstream https://github.com/ueno-llc/starter-kit-universally.git
+git remote set-url --push upstream no_push # disable push to upstream
+```
+
+Then, update:
 
 ```bash
 git fetch upstream
