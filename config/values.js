@@ -5,7 +5,12 @@
  * absolute paths should be resolved during runtime by our build internal/server.
  */
 
+import path from 'path';
+import fs from 'fs';
+import appRootDir from 'app-root-dir';
+
 import * as EnvVars from './utils/envVars';
+import CliVar from './utils/cliVar';
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
@@ -26,6 +31,8 @@ const values = {
     helmet: true,
     // Google Analytics is initialized on the client.
     gaId: true,
+    // Expose heroku devtools flag
+    herokuDevtools: true,
   },
 
   // The public facing url of the app
@@ -46,13 +53,21 @@ const values = {
   // This is an example environment variable which is used within the react
   // application to demonstrate the usage of environment variables across
   // the client and server bundles.
-  welcomeMessage: EnvVars.string('WELCOME_MSG', 'Hello world!'),
+  welcomeMessage: EnvVars.string('WELCOME_MSG', 'Nothing feels like ::ffff!'),
 
   // Expose environment
   NODE_ENV: EnvVars.string('NODE_ENV', 'development'),
 
+  // Are we measuring performance?
+  performance: EnvVars.bool('PERFORMANCE', false),
+
   // Enable node-notifier?
   notifier: EnvVars.string('NOTIFIER', 'warn'),
+
+  // Toggle devtools on heroku
+  herokuDevtools: EnvVars.bool('HEROKU_DEVTOOLS', false),
+
+  passwordProtect: EnvVars.string('PASSWORD_PROTECT', ''),
 
   // Disable server side rendering?
   disableSSR: false,
@@ -403,6 +418,9 @@ const values = {
       // eslint-disable-next-line no-unused-vars
       const { target, mode } = buildOptions;
 
+      // we assume resolve to be an object with an `alias` object we can add to
+      const { resolve } = webpackConfig;
+
       // Example:
       /*
       if (target === 'server' && mode === 'development') {
@@ -416,6 +434,29 @@ const values = {
         console.log(JSON.stringify(webpackConfig, null, 4));
       }
       */
+
+      // Hook up possible single route development
+      const route = CliVar('route');
+      if (mode === 'development' && route) {
+        const routePath = path.resolve(appRootDir.get(), `shared/routes/${route}`);
+
+        // we can call sync function here since it's only in development
+        const routeIsValid = route && route !== '' && fs.existsSync(routePath);
+
+        if (routeIsValid) {
+          const resolvedApp = path.resolve(appRootDir.get(), 'shared/SingleRouteApp');
+
+          resolve.alias.route = routePath;
+          resolve.alias.App = resolvedApp;
+
+          console.info(`==> Routing all requests to the "${route}" route`);
+        } else {
+          console.warn(`Unable to resolve route "${route}" at ${routePath}`);
+          resolve.alias.App = path.resolve(appRootDir.get(), 'shared/MainApp');
+        }
+      } else {
+        resolve.alias.App = path.resolve(appRootDir.get(), 'shared/MainApp');
+      }
 
       return webpackConfig;
     },

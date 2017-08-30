@@ -1,7 +1,7 @@
 @import '~styles/config';
 
 .container {
-  @include container();
+  @include container;
 
   .full {
     max-width: none;

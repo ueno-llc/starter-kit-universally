@@ -1,3 +1,12 @@
+// Helper to convert straight number to percentage
+@function convertify($number) {
+  @if type-of($number) == 'number' and unitless($number) {
+    @return percentage($number/12);
+  }
+
+  @return $number;
+}
+
 // Rows
 @mixin make-row($direction: ltr, $align: stretch, $justify: flex-start, $grid-gutter: $gutter, $wrap: wrap) {
   display: flex;
@@ -16,7 +25,6 @@
   @else {
     flex-direction: row-reverse;
   }
-
 }
 
 // Columns
@@ -27,5 +35,14 @@
   padding-left: $grid-gutter/2;
   padding-right: $grid-gutter/2;
 
-  width: $width;
+  width: convertify($width);
+}
+
+// Offsets
+@mixin make-offset-left($offset: percentage(1/12)) {
+  margin-left: convertify($offset);
+}
+
+@mixin make-offset-right($offset: percentage(1/12)) {
+  margin-right: convertify($offset);
 }

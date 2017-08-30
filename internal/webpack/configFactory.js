@@ -13,6 +13,7 @@ import { mergeDeep } from '../utils/objects';
 import { removeNil } from '../utils/arrays';
 import withServiceWorker from './withServiceWorker';
 import config from '../../config';
+import { TimerPlugin, timer } from '../performance';
 
 /**
  * Generates a webpack configuration for the target configuration.
@@ -35,6 +36,7 @@ export default function webpackConfigFactory(buildOptions) {
   const isClient = target === 'client';
   const isServer = target === 'server';
   const isNode = !isClient;
+  const isPerf = config('performance');
 
   // Preconfigure some ifElse helper instnaces. See the util docs for more
   // information on how this util works.
@@ -45,6 +47,16 @@ export default function webpackConfigFactory(buildOptions) {
   const ifDevClient = ifElse(isDev && isClient);
   const ifProdClient = ifElse(isProd && isClient);
   const ifPublicUrl = ifElse(config('publicUrl'));
+  const ifPerf = ifElse(isPerf);
+
+  const clientTimers = [];
+  const serverTimers = [];
+
+  if (isPerf) {
+    timer('start', 'client', clientTimers);
+    timer('start', 'server', serverTimers);
+    console.log('==> Measuring build performance');
+  }
 
   console.log(
     `==> Creating ${isProd ? 'an optimised' : 'a development'} bundle configuration for the "${target}"`,
@@ -456,6 +468,15 @@ export default function webpackConfigFactory(buildOptions) {
 
       // UENO: We want this, which file system?
       new CaseSensitivePathsPlugin(),
+
+      // UENO: Perf related stuff
+      ifPerf(
+        () => {
+          const category = isClient ? 'client' : 'server';
+          const timers = isClient ? clientTimers : serverTimers;
+          return new TimerPlugin({ category, timers });
+        },
+      ),
     ]),
     module: {
       // Don't parse the file that exports process.env
@@ -517,9 +538,9 @@ export default function webpackConfigFactory(buildOptions) {
             ifNode({
               use: [
                 'classnames-loader',
-                `css-loader/locals?modules=1&sourceMap&importLoaders=1&localIdentName=${localIdentName}`,
+                `css-loader/locals?modules=1&importLoaders=1&localIdentName=${localIdentName}`,
                 'postcss-loader',
-                'sass-loader?outputStyle=expanded&sourceMap',
+                'sass-loader?outputStyle=expanded',
               ],
             }),
           ),
@@ -576,6 +597,13 @@ export default function webpackConfigFactory(buildOptions) {
 
   if (isProd && isClient) {
     webpackConfig = withServiceWorker(webpackConfig, bundleConfig);
+  }
+
+  if (isServer) {
+    const moduleName = config('disableSSR') ? 'ssrDisabled' : 'ssrEnabled';
+    const modulePath = `server/middleware/reactApplication/${moduleName}`;
+    const resolvedPath = path.resolve(appRootDir.get(), modulePath);
+    webpackConfig.resolve.alias['./middleware/reactApplication'] = resolvedPath;
   }
 
   // Apply the configuration middleware.

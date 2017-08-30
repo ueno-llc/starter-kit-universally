@@ -8,14 +8,9 @@ import AppLayout, { Content } from 'components/app-layout';
 import Header from 'components/header';
 import Navigation from 'components/navigation';
 import DevTools from 'components/devtools';
-import Analytics from 'components/analytics';
 
 // Routes
-import Home from './routes/home';
-import Grid from './routes/grid';
-import About from './routes/about';
-import Planets from './routes/planets';
-import NotFound from './routes/not-found';
+import SingleRoute from 'route';
 
 export default function App() {
   return (
@@ -24,19 +19,13 @@ export default function App() {
       <Header>
         <Navigation>
           <Link to="/">Home</Link>
-          <Link to="/grid">Grid</Link>
           <Link to="/planets">Planets</Link>
           <Link to="/about">About</Link>
         </Navigation>
       </Header>
       <Content>
-        <Route component={Analytics} />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/grid" component={Grid} />
-          <Route exact path="/about" component={About} />
-          <Route path="/planets" component={Planets} />
-          <Route component={NotFound} />
+          <Route component={SingleRoute} />
         </Switch>
         <DevTools />
       </Content>

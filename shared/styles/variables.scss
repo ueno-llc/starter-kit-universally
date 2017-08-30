@@ -10,12 +10,12 @@ $limit: $page-width + ($container-gutter-desktop * 2);
 // Fonts
 $font-family: 'Roboto', sans-serif;
 $font-size: 16px;
-$font-color: #333;
-$font-color-light: #777;
-$font-color-dark: #111;
 $line-height: 1.5;
 
 // Colors
+$color-default: #333;
+$color-light: #777;
+$color-dark: #111;
 $color-pink: #aa0078;
 $color-primary: $color-pink;
 $color-placeholder: #ddd;

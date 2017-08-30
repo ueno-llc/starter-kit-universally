@@ -1,1 +1,1 @@
-export { default } from './Analytics';
+export default from './Analytics';

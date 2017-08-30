@@ -1,15 +1,19 @@
 
-# ueno. starter kit. universally.
+# Hi! I’m Ueno’s starter-kit.
 
 ## New projects
 
-Clone this repo, add the upstream for updates
+This repo has all upcoming releases in the `development` base branch. All [releases](https://github.com/ueno-llc/starter-kit-universally/releases) are made from the `master` branch.
+
+Clone this repo and switch to `master`, rename origin to upstream for updates and add your own origin:
 
 ```bash
 git clone https://github.com/ueno-llc/starter-kit-universally.git my-project
 cd my-project
-git remote add upstream https://github.com/ueno-llc/starter-kit-universally.git
+git checkout master
+git remote rename origin upstream
 git remote set-url --push upstream no_push # disable push to upstream
+git remote add origin <my-origin>
 ```
 
 Change values in `app.json` and `config/values.js`. Delete this part of the readme.
@@ -20,6 +24,21 @@ Change values in `app.json` and `config/values.js`. Delete this part of the read
 yarn
 yarn run dev
 ```
+
+### Password protecting
+
+By setting a `PASSWORD_PROTECT` env variable, the server will ask the client to authenticate with basic auth. If the string contains a `:` it will be split and set the username as the first part and the password as the second part, e.g. `Aladdin:OpenSesame`. If no `:` is in the string (or it starts with a `:`), the username will be empty and the password the given string.
+
+### Single route development
+
+If you’re working on a single route and don’t want to build the entire app you can do so by using the `--route` argument, for example:
+
+```bash
+> yarn run dev -- --route=about
+```
+`about` being the folder name of the targeted route (inside `shared/routes`). This can be very useful when the app gets bigger and rebuilds and HMR start to get slower.
+
+### Notes
 
 * When adding configuration values and environment specific values, use the [project config](https://github.com/ctrlplusb/react-universally/blob/master/internal/docs/PROJECT_CONFIG.md)
 * In development vendor DLLs are created (see `devVendorDLL` in `config/values.js`) to speed up builds, for large projects you can add your own deps there
@@ -33,7 +52,19 @@ yarn start
 
 ## Updating from upstream
 
-Make sure you have the `upstream` remote, then:
+Make sure you have the `upstream` remote:
+
+```bash
+> git remote -v # should show..
+...
+upstream git@github.com:ueno-llc/starter-kit-universally.git (fetch)
+...
+# if not, run...
+git remote add upstream https://github.com/ueno-llc/starter-kit-universally.git
+git remote set-url --push upstream no_push # disable push to upstream
+```
+
+Then, update:
 
 ```bash
 git fetch upstream
@@ -71,6 +102,42 @@ Testing can be enabled by adding to `scripts`:
 
 ```json
 "test": "jest"
+```
+
+## Measuring performance
+
+At some point during your projects lifetime, it will suddenly become _slow_. It might be some silly dependency, missed configuration or the alignment of the stars. After suffering through long build times one time to many, you'll start tweaking and tearing stuff apart. While doing that it's nice to know if you're having any effect, so there are some scripts included to help with that, located in `./internal/performance`.
+
+Before starting, set `PERFORMANCE=true` in the env so the build spits out timings.
+
+Measuring initial build times, runs the dev build, kills it, runs it again N times. When finished it writes the average of all the runs to stdout.
+
+```bash
+> chmod +x ./internal/performance/build.sh # allow execution
+> ./internal/performance/build.sh
+Running "yarn run dev" 5 times
+2627.793
+2697.435
+4140.478
+2911.944
+2846.027
+
+2175.239
+```
+
+Measuring hot reload rebuilds, runs the dev task and waits for changes that trigger rebuilds. When the script is interrupted (e.g. by ctrl+c) it writes the average of all runs to stdout.
+
+```bash
+> chmod +x ./internal/performance/hot.sh # allow execution
+> ./internal/performance/hot.sh
+Running "yarn run dev" watching for hot reloads
+Build complete
+794.079
+518.700
+500.460
+492.716
+^C
+576.488
 ```
 
 ---
