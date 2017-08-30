@@ -417,6 +417,8 @@ const values = {
     webpackConfig: (webpackConfig, buildOptions) => {
       // eslint-disable-next-line no-unused-vars
       const { target, mode } = buildOptions;
+
+      // we assume resolve to be an object with an `alias` object we can add to
       const { resolve } = webpackConfig;
 
       // Example:
@@ -434,18 +436,20 @@ const values = {
       */
 
       // Hook up possible single route development
-      if (mode === 'development') {
-        const route = CliVar('route');
+      const route = CliVar('route');
+      if (mode === 'development' && route) {
         const routePath = path.resolve(appRootDir.get(), `shared/routes/${route}`);
 
         // we can call sync function here since it's only in development
-        const routeIsValid = route !== '' && fs.existsSync(routePath);
+        const routeIsValid = route && route !== '' && fs.existsSync(routePath);
 
         if (routeIsValid) {
-          resolve.alias = {
-            route: routePath,
-            App: path.resolve(appRootDir.get(), 'shared/SingleRouteApp'),
-          };
+          const resolvedApp = path.resolve(appRootDir.get(), 'shared/SingleRouteApp');
+
+          resolve.alias.route = routePath;
+          resolve.alias.App = resolvedApp;
+
+          console.info(`==> Routing all requests to the "${route}" route`);
         } else {
           console.warn(`Unable to resolve route "${route}" at ${routePath}`);
           resolve.alias.App = path.resolve(appRootDir.get(), 'shared/MainApp');

@@ -27,8 +27,7 @@ export default function reactApplicationMiddleware(request, response) {
   };
 
   if (process.env.BUILD_FLAG_IS_DEV === 'true') {
-    // eslint-disable-next-line no-console
-    console.log('==> Handling react route without SSR');
+    console.info('==> Handling react route without SSR');
   }
   // SSR is disabled so we will return an "empty" html page and
   // rely on the client to initialize and render the react application.
