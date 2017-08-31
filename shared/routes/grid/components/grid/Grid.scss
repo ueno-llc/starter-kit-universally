@@ -35,7 +35,7 @@
   }
 
   &__row {
-    @include make-row;
+    @include grid-row;
 
     position: relative;
 
@@ -46,7 +46,7 @@
     box-shadow: 0 0 0 1px $color-placeholder;
 
     &::after {
-      @include placeholder('@include make-row;', 10px, 10px);
+      @include placeholder('@include grid-row;', 10px, 10px);
     }
   }
 
@@ -62,55 +62,55 @@
 
   // Offsets examples
   &__offsetLeftOne {
-    @include make-offset-left(1);
+    @include grid-offset-left(1);
   }
 
   &__offsetRightOne {
-    @include make-offset-right(1);
+    @include grid-offset-right(1);
   }
 
   &__offsetRightTwo {
-    @include make-offset-right(2);
+    @include grid-offset-right(2);
   }
 
   // Columns examples
   &__twoCol {
-    @include make-col(2);
+    @include grid-col(2);
 
     position: relative;
 
     &::after {
-      @include placeholder('@include make-col(2);');
+      @include placeholder('@include grid-col(2);');
     }
   }
 
   &__threeCol {
-    @include make-col(3);
+    @include grid-col(3);
 
     position: relative;
 
     &::after {
-      @include placeholder('@include make-col(3); @include make-offset-left(1);');
+      @include placeholder('@include grid-col(3); @include grid-offset-left(1);');
     }
   }
 
   &__fourCol {
-    @include make-col(4);
+    @include grid-col(4);
 
     position: relative;
 
     &::after {
-      @include placeholder('@include make-col(4); @include make-offset-left(1); @include make-offset-right(1);');
+      @include placeholder('@include grid-col(4); @include grid-offset-left(1); @include grid-offset-right(1);');
     }
   }
 
   &__tenCol {
-    @include make-col(10);
+    @include grid-col(10);
 
     position: relative;
 
     &::after {
-      @include placeholder('@include make-col(10); @include make-offset-left(1);');
+      @include placeholder('@include grid-col(10); @include grid-offset-left(1);');
     }
   }
 }

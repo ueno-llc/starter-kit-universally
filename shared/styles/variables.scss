@@ -3,6 +3,10 @@ $container-gutter-mobile: $gutter;
 $container-gutter-tablet: 50px;
 $container-gutter-desktop: 70px;
 
+// grid
+$grid-column-count: 12;
+$grid-baseline: 16px;
+
 // page dimensions
 $page-width: 1230px;
 $limit: $page-width + ($container-gutter-desktop * 2);
