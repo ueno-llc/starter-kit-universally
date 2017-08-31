@@ -6,11 +6,11 @@
   .full {
     max-width: none;
 
-    @include viewport(tablet) {
+    @media (min-width: $min-tablet) {
       max-width: none;
     }
 
-    @include viewport(desktop) {
+    @media (min-width: $min-desktop) {
       max-width: none;
     }
   }

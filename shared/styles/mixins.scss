@@ -33,6 +33,8 @@
 }
 
 @mixin viewport($media) {
+  @warn 'viewport mixin is deprecated and will be removed in a future version';
+
   @if $media == handset {
     @media only screen and (max-width: $min-600) { @content; }
   }
@@ -83,7 +85,7 @@
   padding: 0 $container-gutter-mobile;
   max-width: $page-width + $container-gutter-mobile * 1;
 
-  @media (min-width: 340px) {
+  @media (min-width: $min-mobile) {
     max-width: $page-width + $container-gutter-mobile * 2;
   }
 
