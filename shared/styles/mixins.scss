@@ -111,3 +111,53 @@
     max-width: $page-width + $container-gutter-desktop * 2;
   }
 }
+
+// change below to reflect your project
+// numerical values are arbitrary
+@mixin heading($min: ($font-size * 1.5), $max: ($font-size * 3)) {
+  @include reset-heading;
+  @include responsive-font($min, $max);
+
+  @warn 'Please implement for project';
+
+  margin-bottom: (5/$max)*1em;
+
+  font-family: $font-family;
+  font-weight: normal;
+  letter-spacing: 0;
+  line-height: (58/$max);
+
+  color: $color-font;
+}
+
+@mixin subheading($min: ($font-size * 1.5), $max: ($font-size * 3)) {
+  @include reset-heading;
+  @include responsive-font($min, $max);
+
+  @warn 'Please implement for project';
+
+  margin-bottom: (26/$max) * 1em;
+
+  font-family: $font-family;
+  font-weight: normal;
+  letter-spacing: 0;
+  line-height: (58/52);
+
+  color: $color-font;
+}
+
+@mixin copy($min: $font-size, $max: ($font-size + 4)) {
+  @include reset-all;
+  @include responsive-font($min, $max);
+
+  @warn 'Please implement for project';
+
+  margin-bottom: (26/$max) * 1em;
+
+  font-family: $font-family;
+  font-weight: normal;
+  letter-spacing: 0;
+  line-height: (58/$max);
+
+  color: $color-font;
+}
