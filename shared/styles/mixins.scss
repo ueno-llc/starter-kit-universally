@@ -20,6 +20,10 @@
   $font-multiplier: (($size - $min-size) / (strip-unit($limit) - strip-unit($baseline)));
   $font-baseline: ($min-size - $font-multiplier * strip-unit($baseline));
 
+  @if $min-size >= $size {
+    @warn 'Responsive font: min-size equal or greater than size'
+  }
+
   font-size: #{$min-size}px;
 
   @media (min-width: $baseline) {
