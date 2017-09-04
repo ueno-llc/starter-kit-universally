@@ -81,11 +81,11 @@
   padding-bottom: $padding-bottom-mobile;
 
   @media (min-width: $min-tablet) {
-    padding-top: percentage(strip-unit($padding-top) / strip-unit($limit));
-    padding-bottom: percentage(strip-unit($padding-bottom) / strip-unit($limit));
+    padding-top: percentage(strip-unit($padding-top) / strip-unit($page-limit));
+    padding-bottom: percentage(strip-unit($padding-bottom) / strip-unit($page-limit));
   }
 
-  @media (min-width: $limit) {
+  @media (min-width: $page-limit) {
     padding-top: strip-unit($padding-top) * 1px;
     padding-bottom: strip-unit($padding-bottom) * 1px;
   }
