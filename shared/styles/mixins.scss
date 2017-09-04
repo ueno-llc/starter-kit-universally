@@ -15,8 +15,8 @@
 }
 
 // defaults to standard heading size
-@mixin responsive-font($min-size: 23, $size: 36, $limit: 1200px) {
-  $baseline: 375px;
+@mixin responsive-font($min-size: $font-size, $size: $font-size, $limit: $page-limit) {
+  $baseline: $min-mobile;
   $font-multiplier: (($size - $min-size) / (strip-unit($limit) - strip-unit($baseline)));
   $font-baseline: ($min-size - $font-multiplier * strip-unit($baseline));
 

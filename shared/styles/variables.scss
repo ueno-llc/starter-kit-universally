@@ -9,7 +9,7 @@ $grid-baseline: 16px;
 
 // page dimensions
 $page-width: 1230px;
-$limit: $page-width + ($container-gutter-desktop * 2);
+$page-limit: $page-width + ($container-gutter-desktop * 2);
 
 // Fonts
 $font-family: 'Roboto', sans-serif;
@@ -17,7 +17,8 @@ $font-size: 16px;
 $line-height: 1.5;
 
 // Colors
-$color-default: #333;
+$color-font: #333;
+$color-background: #fff;
 $color-light: #777;
 $color-dark: #111;
 $color-pink: #aa0078;
@@ -44,6 +45,7 @@ $min-600: 600px;
 $min-560: 560px;
 $min-540: 540px;
 $min-480: 480px;
+$min-420: 420px;
 $min-375: 375px;
 $min-360: 360px;
 
@@ -60,6 +62,7 @@ $max-640: 639px;
 $max-600: 599px;
 $max-540: 539px;
 $max-480: 479px;
+$max-420: 419px;
 $max-375: 374px;
 $max-360: 359px;
 

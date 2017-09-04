@@ -17,7 +17,7 @@
 html, body { // stylelint-disable-line
   min-height: 100vh;
 
-  background: #fff;
+  background: $color-background;
 }
 
 html { // stylelint-disable-line
@@ -45,7 +45,7 @@ body { // stylelint-disable-line
   font-family: $font-family;
   font-size: $font-size;
   line-height: $line-height;
-  color: $color-default;
+  color: $color-font;
 
   // iOS on orientation change
   text-size-adjust: 100%;
