@@ -9,13 +9,8 @@ import Segment from 'components/segment';
 
 import RelatedPlanets from './components/related-planets';
 
-@inject(['planets'])
-@withJob({
-  work: ({ match, planets }) => planets.fetchById(match.params.id),
-  shouldWorkAgain: (prev, next) => prev.match.params.id !== next.match.params.id,
-})
-export default class PlanetsDetail extends Component {
-
+// can't decorate this class, it contains <RelatedPlanets> that has state
+class PlanetsDetail extends Component {
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,
@@ -55,3 +50,9 @@ export default class PlanetsDetail extends Component {
     );
   }
 }
+
+const planetsDetailWithJob = withJob({
+  work: ({ match, planets }) => planets.fetchById(match.params.id),
+  shouldWorkAgain: (prev, next) => prev.match.params.id !== next.match.params.id,
+})(PlanetsDetail);
+export default inject('planets')(planetsDetailWithJob);
