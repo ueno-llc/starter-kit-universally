@@ -25,6 +25,10 @@ yarn
 yarn run dev
 ```
 
+### Dev tools
+
+Dev tools (vertical and horizontal grids, mobx devtools) are hidden by default. To show them use `ctrl + k`. Horizontal grid can be toggled via `ctrl + l`.
+
 ### Password protecting
 
 By setting a `PASSWORD_PROTECT` env variable, the server will ask the client to authenticate with basic auth. If the string contains a `:` it will be split and set the username as the first part and the password as the second part, e.g. `Aladdin:OpenSesame`. If no `:` is in the string (or it starts with a `:`), the username will be empty and the password the given string.
