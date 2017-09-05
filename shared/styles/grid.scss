@@ -48,22 +48,22 @@
 }
 
 // Deprecated mixins
-@mixin make-row($direction: ltr, $align: stretch, $justify: flex-start, $grid-gutter: $gutter, $wrap: wrap) {
+@mixin make-row($args...) {
   @warn 'make-row mixin is deprecated, use grid-row';
-  @include grid-row($direction, $align, $justify, $grid-gutter, $wrap);
+  @include grid-row($args...);
 }
 
-@mixin make-col($width: 100%, $align: stretch, $grid-gutter: $gutter) {
+@mixin make-col($args...) {
   @warn 'make-col mixin is deprecated, use grid-col';
-  @include grid-col($width, $align, $grid-gutter);
+  @include grid-col($args...);
 }
 
-@mixin make-offset-left($offset: percentage(1/$grid-column-count)) {
+@mixin make-offset-left($args...) {
   @warn 'make-offset-left mixin is deprecated, use grid-offset-left';
-  @include grid-offset-left($offset);
+  @include grid-offset-left($args...);
 }
 
-@mixin make-offset-right($offset: percentage(1/$grid-column-count)) {
+@mixin make-offset-right($args...) {
   @warn 'make-offset-right mixin is deprecated, use grid-offset-right';
-  @include grid-offset-right($offset);
+  @include grid-offset-right($args...);
 }
