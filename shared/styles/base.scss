@@ -2,11 +2,12 @@
 *  This file is imported in components/app-layout/AppLayout.scss
 */
 
-@-ms-viewport { // stylelint-disable-line
+/* stylelint-disable selector-max-type  */
+@-ms-viewport {
   width: device-width;
 }
 
-@-o-viewport { // stylelint-disable-line
+@-o-viewport {
   width: device-width;
 }
 
@@ -14,13 +15,17 @@
   width: device-width;
 }
 
-html, body { // stylelint-disable-line
+html,
+body {
   min-height: 100vh;
 
   background: $color-background;
 }
 
-html { // stylelint-disable-line
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   -webkit-overflow-scrolling: touch;
 
   overflow-x: hidden;
@@ -28,9 +33,6 @@ html { // stylelint-disable-line
   overflow-y: scroll;
 
   box-sizing: border-box;
-
-  -webkit-font-smoothing: antialiased; // stylelint-disable-line
-  -moz-osx-font-smoothing: grayscale; // stylelint-disable-line
 }
 
 // inherited from <html>
@@ -40,7 +42,7 @@ html { // stylelint-disable-line
   box-sizing: inherit;
 }
 
-body { // stylelint-disable-line
+body {
   position: relative;
 
   margin: 0;
@@ -54,24 +56,26 @@ body { // stylelint-disable-line
   text-size-adjust: 100%;
 }
 
-img { // stylelint-disable-line
+img {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
 // placeholders
-input, textarea, select { // stylelint-disable-line
-  &::-webkit-input-placeholder { // stylelint-disable-line
+input,
+textarea,
+select {
+  &::-webkit-input-placeholder {
     color: $color-placeholder;
   }
 
-  &::-moz-placeholder { // stylelint-disable-line
+  &::-moz-placeholder {
     opacity: 1;
     color: $color-placeholder;
   }
 
-  &:-ms-input-placeholder { // stylelint-disable-line
+  &:-ms-input-placeholder {
     color: $color-placeholder;
   }
 }
