@@ -25,6 +25,26 @@ yarn
 yarn run dev
 ```
 
+### Hot reloading with state and decorators
+
+By default we're using [`react-jobs`](https://github.com/ctrlplusb/react-jobs) for async stuff with server-side rendering. If we mix that with `mobx` and decorators suddenly hot reloading with state will stop working. This is due to a bug in [`react-hot-loader`](https://github.com/gaearon/react-hot-loader/issues/378) when higher-order components are composed. So instead of doing:
+
+```js
+@inject('store')
+@withJob({ work: ({ store }) => store.fetch() })
+export default class Thing extends Component { }
+```
+and not have stateful hot reloading, instead do
+
+```js
+class Thing extends Component { }
+
+const thingWithJob = withJob({ work: ({ store }) => store.fetch() })(Thing);
+export default inject('store')(thingWithJob);
+```
+
+If your stateful component `withJob` doesn't contain another component in its sub-tree, you can get away with having a `@withJob` decorator.
+
 ### Dev tools
 
 Dev tools (vertical and horizontal grids, mobx devtools) are hidden by default. To show them use `ctrl + k`. Horizontal grid can be toggled via `ctrl + l`.
