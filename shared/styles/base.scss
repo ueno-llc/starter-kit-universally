@@ -28,6 +28,9 @@ html { // stylelint-disable-line
   overflow-y: scroll;
 
   box-sizing: border-box;
+
+  -webkit-font-smoothing: antialiased; // stylelint-disable-line
+  -moz-osx-font-smoothing: grayscale; // stylelint-disable-line
 }
 
 // inherited from <html>
