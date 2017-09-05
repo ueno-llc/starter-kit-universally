@@ -74,3 +74,9 @@ $min-desktop: $min-1080;
 // Segment
 $segment-padding-mobile: $gutter * 3;
 $segment-padding: 200px; //percentage-based segments spacing
+
+// scale for edge-case wide pages
+// used in :root in base.scss
+$scale: 1;
+$scale-md: 0.9;
+$scale-sm: 0.8;

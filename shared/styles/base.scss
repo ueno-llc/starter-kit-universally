@@ -15,6 +15,20 @@
   width: device-width;
 }
 
+:root {
+  --scale-multiplier: $scale;
+
+  // 805px is start of 15" Mac Book Pro range
+  @media (max-height: 805px) and (min-aspect-ratio: 16/10) {
+    --scale-multiplier: $scale-md;
+  }
+
+  // 650px is start of 13" Mac Book Pro with dock at bottom range
+  @media (max-height: 650px) and (min-aspect-ratio: 16/10) {
+    --scale-multiplier: $scale-sm;
+  }
+}
+
 html,
 body {
   min-height: 100vh;

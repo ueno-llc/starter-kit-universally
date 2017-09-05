@@ -25,14 +25,16 @@
   }
 
   font-size: #{$min-size}px;
+  font-size: calc(#{$min-size}px * #{var(--scale-multiplier)});
 
   @media (min-width: $baseline) {
     font-size: #{$min-size}px;
-    font-size: calc(#{$font-multiplier} * #{100vw} + (#{$font-baseline}px));
+    font-size: calc((#{$font-multiplier} * #{100vw} + (#{$font-baseline}px)) * #{var(--scale-multiplier)});
   }
 
   @media (min-width: $limit) {
     font-size: #{$size}px;
+    font-size: calc(#{$size}px * #{var(--scale-multiplier)});
   }
 }
 
