@@ -102,12 +102,14 @@
   }
 
   @media (min-width: $min-tablet) {
-    padding: 0 $container-gutter-tablet;
+    padding-left: $container-gutter-tablet;
+    padding-right: $container-gutter-tablet;
     max-width: $page-width + $container-gutter-tablet * 2;
   }
 
   @media (min-width: $min-desktop) {
-    padding: 0 $container-gutter-desktop;
+    padding-left: $container-gutter-desktop;
+    padding-right: $container-gutter-desktop;
     max-width: $page-width + $container-gutter-desktop * 2;
   }
 }
