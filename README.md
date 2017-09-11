@@ -21,8 +21,10 @@ Change values in `app.json` and `config/values.js`. Delete this part of the read
 ## Development
 
 ```
-yarn
-yarn run dev
+> yarn
+> yarn run dev
+...
+Server listening on http://localhost:3000
 ```
 
 ### Password protecting
@@ -77,14 +79,23 @@ git checkout --ours package.json
 
 ## Remote development
 
-Now supports ngrok and other ways to access your development build.
+There are two ways of doing remote development:
+
+1. Providing IP address via `HOST` to run on local network
+2. Using ngrok to expose localhost to the internet
 
 ```bash
-# outside wifi
-ngrok http 3000
-CLIENT_DEV_PROXY=1 PUBLIC_URL=http://xxxxxx.ngrok.io yarn run dev
-# or local network
-HOST=192.168.123.456 PORT=3000 yarn run dev
+> HOST=192.168.1.1 yarn dev # run from IP address
+> HOST=$(ipconfig getifaddr en0) yarn dev # one-liner on mac
+...
+Server listening on http://192.168.1.1:3000
+```
+
+```bash
+# run ngrok via script
+> yarn dev-remote
+...
+Server listening on https://xyz.ngrok.io
 ```
 
 ## Stricter development

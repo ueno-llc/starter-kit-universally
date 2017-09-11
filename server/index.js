@@ -68,8 +68,16 @@ app.get('*', reactApplication);
 app.use(...errorHandlers);
 
 // Create an http listener for our express app.
-const listener = app.listen(config('port'), () =>
-  console.log(`Server listening on port ${config('port')}`));
+const listener = app.listen(config('port'), () => {
+  const host = config('host');
+  const port = config('port');
+  const localUrl = `http://${host}:${port}`;
+  const publicUrl = process.env.PUBLIC_URL;
+
+  const url = publicUrl && publicUrl !== '' ? publicUrl : localUrl;
+
+  console.info(`Server listening on ${url}`);
+});
 
 // We export the listener as it will be handy for our development hot reloader,
 // or for exposing a general extension layer for application customisations.
