@@ -39,11 +39,11 @@
 }
 
 // Offsets
-@mixin grid-offset-left($offset: percentage(1/$grid-column-count)) {
+@mixin grid-offset-left($offset: 1) {
   margin-left: convertify($offset);
 }
 
-@mixin grid-offset-right($offset: percentage(1/$grid-column-count)) {
+@mixin grid-offset-right($offset: 1) {
   margin-right: convertify($offset);
 }
 

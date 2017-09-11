@@ -96,7 +96,9 @@
 @mixin container() {
   margin: 0 auto;
 
-  padding: 0 $container-gutter-mobile;
+  padding-left: $container-gutter-mobile;
+  padding-right: $container-gutter-mobile;
+
   max-width: $page-width + $container-gutter-mobile * 1;
 
   @media (min-width: $min-mobile) {
@@ -117,19 +119,19 @@
 }
 
 // change below to reflect your project
-// numerical values are arbitrary
 @mixin heading($min: ($font-size * 1.5), $max: ($font-size * 3)) {
   @include reset-heading;
   @include responsive-font($min, $max);
 
-  @warn 'Please implement for project';
+  $arbitrary-heading-margin: 5;
+  $arbitrary-heading-line-height: 58;
 
-  margin-bottom: (5/$max)*1em;
+  margin-bottom: ($arbitrary-heading-margin/$max) * 1em;
 
   font-family: $font-family;
   font-weight: normal;
   letter-spacing: 0;
-  line-height: (58/$max);
+  line-height: ($arbitrary-heading-line-height/$max);
 
   color: $color-font;
 }
@@ -138,14 +140,15 @@
   @include reset-heading;
   @include responsive-font($min, $max);
 
-  @warn 'Please implement for project';
+  $arbitrary-subheading-margin: 26;
+  $arbitrary-subheading-line-height: 58;
 
-  margin-bottom: (26/$max) * 1em;
+  margin-bottom: ($arbitrary-subheading-margin/$max) * 1em;
 
   font-family: $font-family;
   font-weight: normal;
   letter-spacing: 0;
-  line-height: (58/52);
+  line-height: ($arbitrary-subheading-line-height/$max);
 
   color: $color-font;
 }
@@ -154,14 +157,15 @@
   @include reset-all;
   @include responsive-font($min, $max);
 
-  @warn 'Please implement for project';
+  $arbitrary-copy-margin: 26;
+  $arbitrary-copy-line-height: 58;
 
-  margin-bottom: (26/$max) * 1em;
+  margin-bottom: ($arbitrary-copy-margin/$max) * 1em;
 
   font-family: $font-family;
   font-weight: normal;
   letter-spacing: 0;
-  line-height: (58/$max);
+  line-height: ($arbitrary-copy-line-height/$max);
 
   color: $color-font;
 }
