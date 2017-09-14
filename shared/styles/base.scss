@@ -2,11 +2,12 @@
 *  This file is imported in components/app-layout/AppLayout.scss
 */
 
-@-ms-viewport { // stylelint-disable-line
+/* stylelint-disable selector-max-type  */
+@-ms-viewport {
   width: device-width;
 }
 
-@-o-viewport { // stylelint-disable-line
+@-o-viewport {
   width: device-width;
 }
 
@@ -14,13 +15,31 @@
   width: device-width;
 }
 
-html, body { // stylelint-disable-line
-  min-height: 100vh;
+:root {
+  --scale-multiplier: $scale;
 
-  background: #fff;
+  // 805px is start of 15" Mac Book Pro range
+  @media (max-height: 805px) and (min-aspect-ratio: 16/10) {
+    --scale-multiplier: $scale-md;
+  }
+
+  // 650px is start of 13" Mac Book Pro with dock at bottom range
+  @media (max-height: 650px) and (min-aspect-ratio: 16/10) {
+    --scale-multiplier: $scale-sm;
+  }
 }
 
-html { // stylelint-disable-line
+html,
+body {
+  min-height: 100vh;
+
+  background: $color-background;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   -webkit-overflow-scrolling: touch;
 
   overflow-x: hidden;
@@ -37,7 +56,7 @@ html { // stylelint-disable-line
   box-sizing: inherit;
 }
 
-body { // stylelint-disable-line
+body {
   position: relative;
 
   margin: 0;
@@ -45,32 +64,32 @@ body { // stylelint-disable-line
   font-family: $font-family;
   font-size: $font-size;
   line-height: $line-height;
-  color: $color-default;
+  color: $color-font;
 
   // iOS on orientation change
   text-size-adjust: 100%;
-
-  overflow-x: hidden;
 }
 
-img { // stylelint-disable-line
+img {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
 // placeholders
-input, textarea, select { // stylelint-disable-line
-  &::-webkit-input-placeholder { // stylelint-disable-line
+input,
+textarea,
+select {
+  &::-webkit-input-placeholder {
     color: $color-placeholder;
   }
 
-  &::-moz-placeholder { // stylelint-disable-line
+  &::-moz-placeholder {
     opacity: 1;
     color: $color-placeholder;
   }
 
-  &:-ms-input-placeholder { // stylelint-disable-line
+  &:-ms-input-placeholder {
     color: $color-placeholder;
   }
 }

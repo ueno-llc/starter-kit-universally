@@ -1,9 +1,9 @@
 @import '~styles/config';
 
 :root {
-  --grid-column-count: 12;
-  --grid-baseline: 16px;
-  --grid-baseline-calc: 16;
+  --grid-column-count: $grid-column-count;
+  --grid-baseline: $grid-baseline;
+  --grid-baseline-calc: unitless($grid-baseline);
 }
 
 .grid {
@@ -40,13 +40,13 @@
   }
 
   &__row {
-    @include make-row;
+    @include grid-row;
 
     height: 100%;
   }
 
   &__column {
-    @include make-col(calc(100% / var(--grid-column-count, 12)));
+    @include grid-col(calc(100% / var(--grid-column-count, #{$grid-column-count})));
 
     position: relative;
     height: 100%;
@@ -139,7 +139,7 @@
 
 // Polyfill for browsers without css variables
 // Like Safari 9
-@for $i from 1 through 12 {
+@for $i from 1 through $grid-column-count {
   [data-columns='#{$i}'] .grid__column {
     min-width: 100% / $i;
   }
