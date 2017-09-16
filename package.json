@@ -11,7 +11,7 @@
     "analyze:server": "babel-node internal/scripts/analyze --server",
     "build": "npm run clean && cross-env NODE_ENV=production babel-node internal/scripts/build --optimize",
     "build:dev": "npm run clean && cross-env NODE_ENV=development babel-node internal/scripts/build",
-    "build:static": "npm run build",
+    "build:static": "npm run build && babel-node internal/scripts/buildStatic",
     "clean": "cross-env babel-node internal/scripts/clean",
     "deploy": "babel-node internal/scripts/deploy",
     "dev": "cross-env DEPLOYMENT=development babel-node internal/development",
@@ -161,6 +161,7 @@
     "pre-commit": "1.2.2",
     "react-addons-test-utils": "15.6.0",
     "stylelint": "8.0.0",
+    "superagent": "^3.6.0",
     "webpack-bundle-analyzer": "2.9.0",
     "webpack-dev-middleware": "1.12.0",
     "webpack-hot-middleware": "2.18.2"
