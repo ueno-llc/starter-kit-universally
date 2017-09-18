@@ -11,7 +11,7 @@
     "analyze:server": "babel-node internal/scripts/analyze --server",
     "build": "npm run clean && cross-env NODE_ENV=production babel-node internal/scripts/build --optimize",
     "build:dev": "npm run clean && cross-env NODE_ENV=development babel-node internal/scripts/build",
-    "build:static": "npm run build && babel-node internal/scripts/buildStatic",
+    "build:static": "babel-node internal/scripts/buildStatic",
     "clean": "cross-env babel-node internal/scripts/clean",
     "deploy": "babel-node internal/scripts/deploy",
     "dev": "cross-env DEPLOYMENT=development babel-node internal/development",
