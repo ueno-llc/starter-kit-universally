@@ -5,6 +5,7 @@ import config from 'utils/config';
 import Segment from 'components/segment';
 import Heading from 'components/heading';
 import Button from 'components/button';
+import s from './Home.scss';
 
 export default class Home extends Component {
   render() {
@@ -14,6 +15,14 @@ export default class Home extends Component {
 
         <Segment>
           <Heading>{config('welcomeMessage')}</Heading>
+
+          <div className={`${s.js} ${s.jsOnly}`}>
+            <p>Javascript is <b>✓</b></p>
+          </div>
+
+          <div className={`${s.js} ${s.jsDisabled}`}>
+            <p>Javascript is <b>✗</b></p>
+          </div>
         </Segment>
 
         <Segment>
