@@ -54,6 +54,17 @@ yarn run build
 yarn start
 ```
 
+## Static site build
+
+You can generate a static site by configuring the appropriate staticSiteGeneration values in `config/values.js`.  Then
+run `yarn run build:static` and the static pages will be generated in build/static. 
+
+To see the generated site, use `yarn run start:static`
+
+Note that any error pages (e.g. 404.html) will not work without some server intelligence to send requests to the correct
+file.
+ 
+
 ## Updating from upstream
 
 Make sure you have the `upstream` remote:
