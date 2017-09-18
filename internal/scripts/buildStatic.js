@@ -4,7 +4,14 @@ import _ from 'lodash';
 
 // this import actually launches the server as well as providing a reference to it
 import server from '../../build/server';
-import { getStaticRoutesToGenerate } from '../../shared/routes/routeSummary';
+import config from '../../config';
+
+function getStaticRoutesToGenerate() {
+  const { baseRoutes, ignoredBaseRoutes, extraRoutes } = config('staticSiteGeneration');
+  const filteredBaseRoutes =
+    _.filter(baseRoutes, route => !_.includes(ignoredBaseRoutes, route.source));
+  return _.concat(filteredBaseRoutes, extraRoutes);
+}
 
 const destinationDir = './build/static/';
 const builtClientBundles = './build/client/';

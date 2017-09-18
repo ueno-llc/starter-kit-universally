@@ -461,6 +461,37 @@ const values = {
       return webpackConfig;
     },
   },
+
+  staticSiteGeneration: {
+    // COMING SOON: these hard-coded base routes will be deprecated and instead be auto-generated
+    // at build-time from the react router. All non-dynamic routes will be included.
+    baseRoutes: [
+      {
+        source: '',
+        destination: 'index.html',
+      }, {
+        source: 'grid',
+        destination: 'grid.html',
+      }, {
+        source: 'planets',
+        destination: 'planets.html',
+      }, {
+        source: 'about',
+        destination: 'about.html',
+      },
+    ],
+    // array of strings which are the source paths for base routes that should not be used
+    // to generate static pages. By default it's empty
+    ignoredBaseRoutes: [],
+    // any additional routes to generate. If generating a static copy of an error page,
+    // set ignoreGetError to true so the static generator will handle the exception and still
+    // create a static html file.
+    extraRoutes: [{
+      source: 'this-is-an-invalid-url-to-generate-a-404-page',
+      destination: '404.html',
+      ignoreGetError: true,
+    }],
+  },
 };
 
 // This protects us from accidentally including this configuration in our
