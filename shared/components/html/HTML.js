@@ -25,7 +25,7 @@ function HTML(props) {
   } = props;
 
   return (
-    <html {...htmlAttributes} className="no-js">
+    <html {...htmlAttributes}>
       <head>
         { headerElements }
       </head>

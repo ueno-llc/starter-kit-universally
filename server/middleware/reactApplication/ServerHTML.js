@@ -42,17 +42,6 @@ function scriptTag(jsFilePath) {
   return <script type="text/javascript" src={jsFilePath} />;
 }
 
-// renames html class from no-js to js
-function noJs() {
-  return (
-    <script
-      type="text/javascript"
-      dangerouslySetInnerHTML={{ __html: `document.documentElement.className =
-       document.documentElement.className.replace('no-js', 'js')` }}
-    />
-  );
-}
-
 // COMPONENT
 
 function ServerHTML(props) {
@@ -71,7 +60,6 @@ function ServerHTML(props) {
   );
 
   const headerElements = removeNil([
-    noJs(),
     ifElse(facebookPixel)(() => inlineScript(analytics.facebook)),
     ifElse(twitterPixel)(() => inlineScript(analytics.twitter)),
     ...ifElse(helmet)(() => helmet.title.toComponent(), []),

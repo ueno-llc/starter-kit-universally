@@ -169,35 +169,3 @@
 
   color: $color-font;
 }
-
-// html.js / html.no-js will not compile?!
-// hence these workaround selectors
-@mixin js-only {
-  html:not(:global(.no-js)) & {
-    @content;
-  }
-}
-
-@mixin no-js {
-  html:not(:global(.js)) & {
-    @content;
-  }
-}
-
-// gsap trans-in defaults
-@mixin will-animate($transform: true, $opacity: true) {
-
-  @include js-only {
-    @if $opacity == true {
-      opacity: 0;
-    }
-
-    @if $transform == true {
-      will-change: opacity, transform;
-    }
-
-    @else {
-      will-change: opacity;
-    }
-  }
-}
