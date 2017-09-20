@@ -8,11 +8,24 @@ import path from 'path';
 import server from '../../build/server';
 import config from '../../config';
 
+// expand the routes config into an array of { source, destination } configs to GET
+// and write to files.
 function getStaticRoutesToGenerate() {
-  const { baseRoutes, ignoredBaseRoutes, extraRoutes } = config('staticSiteGeneration');
-  const filteredBaseRoutes =
-    _.filter(baseRoutes, route => !_.includes(ignoredBaseRoutes, route.source));
-  return _.concat(filteredBaseRoutes, extraRoutes);
+  const { allIndex, routes } = config('staticSiteGeneration');
+  const { basePaths, ignoredPaths, customRoutes } = routes;
+
+  const basePathsToUse = _.filter(basePaths, basePath => !_.includes(ignoredPaths, basePath));
+  const baseConfigs = _.map(basePathsToUse, (routePath) => {
+    let destination;
+    if (routePath === '') {
+      destination = 'index.html';
+    } else {
+      destination = allIndex ? `${routePath}/index.html` : `${routePath}.html`;
+    }
+
+    return { source: routePath, destination };
+  });
+  return _.concat(baseConfigs, customRoutes);
 }
 
 const destinationDir = './build/static/';
