@@ -16,13 +16,14 @@ const LoadingComponent = () => (
   </Segment>
 );
 
-@inject('planets')
+// we can use a decorator here since Planets doesn't contain another stateful
+// component in its sub-tree
 @withJob({
   work: ({ match, planets }) => planets.fetchAll({ page: Number(match.params.page || 1) }),
   shouldWorkAgain: (prev, next) => prev.match.params.page !== next.match.params.page,
   LoadingComponent,
 })
-export default class Planets extends Component {
+class Planets extends Component {
 
   static propTypes = {
     jobResult: PropTypes.shape({
@@ -121,3 +122,5 @@ export default class Planets extends Component {
     );
   }
 }
+
+export default inject('planets')(Planets);
