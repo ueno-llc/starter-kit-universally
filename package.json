@@ -26,7 +26,7 @@
     "lint-staged": "lint-staged",
     "eslint": "eslint client server shared config internal",
     "stylelint": "stylelint \"shared/**/*.scss\" --syntax scss",
-    "test": "jest",
+    "test": "jest --setupTestFrameworkScriptFile ./shared/setupTests.js",
     "test:coverage": "jest --coverage"
   },
   "repository": {
@@ -150,6 +150,7 @@
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
     "enzyme": "3.0.0",
+    "enzyme-adapter-react-16": "1.0.0",
     "enzyme-to-json": "3.0.1",
     "eslint": "3.19.0",
     "fs-extra": "^4.0.2",
@@ -161,6 +162,7 @@
     "node-notifier": "5.1.2",
     "onecolor": "3.0.4",
     "pre-commit": "1.2.2",
+    "react-test-renderer": "16.0.0",
     "serve": "^6.1.0",
     "stylelint": "8.0.0",
     "superagent": "^3.6.0",
