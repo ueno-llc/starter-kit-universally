@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
 import Segment from 'components/segment';
 
-export default class NotFound extends Component {
+export default class NotFound extends PureComponent {
 
   static propTypes = {
     staticContext: PropTypes.shape({

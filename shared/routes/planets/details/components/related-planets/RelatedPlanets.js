@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 @withJob({
   work: ({ planets }) => planets.fetchAll(),
 })
-class RelatedPlanets extends Component {
+class RelatedPlanets extends PureComponent {
 
   static propTypes = {
     jobResult: PropTypes.shape({
