@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import { computed } from 'mobx';
@@ -23,7 +23,7 @@ const LoadingComponent = () => (
   shouldWorkAgain: (prev, next) => prev.match.params.page !== next.match.params.page,
   LoadingComponent,
 })
-class Planets extends Component {
+class Planets extends PureComponent {
 
   static propTypes = {
     jobResult: PropTypes.shape({

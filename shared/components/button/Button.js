@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import s from './Button.scss';
  * Button Component
  * feel free to modify to fit the project.
  */
-export default class Button extends Component {
+export default class Button extends PureComponent {
 
   static propTypes = {
     to: PropTypes.string,
