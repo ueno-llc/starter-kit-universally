@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import autobind from 'core-decorators/lib/autobind';
@@ -11,7 +11,7 @@ const GridOverlay = showDevTools && require('components/grid-overlay').default;
 const LOCAL_STORAGE_KEY_VISIBLE = '_devtoolsVisible';
 
 @observer
-class DevTools extends Component {
+class DevTools extends PureComponent {
   @observable display = false;
 
   componentDidMount() {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import Container from 'components/container';
@@ -8,7 +8,7 @@ import s from './Segment.scss';
 /**
  * Segment component
  */
-export default class Segment extends Component {
+export default class Segment extends PureComponent {
 
   static propTypes = {
     container: PropTypes.bool,

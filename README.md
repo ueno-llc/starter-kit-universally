@@ -21,9 +21,35 @@ Change values in `app.json` and `config/values.js`. Delete this part of the read
 ## Development
 
 ```
-yarn
-yarn run dev
+> yarn
+> yarn run dev
+...
+Server listening on http://localhost:3000
 ```
+
+### Hot reloading with state and decorators
+
+By default we're using [`react-jobs`](https://github.com/ctrlplusb/react-jobs) for async stuff with server-side rendering. If we mix that with `mobx` and decorators suddenly hot reloading with state will stop working. This is due to a bug in [`react-hot-loader`](https://github.com/gaearon/react-hot-loader/issues/378) when higher-order components are composed. So instead of doing:
+
+```js
+@inject('store')
+@withJob({ work: ({ store }) => store.fetch() })
+export default class Thing extends PureComponent { }
+```
+and not have stateful hot reloading, instead do
+
+```js
+class Thing extends PureComponent { }
+
+const thingWithJob = withJob({ work: ({ store }) => store.fetch() })(Thing);
+export default inject('store')(thingWithJob);
+```
+
+If your stateful component `withJob` doesn't contain another component in its sub-tree, you can get away with having a `@withJob` decorator.
+
+### Dev tools
+
+Dev tools (vertical and horizontal grids, mobx devtools) are hidden by default. To show them use `ctrl + k`. Horizontal grid can be toggled via `ctrl + l`.
 
 ### Password protecting
 
@@ -49,6 +75,18 @@ If you’re working on a single route and don’t want to build the entire app y
 yarn run build
 yarn start
 ```
+
+## Static site build
+
+You can generate a static site by configuring the appropriate staticSiteGeneration values in `config/values.js`.  Then
+run `yarn run build:static` and the static pages will be generated in build/static.
+
+To see the generated site, use `yarn run start:static` or copy the `build/static` directory
+to the web server of your choice. Note that any error pages (e.g. 404.html) will not work
+without some server intelligence to send requests to the correct file.
+
+More information on the internals of the static site build are in the directory's [README]('/internal/scripts/static-site-generation/README.md).
+
 
 ## Updating from upstream
 
@@ -77,14 +115,23 @@ git checkout --ours package.json
 
 ## Remote development
 
-Now supports ngrok and other ways to access your development build.
+There are two ways of doing remote development:
+
+1. Providing IP address via `HOST` to run on local network
+2. Using ngrok to expose localhost to the internet
 
 ```bash
-# outside wifi
-ngrok http 3000
-CLIENT_DEV_PROXY=1 PUBLIC_URL=http://xxxxxx.ngrok.io yarn run dev
-# or local network
-HOST=192.168.123.456 PORT=3000 yarn run dev
+> HOST=192.168.1.1 yarn dev # run from IP address
+> HOST=$(ipconfig getifaddr en0) yarn dev # one-liner on mac
+...
+Server listening on http://192.168.1.1:3000
+```
+
+```bash
+# run ngrok via script
+> yarn dev-remote
+...
+Server listening on https://xyz.ngrok.io
 ```
 
 ## Stricter development

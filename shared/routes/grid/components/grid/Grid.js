@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import s from './Grid.scss';
 
-export default class Grid extends Component {
+export default class Grid extends PureComponent {
 
   render() {
     return (

@@ -6,7 +6,7 @@ ngrok.connect(process.env.PORT || 3000, (err, url) => {
     return;
   }
 
-  console.log('Remote development started on ', url);
+  console.log('Remote development started on', url);
 
   process.env.CLIENT_DEV_PROXY = 1;
   process.env.PUBLIC_URL = url;

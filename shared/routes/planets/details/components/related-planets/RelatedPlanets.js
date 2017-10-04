@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 
-@inject('planets')
 @withJob({
   work: ({ planets }) => planets.fetchAll(),
 })
-export default class RelatedPlanets extends Component {
+class RelatedPlanets extends PureComponent {
 
   static propTypes = {
     jobResult: PropTypes.shape({
@@ -34,7 +33,7 @@ export default class RelatedPlanets extends Component {
 
     return (
       <div>
-        <h3>Planets with similar diameter</h3>
+        <h3>Planets with similar diameter:</h3>
         <ul>
           {items.map(related => (
             <li key={`related_${related.name}`}>
@@ -48,3 +47,5 @@ export default class RelatedPlanets extends Component {
     );
   }
 }
+
+export default inject('planets')(RelatedPlanets);

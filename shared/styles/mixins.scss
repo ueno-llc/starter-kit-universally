@@ -15,24 +15,32 @@
 }
 
 // defaults to standard heading size
-@mixin responsive-font($min-size: 23, $size: 36, $limit: 1200px) {
-  $baseline: 375px;
+@mixin responsive-font($min-size: ($font-size - 2), $size: $font-size, $limit: $page-limit) {
+  $baseline: $min-mobile;
   $font-multiplier: (($size - $min-size) / (strip-unit($limit) - strip-unit($baseline)));
   $font-baseline: ($min-size - $font-multiplier * strip-unit($baseline));
 
+  @if $min-size >= $size {
+    @warn 'Responsive font: min-size equal or greater than size';
+  }
+
   font-size: #{$min-size}px;
+  font-size: calc(#{$min-size}px * #{var(--scale-multiplier)});
 
   @media (min-width: $baseline) {
     font-size: #{$min-size}px;
-    font-size: calc(#{$font-multiplier} * #{100vw} + (#{$font-baseline}px));
+    font-size: calc((#{$font-multiplier} * #{100vw} + (#{$font-baseline}px)) * #{var(--scale-multiplier)});
   }
 
   @media (min-width: $limit) {
     font-size: #{$size}px;
+    font-size: calc(#{$size}px * #{var(--scale-multiplier)});
   }
 }
 
 @mixin viewport($media) {
+  @warn 'viewport mixin is deprecated and will be removed in a future version';
+
   @if $media == handset {
     @media only screen and (max-width: $min-600) { @content; }
   }
@@ -61,17 +69,25 @@
   }
 }
 
+@mixin retina {
+  @media only screen and (-webkit-min-device-pixel-ratio: 1.3),
+    only screen and (-o-min-device-pixel-ratio: 13/10),
+    only screen and (min-resolution: 120dpi) {
+    @content;
+  }
+}
+
 // segment customisable per-component / instance rather than being forced to work around defaults.
 @mixin segment($padding-top: $segment-padding, $padding-bottom: $segment-padding, $padding-top-mobile: $segment-padding-mobile, $padding-bottom-mobile: $segment-padding-mobile) {
   padding-top: $padding-top-mobile;
   padding-bottom: $padding-bottom-mobile;
 
   @media (min-width: $min-tablet) {
-    padding-top: percentage(strip-unit($padding-top)/strip-unit($limit));
-    padding-bottom: percentage(strip-unit($padding-bottom)/strip-unit($limit));
+    padding-top: percentage(strip-unit($padding-top) / strip-unit($page-limit));
+    padding-bottom: percentage(strip-unit($padding-bottom) / strip-unit($page-limit));
   }
 
-  @media (min-width: $limit) {
+  @media (min-width: $page-limit) {
     padding-top: strip-unit($padding-top) * 1px;
     padding-bottom: strip-unit($padding-bottom) * 1px;
   }
@@ -80,20 +96,108 @@
 @mixin container() {
   margin: 0 auto;
 
-  padding: 0 $container-gutter-mobile;
+  padding-left: $container-gutter-mobile;
+  padding-right: $container-gutter-mobile;
+
   max-width: $page-width + $container-gutter-mobile * 1;
 
-  @media (min-width: 340px) {
+  @media (min-width: $min-mobile) {
     max-width: $page-width + $container-gutter-mobile * 2;
   }
 
   @media (min-width: $min-tablet) {
-    padding: 0 $container-gutter-tablet;
+    padding-left: $container-gutter-tablet;
+    padding-right: $container-gutter-tablet;
     max-width: $page-width + $container-gutter-tablet * 2;
   }
 
   @media (min-width: $min-desktop) {
-    padding: 0 $container-gutter-desktop;
+    padding-left: $container-gutter-desktop;
+    padding-right: $container-gutter-desktop;
     max-width: $page-width + $container-gutter-desktop * 2;
+  }
+}
+
+// change below to reflect your project
+@mixin heading($min: ($font-size * 1.5), $max: ($font-size * 3)) {
+  @include reset-heading;
+  @include responsive-font($min, $max);
+
+  $arbitrary-heading-margin: 5;
+  $arbitrary-heading-line-height: 58;
+
+  margin-bottom: ($arbitrary-heading-margin/$max) * 1em;
+
+  font-family: $font-family;
+  font-weight: normal;
+  letter-spacing: 0;
+  line-height: ($arbitrary-heading-line-height/$max);
+
+  color: $color-font;
+}
+
+@mixin subheading($min: ($font-size * 1.5), $max: ($font-size * 3)) {
+  @include reset-heading;
+  @include responsive-font($min, $max);
+
+  $arbitrary-subheading-margin: 26;
+  $arbitrary-subheading-line-height: 58;
+
+  margin-bottom: ($arbitrary-subheading-margin/$max) * 1em;
+
+  font-family: $font-family;
+  font-weight: normal;
+  letter-spacing: 0;
+  line-height: ($arbitrary-subheading-line-height/$max);
+
+  color: $color-font;
+}
+
+@mixin copy($min: $font-size, $max: ($font-size + 4)) {
+  @include reset-all;
+  @include responsive-font($min, $max);
+
+  $arbitrary-copy-margin: 26;
+  $arbitrary-copy-line-height: 58;
+
+  margin-bottom: ($arbitrary-copy-margin/$max) * 1em;
+
+  font-family: $font-family;
+  font-weight: normal;
+  letter-spacing: 0;
+  line-height: ($arbitrary-copy-line-height/$max);
+
+  color: $color-font;
+}
+
+// html.js / html.no-js will not compile?!
+// hence these workaround selectors
+@mixin js-only {
+  html:not(:global(.no-js)) & {
+    @content;
+  }
+}
+
+@mixin no-js {
+  html:not(:global(.js)) & {
+    @content;
+  }
+}
+
+// gsap trans-in defaults
+@mixin will-animate($transform: true, $opacity: true) {
+
+  @include js-only {
+    @if $opacity == true {
+      opacity: 0;
+    }
+
+    @if $transform == true {
+      will-change: opacity, transform;
+    }
+
+    @else {
+      will-change: opacity;
+    }
   }
 }

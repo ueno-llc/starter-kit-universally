@@ -27,7 +27,7 @@ $command |
 
   while IFS= read -r line
   do
-    if [ "$line" == "Server listening on port 3000" ] && ! $built
+    if [[ $line = $'Server listening on'* ]] && ! $built
     then
       echo "Build complete"
       built=true

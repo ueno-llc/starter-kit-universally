@@ -1,14 +1,14 @@
 // Helper to convert straight number to percentage
 @function convertify($number) {
   @if type-of($number) == 'number' and unitless($number) {
-    @return percentage($number/12);
+    @return percentage($number / $grid-column-count);
   }
 
   @return $number;
 }
 
 // Rows
-@mixin make-row($direction: ltr, $align: stretch, $justify: flex-start, $grid-gutter: $gutter, $wrap: wrap) {
+@mixin grid-row($direction: ltr, $align: stretch, $justify: flex-start, $grid-gutter: $gutter, $wrap: wrap) {
   display: flex;
   flex-wrap: $wrap;
 
@@ -28,7 +28,7 @@
 }
 
 // Columns
-@mixin make-col($width: 100%, $align: stretch, $grid-gutter: $gutter) {
+@mixin grid-col($width: 100%, $align: stretch, $grid-gutter: $gutter) {
   flex: none;
   align-self: $align;
 
@@ -39,10 +39,31 @@
 }
 
 // Offsets
-@mixin make-offset-left($offset: percentage(1/12)) {
+@mixin grid-offset-left($offset: 1) {
   margin-left: convertify($offset);
 }
 
-@mixin make-offset-right($offset: percentage(1/12)) {
+@mixin grid-offset-right($offset: 1) {
   margin-right: convertify($offset);
+}
+
+// Deprecated mixins
+@mixin make-row($args...) {
+  @warn 'make-row mixin is deprecated, use grid-row';
+  @include grid-row($args...);
+}
+
+@mixin make-col($args...) {
+  @warn 'make-col mixin is deprecated, use grid-col';
+  @include grid-col($args...);
+}
+
+@mixin make-offset-left($args...) {
+  @warn 'make-offset-left mixin is deprecated, use grid-offset-left';
+  @include grid-offset-left($args...);
+}
+
+@mixin make-offset-right($args...) {
+  @warn 'make-offset-right mixin is deprecated, use grid-offset-right';
+  @include grid-offset-right($args...);
 }
