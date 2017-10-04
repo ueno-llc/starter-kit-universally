@@ -17,7 +17,7 @@ export default function reactApplicationMiddleware(request, response) {
   const addHash = (content) => {
     response.setHeader(
       'content-security-policy',
-      response.getHeader('content-security-policy')
+      (response.getHeader('content-security-policy') || '')
         .split(';')
         .map(directive => directive.indexOf('script-src') >= 0 ?
           `${directive} sha256-${sha256(content)}` : directive)
