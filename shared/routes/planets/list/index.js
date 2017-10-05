@@ -1,7 +1,3 @@
-import { asyncComponent } from 'react-async-component';
+import universal from 'react-universal-component';
 
-export default asyncComponent({
-  resolve: () => System.import('./PlanetsList'),
-  ssrMode: 'boundary',
-  name: 'PlanetsList',
-});
+export default universal(import('./PlanetsList'));

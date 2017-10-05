@@ -13,8 +13,10 @@ import serialize from 'serialize-javascript';
 import HTML from 'components/html';
 import config from 'utils/config';
 import Analytics from 'utils/analytics';
+import flushChunks from 'webpack-flush-chunks';
 
 import getClientBundleEntryAssets from './getClientBundleEntryAssets';
+import getClientWebpackStats from './getClientWebpackStats';
 import ifElse from '../../../internal/utils/logic/ifElse';
 import removeNil from '../../../internal/utils/arrays/removeNil';
 import ClientConfig from '../../../config/components/ClientConfig';
@@ -31,6 +33,7 @@ const analytics = new Analytics({ facebookPixel, twitterPixel });
 
 // Resolve the assets (js/css) for the client bundle's entry chunk.
 const clientEntryAssets = getClientBundleEntryAssets();
+const webpackStats = getClientWebpackStats();
 
 function stylesheetTag(stylesheetFilePath) {
   return (
@@ -57,18 +60,24 @@ function noJs() {
 
 function ServerHTML(props) {
   const {
-    asyncComponentsState,
     jobsState,
     routerState,
     helmet,
     addHash,
     reactAppString,
+    chunkNames,
   } = props;
 
   // Creates an inline script definition that is protected by the nonce.
   const inlineScript = body => (
     <script type="text/javascript" dangerouslySetInnerHTML={{ __html: addHash(body) }} />
   );
+
+  const {
+    cssHashRaw,
+    scripts,
+    stylesheets,
+  } = flushChunks(webpackStats, { chunkNames });
 
   const headerElements = removeNil([
     noJs(),
@@ -80,6 +89,7 @@ function ServerHTML(props) {
     ...ifElse(helmet)(() => helmet.link.toComponent(), []),
     ifElse(clientEntryAssets && clientEntryAssets.css)(() => stylesheetTag(clientEntryAssets.css)),
     ...ifElse(helmet)(() => helmet.style.toComponent(), []),
+    ...stylesheets.map(s => stylesheetTag(`/client/${s}`)),
   ]);
 
   const bodyElements = removeNil([
@@ -88,13 +98,6 @@ function ServerHTML(props) {
     // that we can safely expose some configuration values to the
     // client bundle that gets executed in the browser.
     <ClientConfig addHash={addHash} />,
-    // Bind our async components state so the client knows which ones
-    // to initialise so that the checksum matches the server response.
-    // @see https://github.com/ctrlplusb/react-async-component
-    ifElse(asyncComponentsState)(() =>
-      inlineScript(
-        `window.__ASYNC_COMPONENTS_REHYDRATE_STATE__=${serialize(asyncComponentsState)};`,
-      )),
     ifElse(jobsState)(() => inlineScript(`window.__JOBS_STATE__=${serialize(jobsState)}`)),
     ifElse(routerState)(() => inlineScript(`window.__ROUTER_STATE__=${serialize(routerState)}`)),
     // Enable the polyfill io script?
@@ -116,6 +119,8 @@ function ServerHTML(props) {
         `${config('bundles.client.webPath')}${config('bundles.client.devVendorDLL.name')}.js?t=${Date.now()}`,
       ),
     ),
+    inlineScript(`window.__CSS_CHUNKS__=${serialize(cssHashRaw)}`),
+    ...scripts.map(s => scriptTag(`/client/${s}`)),
     ifElse(clientEntryAssets && clientEntryAssets.js)(() => scriptTag(clientEntryAssets.js)),
     ...ifElse(helmet)(() => helmet.script.toComponent(), []),
   ]);
@@ -134,8 +139,6 @@ function ServerHTML(props) {
 
 ServerHTML.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  asyncComponentsState: PropTypes.object,
-  // eslint-disable-next-line react/forbid-prop-types
   jobsState: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types
   routerState: PropTypes.object,
@@ -143,6 +146,7 @@ ServerHTML.propTypes = {
   helmet: PropTypes.object,
   addHash: PropTypes.func,
   reactAppString: PropTypes.string,
+  chunkNames: PropTypes.array,
 };
 
 // EXPORT

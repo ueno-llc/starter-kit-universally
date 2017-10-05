@@ -11,6 +11,7 @@ import appRootDir from 'app-root-dir';
 
 import * as EnvVars from './utils/envVars';
 import CliVar from './utils/cliVar';
+import codeSplittingConfig from './utils/codeSplittingConfig';
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
@@ -314,7 +315,6 @@ const values = {
         // For these cases you don't want to include them in the Vendor DLL.
         include: [
           'react-async-bootstrapper',
-          'react-async-component',
           'react-jobs',
           'react',
           'react-dom',
@@ -397,6 +397,10 @@ const values = {
       // Decorators for everybody
       plugins.push('transform-decorators-legacy');
 
+      plugins.push('universal-import');
+
+      plugins.push('css-modules-transform');
+
       // Remove stage-# prests
       presets.forEach((val, pos) => String(val).match(/stage-\d/) && presets.splice(pos, 1));
       // Add stage-0 to list of presets
@@ -415,6 +419,7 @@ const values = {
     // provided the current webpack config, as well as the buildOptions which
     // detail which bundle and mode is being targetted for the current function run.
     webpackConfig: (webpackConfig, buildOptions) => {
+      codeSplittingConfig(webpackConfig, buildOptions);
       // eslint-disable-next-line no-unused-vars
       const { target, mode } = buildOptions;
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import { AsyncComponentProvider, createAsyncContext } from 'react-async-component';
 import { JobProvider, createJobContext } from 'react-jobs';
 import asyncBootstrapper from 'react-async-bootstrapper';
 import { Provider, useStaticRendering } from 'mobx-react';
@@ -10,6 +9,7 @@ import Store from 'store';
 import timing from 'utils/timing';
 import sha256 from 'sha256';
 import App from 'App';
+import { flushChunkNames } from 'react-universal-component/server';
 
 import ServerHTML from './ServerHTML';
 
@@ -33,9 +33,6 @@ export default function reactApplicationMiddleware(request, response) {
     return content;
   };
 
-  // Create a context for our AsyncComponentProvider.
-  const asyncComponentsContext = createAsyncContext();
-
   // Create a context for <StaticRouter>, which will allow us to
   // query for the results of the render.
   const reactRouterContext = {};
@@ -49,15 +46,13 @@ export default function reactApplicationMiddleware(request, response) {
 
   // Declare our React application.
   const app = (
-    <AsyncComponentProvider asyncContext={asyncComponentsContext}>
-      <JobProvider jobContext={jobContext}>
-        <StaticRouter location={request.url} context={reactRouterContext}>
-          <Provider {...store}>
-            <App />
-          </Provider>
-        </StaticRouter>
-      </JobProvider>
-    </AsyncComponentProvider>
+    <JobProvider jobContext={jobContext}>
+      <StaticRouter location={request.url} context={reactRouterContext}>
+        <Provider {...store}>
+          <App />
+        </Provider>
+      </StaticRouter>
+    </JobProvider>
   );
 
   // Measure the time it takes to complete the async boostrapper runtime.
@@ -68,16 +63,18 @@ export default function reactApplicationMiddleware(request, response) {
   asyncBootstrapper(app).then(() => {
     const { end: endRenderTiming } = timing.start('Render app');
     const appString = renderToString(app);
+    const chunkNames = flushChunkNames();
+
     endRenderTiming();
 
     const html = renderToStaticMarkup(
       <ServerHTML
         reactAppString={appString}
+        chunkNames={chunkNames}
         addHash={addHash}
         helmet={Helmet.rewind()}
         routerState={reactRouterContext}
         jobsState={jobContext.getState()}
-        asyncComponentsState={asyncComponentsContext.getState()}
       />,
     );
 
