@@ -8,7 +8,7 @@ export default function cliVarString(name, defaultVal) {
   const index = args.findIndex(arg => arg.includes(`--${name}`));
 
   if (index > -1) {
-    val = args[index].split('=')[1];
+    [val] = args[index].split('=');
   }
 
   return val;

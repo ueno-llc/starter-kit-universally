@@ -1,6 +1,3 @@
-/* eslint-disable global-require */
-/* eslint-disable import/no-extraneous-dependencies */
-
 import React from 'react';
 
 // We create this wrapper so that we only import react-hot-loader for a

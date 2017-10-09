@@ -16,7 +16,7 @@ export default function offlinePageMiddleware(req, res, next) {
   if (typeof res.locals.nonce !== 'string') {
     throw new Error('A "nonce" value has not been attached to the response');
   }
-  const nonce = res.locals.nonce;
+  const { nonce } = res.locals;
 
   readFile(
     // Path to the offline page.

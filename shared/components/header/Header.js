@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ import UenoLogoSvg from 'assets/images/ueno-logo.svg';
 
 import s from './Header.scss';
 
-export default class Header extends PureComponent {
+export default class Header extends Component {
 
   static propTypes = {
     children: PropTypes.node,
