@@ -1,5 +1,5 @@
 import { observable, ObservableMap } from 'mobx';
-import { autobind } from 'core-decorators';
+import autobind from 'core-decorators/lib/autobind';
 import axios, { CancelToken } from 'axios';
 
 /**
