@@ -194,7 +194,9 @@ export default function webpackConfigFactory(buildOptions) {
       extensions: config('bundleSrcTypes').map(ext => `.${ext}`),
 
       // Empty alias object for easier extendability
-      alias: {},
+      alias: {
+        'components/devtools': ifDev('components/devtools', 'components/devtools/MobXDevToolsMock.js'),
+      },
 
       // UENO: The ./shared is now a resolved root.
       modules: [
