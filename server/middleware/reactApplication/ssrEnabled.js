@@ -4,6 +4,7 @@ import { StaticRouter } from 'react-router-dom';
 import { AsyncComponentProvider, createAsyncContext } from 'react-async-component';
 import { JobProvider, createJobContext } from 'react-jobs';
 import asyncBootstrapper from 'react-async-bootstrapper';
+import { toJS } from 'mobx';
 import { Provider, useStaticRendering } from 'mobx-react';
 import Helmet from 'react-helmet';
 import Store from 'store';
@@ -78,6 +79,7 @@ export default function reactApplicationMiddleware(request, response) {
         routerState={reactRouterContext}
         jobsState={jobContext.getState()}
         asyncComponentsState={asyncComponentsContext.getState()}
+        appState={toJS(store)}
       />,
     );
 

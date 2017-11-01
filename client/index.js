@@ -23,7 +23,10 @@ if (gaId) {
 // Get the DOM Element that will host our React application.
 const container = document.querySelector('#app');
 
-let store = new Store();
+// eslint-disable-next-line no-underscore-dangle
+const appState = window.__APP_STATE__;
+
+let store = new Store(appState);
 window.store = store;
 
 // Does the user's browser support the HTML5 history API?
