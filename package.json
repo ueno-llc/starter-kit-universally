@@ -4,7 +4,7 @@
   "description": "A starter kit from Ueno. Based on react-universally",
   "main": "build/server/index.js",
   "engines": {
-    "node": ">=7.5 <8"
+    "node": ">=7.5 <=8"
   },
   "scripts": {
     "analyze:client": "babel-node internal/scripts/analyze --client",
