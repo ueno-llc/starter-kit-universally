@@ -5,13 +5,10 @@
  * absolute paths should be resolved during runtime by our build internal/server.
  */
 
-import path from 'path';
-import fs from 'fs';
-import appRootDir from 'app-root-dir';
-
 import * as EnvVars from './utils/envVars';
-import CliVar from './utils/cliVar';
-import codeSplittingConfig from './utils/codeSplittingConfig';
+
+import codeSplittingConfigExtender from './extenders/codeSplitting';
+import singleRouteAppConfigExtender from './extenders/singleRouteApp';
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
@@ -419,12 +416,8 @@ const values = {
     // provided the current webpack config, as well as the buildOptions which
     // detail which bundle and mode is being targetted for the current function run.
     webpackConfig: (webpackConfig, buildOptions) => {
-      codeSplittingConfig(webpackConfig, buildOptions);
       // eslint-disable-next-line no-unused-vars
       const { target, mode } = buildOptions;
-
-      // we assume resolve to be an object with an `alias` object we can add to
-      const { resolve } = webpackConfig;
 
       // Example:
       /*
@@ -440,28 +433,8 @@ const values = {
       }
       */
 
-      // Hook up possible single route development
-      const route = CliVar('route');
-      if (mode === 'development' && route) {
-        const routePath = path.resolve(appRootDir.get(), `shared/routes/${route}`);
-
-        // we can call sync function here since it's only in development
-        const routeIsValid = route && route !== '' && fs.existsSync(routePath);
-
-        if (routeIsValid) {
-          const resolvedApp = path.resolve(appRootDir.get(), 'shared/SingleRouteApp');
-
-          resolve.alias.route = routePath;
-          resolve.alias.App = resolvedApp;
-
-          console.info(`==> Routing all requests to the "${route}" route`);
-        } else {
-          console.warn(`Unable to resolve route "${route}" at ${routePath}`);
-          resolve.alias.App = path.resolve(appRootDir.get(), 'shared/MainApp');
-        }
-      } else {
-        resolve.alias.App = path.resolve(appRootDir.get(), 'shared/MainApp');
-      }
+      codeSplittingConfigExtender(webpackConfig, buildOptions);
+      singleRouteAppConfigExtender(webpackConfig, buildOptions);
 
       return webpackConfig;
     },
