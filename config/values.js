@@ -9,6 +9,7 @@ import * as EnvVars from './utils/envVars';
 
 import codeSplittingConfigExtender from './extenders/codeSplitting';
 import singleRouteAppConfigExtender from './extenders/singleRouteApp';
+import reactApplicationExtender from './extenders/reactApplication';
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
@@ -435,6 +436,7 @@ const values = {
 
       codeSplittingConfigExtender(webpackConfig, buildOptions);
       singleRouteAppConfigExtender(webpackConfig, buildOptions);
+      reactApplicationExtender(webpackConfig, buildOptions);
 
       return webpackConfig;
     },
