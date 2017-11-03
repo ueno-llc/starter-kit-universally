@@ -1,8 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
+import { MemoryRouter } from 'react-router-dom';
 import App from './MainApp';
 
 it('renders without crashing', () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper).not.toBe(undefined);
+  const tree = renderer.create(<MemoryRouter><App /></MemoryRouter>).toJSON();
+  expect(tree).not.toBe(undefined);
 });
