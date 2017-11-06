@@ -12,6 +12,11 @@
     "react"
   ],
   "plugins": [
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    "universal-import",
+    "dynamic-import-node",
+    ["css-modules-transform", {
+      "generateScopedName": "[hash:base64:10]"
+    }]
   ]
 }

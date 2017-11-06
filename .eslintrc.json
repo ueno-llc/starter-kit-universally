@@ -3,7 +3,8 @@
   "settings": {
     "import/core-modules": [
       "App",
-      "route"
+      "route",
+      "reactApplication"
     ]
   }
 }
