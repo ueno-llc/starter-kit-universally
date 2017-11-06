@@ -1,9 +1,13 @@
-/* eslint-disable no-console */
-
 import express from 'express';
 import compression from 'compression';
 import { resolve as pathResolve } from 'path';
 import appRootDir from 'app-root-dir';
+
+// the webpack config aliases the SSR-appropriate react app in the
+// reactApplication directory
+import reactApplication from 'reactApplication';
+import config from 'utils/config';
+
 import security from './middleware/security';
 import clientBundle from './middleware/clientBundle';
 import serviceWorker from './middleware/serviceWorker';
@@ -11,12 +15,6 @@ import offlinePage from './middleware/offlinePage';
 import errorHandlers from './middleware/errorHandlers';
 import enforceHttps from './middleware/enforceHttps';
 import basicAuth from './middleware/basicAuth';
-import config from '../config';
-
-// the webpack config aliases the SSR-appropriate react app in the
-// reactApplication directory
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import reactApplication from './middleware/reactApplication';
 
 // Create our express based server.
 const app = express();

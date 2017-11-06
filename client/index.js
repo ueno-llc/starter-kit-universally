@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import asyncBootstrapper from 'react-async-bootstrapper';
-import { AsyncComponentProvider } from 'react-async-component';
 import { JobProvider } from 'react-jobs';
 import { Provider } from 'mobx-react';
 import { toJS } from 'mobx';
@@ -34,10 +33,6 @@ window.store = store;
 // will force full page refreshes on each page change.
 const supportsHistory = 'pushState' in window.history;
 
-// Get any rehydrateState for the async components.
-// eslint-disable-next-line no-underscore-dangle
-const asyncComponentsRehydrateState = window.__ASYNC_COMPONENTS_REHYDRATE_STATE__;
-
 // Get any "rehydrate" state sent back by the server
 // eslint-disable-next-line no-underscore-dangle
 const rehydrateState = window.__JOBS_STATE__;
@@ -50,15 +45,13 @@ function renderApp(TheApp) {
   // component app with a browser based version of react router.
   const app = (
     <ReactHotLoader>
-      <AsyncComponentProvider rehydrateState={asyncComponentsRehydrateState}>
-        <JobProvider rehydrateState={rehydrateState}>
-          <Provider {...store}>
-            <BrowserRouter forceRefresh={!supportsHistory}>
-              <TheApp />
-            </BrowserRouter>
-          </Provider>
-        </JobProvider>
-      </AsyncComponentProvider>
+      <JobProvider rehydrateState={rehydrateState}>
+        <Provider {...store}>
+          <BrowserRouter forceRefresh={!supportsHistory}>
+            <TheApp />
+          </BrowserRouter>
+        </Provider>
+      </JobProvider>
     </ReactHotLoader>
   );
 

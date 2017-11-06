@@ -126,12 +126,12 @@
   $arbitrary-heading-margin: 5;
   $arbitrary-heading-line-height: 58;
 
-  margin-bottom: ($arbitrary-heading-margin/$max) * 1em;
+  margin-bottom: (strip-unit($arbitrary-heading-margin) / strip-unit($max)) * 1em;
 
   font-family: $font-family;
   font-weight: normal;
   letter-spacing: 0;
-  line-height: ($arbitrary-heading-line-height/$max);
+  line-height: (strip-unit($arbitrary-heading-line-height) / strip-unit($max));
 
   color: $color-font;
 }
@@ -143,12 +143,12 @@
   $arbitrary-subheading-margin: 26;
   $arbitrary-subheading-line-height: 58;
 
-  margin-bottom: ($arbitrary-subheading-margin/$max) * 1em;
+  margin-bottom: (strip-unit($arbitrary-subheading-margin) / strip-unit($max)) * 1em;
 
   font-family: $font-family;
   font-weight: normal;
   letter-spacing: 0;
-  line-height: ($arbitrary-subheading-line-height/$max);
+  line-height: (strip-unit($arbitrary-subheading-line-height) / strip-unit($max));
 
   color: $color-font;
 }
@@ -160,12 +160,12 @@
   $arbitrary-copy-margin: 26;
   $arbitrary-copy-line-height: 58;
 
-  margin-bottom: ($arbitrary-copy-margin/$max) * 1em;
+  margin-bottom: (strip-unit($arbitrary-copy-margin) / strip-unit($max)) * 1em;
 
   font-family: $font-family;
   font-weight: normal;
   letter-spacing: 0;
-  line-height: ($arbitrary-copy-line-height/$max);
+  line-height: (strip-unit($arbitrary-copy-line-height) / strip-unit($max));
 
   color: $color-font;
 }

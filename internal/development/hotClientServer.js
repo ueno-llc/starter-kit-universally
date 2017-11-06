@@ -1,3 +1,4 @@
+import fs from 'fs';
 import express from 'express';
 import createWebpackMiddleware from 'webpack-dev-middleware';
 import createWebpackHotMiddleware from 'webpack-hot-middleware';
@@ -60,6 +61,8 @@ class HotClientServer {
           message: 'Running with latest changes.',
           notify: true,
         });
+        // Save the build stats to a file so it can be used for serving css chunks
+        fs.writeFileSync('build/stats.json', JSON.stringify(stats.toJson()));
       }
     });
   }

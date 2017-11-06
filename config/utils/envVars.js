@@ -19,7 +19,7 @@ import env from './processEnv';
 // PRIVATES
 
 function registerEnvFile() {
-  const DEPLOYMENT = process.env.DEPLOYMENT;
+  const { DEPLOYMENT } = process.env;
   const envFile = '.env';
 
   // This is the order in which we will try to resolve an environment configuration

@@ -9,10 +9,6 @@
  *   config('welcomeMessage'); // => "Hello World!"
  */
 
-/* eslint-disable no-console */
-/* eslint-disable import/global-require */
-/* eslint-disable no-underscore-dangle */
-
 // PRIVATES
 
 let configCache;
@@ -39,15 +35,14 @@ function resolveConfigForBrowserOrServer() {
     process.env.BUILD_FLAG_IS_NODE === 'true'
   ) {
     // i.e. running in our server/node process.
-    // eslint-disable-next-line global-require
     configCache = require('./values').default;
     return configCache;
   }
 
   // To get here we are likely running in the browser.
 
-  if (typeof window !== 'undefined' && typeof window.__CLIENT_CONFIG__ === 'object') {
-    configCache = window.__CLIENT_CONFIG__;
+  if (typeof window !== 'undefined' && typeof window.__CLIENT_CONFIG__ === 'object') { // eslint-disable-line
+    configCache = window.__CLIENT_CONFIG__; // eslint-disable-line
   } else {
     // To get here we must be running in the browser.
     console.warn('No client configuration object was bound to the window.');

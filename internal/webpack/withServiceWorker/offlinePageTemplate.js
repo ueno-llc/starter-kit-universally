@@ -11,8 +11,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import HTML from 'components/html';
 
 module.exports = function generate(context) {
-  const config = context.htmlWebpackPlugin.options.custom.config;
-  const ClientConfig = context.htmlWebpackPlugin.options.custom.ClientConfig;
+  const { config, ClientConfig } = context.htmlWebpackPlugin.options.custom;
 
   const html = renderToStaticMarkup(
     <HTML
