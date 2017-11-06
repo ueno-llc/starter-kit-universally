@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import express from 'express';
 import compression from 'compression';
 import { resolve as pathResolve } from 'path';

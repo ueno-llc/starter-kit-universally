@@ -51,14 +51,14 @@ class Timing {
     descriptor.value = function promiseTiming(...args) {
       const { end, cancel } = start(key);
       return method.apply(this, args)
-      .then((data) => {
-        end();
-        return data;
-      })
-      .catch((err) => {
-        cancel();
-        throw err;
-      });
+        .then((data) => {
+          end();
+          return data;
+        })
+        .catch((err) => {
+          cancel();
+          throw err;
+        });
     };
   }
 

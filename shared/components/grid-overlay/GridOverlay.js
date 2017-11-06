@@ -19,6 +19,7 @@ export default class GridOverlay extends PureComponent {
 
   static propTypes = {
     columns: PropTypes.number,
+    baseline: PropTypes.number, // eslint-disable-line
     noPanel: PropTypes.bool,
   };
 
@@ -33,12 +34,6 @@ export default class GridOverlay extends PureComponent {
 
   @observable
   isVerticalVisible = false;
-
-  // Initial state
-  state = {
-    horizontalIsVisible: false,
-    verticalIsVisible: false,
-  };
 
   /**
    * Fired when component is mounted on the client

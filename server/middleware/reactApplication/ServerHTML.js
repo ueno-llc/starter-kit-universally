@@ -105,8 +105,9 @@ function ServerHTML(props) {
     // may need the polyfill's before our client JS gets parsed.
     // The gated flag is added for feature detection,
     // preventing wrong feature set in chrome simulator
-    ifElse(config('polyfillIO.enabled'))(() =>
-      scriptTag(`${config('polyfillIO.url')}?features=${config('polyfillIO.features').join(',')}&flags=gated`),
+    ifElse(config('polyfillIO.enabled'))(
+      () =>
+        scriptTag(`${config('polyfillIO.url')}?features=${config('polyfillIO.features').join(',')}&flags=gated`),
     ),
     // When we are in development mode our development server will
     // generate a vendor DLL in order to dramatically reduce our
@@ -114,10 +115,11 @@ function ServerHTML(props) {
     // vendor dll bundle below.
     ifElse(
       process.env.BUILD_FLAG_IS_DEV === 'true' && config('bundles.client.devVendorDLL.enabled'),
-    )(() =>
-      scriptTag(
-        `${config('bundles.client.webPath')}${config('bundles.client.devVendorDLL.name')}.js?t=${Date.now()}`,
-      ),
+    )(
+      () =>
+        scriptTag(
+          `${config('bundles.client.webPath')}${config('bundles.client.devVendorDLL.name')}.js?t=${Date.now()}`,
+        ),
     ),
     inlineScript(`window.__CSS_CHUNKS__=${serialize(cssHashRaw)}`),
     ...scripts.map(s => scriptTag(`/client/${s}`)),
@@ -138,11 +140,9 @@ function ServerHTML(props) {
 }
 
 ServerHTML.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
+  asyncComponentsState: PropTypes.object,
   jobsState: PropTypes.object,
-  // eslint-disable-next-line react/forbid-prop-types
   routerState: PropTypes.object,
-  // eslint-disable-next-line react/forbid-prop-types
   helmet: PropTypes.object,
   addHash: PropTypes.func,
   reactAppString: PropTypes.string,
