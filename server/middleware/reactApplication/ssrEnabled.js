@@ -76,7 +76,6 @@ export default function reactApplicationMiddleware(request, response) {
         helmet={Helmet.rewind()}
         routerState={reactRouterContext}
         jobsState={jobContext.getState()}
-        asyncComponentsState={asyncComponentsContext.getState()}
         appState={toJS(store)}
       />,
     );

@@ -142,7 +142,6 @@ function ServerHTML(props) {
 }
 
 ServerHTML.propTypes = {
-  asyncComponentsState: PropTypes.object,
   jobsState: PropTypes.object,
   routerState: PropTypes.object,
   helmet: PropTypes.object,

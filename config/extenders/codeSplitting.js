@@ -89,8 +89,8 @@ export default (webpackConfig, buildOptions) => {
           maxChunks: 1,
         }),
       ),
-    ],
-  ));
+    ]),
+  );
 
   // Overwrite happypack css dev plugin. Adds css chunks to the dev build.
   const happyPackDevclientCssIndex = webpackConfig.plugins.findIndex(r => r.id === 'happypack-devclient-css');
