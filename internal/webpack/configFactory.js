@@ -74,6 +74,7 @@ export default function webpackConfigFactory(buildOptions) {
 
   // UENO: Local identname
   const localIdentName = ifDev('[name]_[local]_[hash:base64:5]', '[hash:base64:10]');
+  buildOptions.localIdentName = localIdentName;
 
   // UENO: Get public url for webpack dev server based on if it is proxied or not.
   const publicUrl = ifElse(config('clientDevProxy'))(
@@ -598,13 +599,6 @@ export default function webpackConfigFactory(buildOptions) {
 
   if (isProd && isClient) {
     webpackConfig = withServiceWorker(webpackConfig, bundleConfig);
-  }
-
-  if (isServer) {
-    const moduleName = config('disableSSR') ? 'ssrDisabled' : 'ssrEnabled';
-    const modulePath = `server/middleware/reactApplication/${moduleName}`;
-    const resolvedPath = path.resolve(appRootDir.get(), modulePath);
-    webpackConfig.resolve.alias['./middleware/reactApplication'] = resolvedPath;
   }
 
   // Apply the configuration middleware.

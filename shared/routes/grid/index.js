@@ -1,1 +1,3 @@
-export default from './Grid';
+import universal from 'react-universal-component';
+
+export default universal(import('./Grid'));
