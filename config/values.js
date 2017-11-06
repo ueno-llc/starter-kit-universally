@@ -438,6 +438,11 @@ const values = {
       singleRouteAppConfigExtender(webpackConfig, buildOptions);
       reactApplicationExtender(webpackConfig, buildOptions);
 
+      // Remove mobx devtools from production builds
+      if (mode !== 'development') {
+        webpackConfig.resolve.alias['components/devtools'] = 'components/devtools/MobXDevToolsMock.js';
+      }
+
       return webpackConfig;
     },
   },
