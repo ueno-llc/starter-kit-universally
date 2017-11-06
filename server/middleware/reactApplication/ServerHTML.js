@@ -65,6 +65,7 @@ function ServerHTML(props) {
     helmet,
     addHash,
     reactAppString,
+    appState,
     chunkNames,
   } = props;
 
@@ -100,6 +101,7 @@ function ServerHTML(props) {
     <ClientConfig addHash={addHash} />,
     ifElse(jobsState)(() => inlineScript(`window.__JOBS_STATE__=${serialize(jobsState)}`)),
     ifElse(routerState)(() => inlineScript(`window.__ROUTER_STATE__=${serialize(routerState)}`)),
+    inlineScript(`window.__APP_STATE__=${serialize(appState, { isJSON: true })}`),
     // Enable the polyfill io script?
     // This can't be configured within a react-helmet component as we
     // may need the polyfill's before our client JS gets parsed.
@@ -146,6 +148,7 @@ ServerHTML.propTypes = {
   helmet: PropTypes.object,
   addHash: PropTypes.func,
   reactAppString: PropTypes.string,
+  appState: PropTypes.object,
   chunkNames: PropTypes.array,
 };
 

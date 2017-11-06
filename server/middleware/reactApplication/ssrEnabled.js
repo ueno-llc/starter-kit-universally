@@ -3,6 +3,7 @@ import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { JobProvider, createJobContext } from 'react-jobs';
 import asyncBootstrapper from 'react-async-bootstrapper';
+import { toJS } from 'mobx';
 import { Provider, useStaticRendering } from 'mobx-react';
 import Helmet from 'react-helmet';
 import Store from 'store';
@@ -75,6 +76,8 @@ export default function reactApplicationMiddleware(request, response) {
         helmet={Helmet.rewind()}
         routerState={reactRouterContext}
         jobsState={jobContext.getState()}
+        asyncComponentsState={asyncComponentsContext.getState()}
+        appState={toJS(store)}
       />,
     );
 

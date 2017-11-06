@@ -1,4 +1,4 @@
-import { observable, ObservableMap } from 'mobx';
+import { observable, ObservableMap, toJS } from 'mobx';
 import autobind from 'core-decorators/lib/autobind';
 import axios, { CancelToken } from 'axios';
 
@@ -46,7 +46,7 @@ export default class Network {
     if (item.data) {
       const now = new Date().getTime();
       if ((now / 1000) - (item.ts / 1000) <= maxAge) {
-        return Promise.resolve(item.data);
+        return Promise.resolve(toJS(item.data));
       }
     }
 
