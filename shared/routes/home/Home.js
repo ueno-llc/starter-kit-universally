@@ -3,7 +3,6 @@ import Helmet from 'react-helmet';
 import config from 'utils/config';
 
 import Segment from 'components/segment';
-import Heading from 'components/heading';
 import Button from 'components/button';
 
 export default class Home extends PureComponent {
@@ -13,7 +12,7 @@ export default class Home extends PureComponent {
         <Helmet title="Home" />
 
         <Segment>
-          <Heading>{config('welcomeMessage')}</Heading>
+          <h1>{config('welcomeMessage')}</h1>
         </Segment>
 
         <Segment>
