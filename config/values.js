@@ -321,7 +321,6 @@ const values = {
           'react-router-dom',
           'mobx',
           'mobx-react',
-          'core-decorators',
         ],
 
         // The name of the vendor DLL.

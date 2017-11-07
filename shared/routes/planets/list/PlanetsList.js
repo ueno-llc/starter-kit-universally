@@ -5,7 +5,6 @@ import { computed } from 'mobx';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
-import autobind from 'core-decorators/lib/autobind';
 
 import Segment from 'components/segment';
 import Button from 'components/button';
@@ -47,8 +46,7 @@ class Planets extends PureComponent {
    * @param {Event} Click-event.
    * @return {void}
    */
-  @autobind
-  onClickPage(e) {
+  onClickPage = (e) => {
     // Prevent default click behaviour
     e.preventDefault();
 

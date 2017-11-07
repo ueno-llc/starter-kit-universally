@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import autobind from 'core-decorators/lib/autobind';
 
 import s from './GridOverlay.scss';
 
@@ -69,8 +68,7 @@ export default class GridOverlay extends PureComponent {
    * Because why not
    * @return {void}
    */
-  @autobind
-  onKeyDown(e) {
+  onKeyDown = (e) => {
     if (e.ctrlKey && e.keyCode === 76) {
       this.onToggleVertical();
     }
@@ -80,8 +78,7 @@ export default class GridOverlay extends PureComponent {
    * Fired when the horizontal grid is meant to be toggled.
    * @return {void}
    */
-  @autobind
-  onToggleHorizontal() {
+  onToggleHorizontal = () => {
     this.isHorizontalVisible = !this.isHorizontalVisible;
     localStorage.setItem(LOCAL_STORAGE_KEY_HORIZONTAL, this.isHorizontalVisible);
   }
@@ -90,8 +87,7 @@ export default class GridOverlay extends PureComponent {
    * Fired when the vertical grid is meant to be toggled.
    * @return {void}
    */
-  @autobind
-  onToggleVertical() {
+  onToggleVertical = () => {
     this.isVerticalVisible = !this.isVerticalVisible;
     localStorage.setItem(LOCAL_STORAGE_KEY_VERTICAL, this.isVerticalVisible);
   }

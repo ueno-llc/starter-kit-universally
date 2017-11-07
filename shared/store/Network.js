@@ -1,5 +1,4 @@
 import { observable, ObservableMap, toJS } from 'mobx';
-import autobind from 'core-decorators/lib/autobind';
 import axios, { CancelToken } from 'axios';
 
 /**
@@ -25,8 +24,7 @@ export default class Network {
    * @param {object} Options
    * @return {Promise}
    */
-  @autobind
-  fetch(url, { maxAge = Infinity, force = false, ...rest } = {}) {
+  fetch = (url, { maxAge = Infinity, force = false, ...rest } = {}) => {
     const { history } = this;
 
     if (!history.has(url)) {
