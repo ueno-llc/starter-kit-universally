@@ -9,6 +9,7 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import serialize from 'serialize-javascript';
+import url from 'url';
 
 import HTML from 'components/html';
 import config from 'utils/config';
@@ -54,6 +55,18 @@ function noJs() {
        document.documentElement.className.replace('no-js', 'js')` }}
     />
   );
+}
+
+function resolveUrl(filename) {
+  const isDev = process.env.BUILD_FLAG_IS_DEV === 'true';
+  const webPath = config('bundles.client.webPath');
+  const filePath = url.resolve(webPath, filename);
+
+  if (!isDev) {
+    return filePath;
+  }
+
+  return `${filePath}?t=${Date.now()}`;
 }
 
 // COMPONENT
@@ -124,7 +137,7 @@ function ServerHTML(props) {
         ),
     ),
     inlineScript(`window.__CSS_CHUNKS__=${serialize(cssHashRaw)}`),
-    ...scripts.map(s => scriptTag(`/client/${s}`)),
+    ...scripts.map(s => scriptTag(resolveUrl(s))),
     ifElse(clientEntryAssets && clientEntryAssets.js)(() => scriptTag(clientEntryAssets.js)),
     ...ifElse(helmet)(() => helmet.script.toComponent(), []),
   ]);
