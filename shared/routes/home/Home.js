@@ -17,7 +17,7 @@ export default class Home extends PureComponent {
 
         <Segment>
           <Button>Button</Button>
-          <Button href="http://ueno.co">Ueno.co</Button>
+          <Button to="http://ueno.co">Ueno.co</Button>
           <Button to="/about">About</Button>
         </Segment>
       </div>
