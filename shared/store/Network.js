@@ -43,7 +43,8 @@ export default class Network {
     }
 
     // Return cache if still valid
-    if (item.data) {
+    // Unless force flag is in options.
+    if (!force && item.data) {
       const now = new Date().getTime();
       if ((now / 1000) - (item.ts / 1000) <= maxAge) {
         return Promise.resolve(toJS(item.data));
