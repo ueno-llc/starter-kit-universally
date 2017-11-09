@@ -95,8 +95,7 @@ const listener = app.listen(config('port'), () =>
 
 
     `,
-  }),
-);
+  }));
 
 // We export the listener as it will be handy for our development hot reloader,
 // or for exposing a general extension layer for application customisations.
