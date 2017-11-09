@@ -15,6 +15,7 @@ import ReactHotLoader from './components/ReactHotLoader';
 
 // Initialize Google Analytics
 const gaId = config('gaId');
+
 if (gaId) {
   ReactGA.initialize(gaId);
 }
