@@ -5,6 +5,7 @@ import axios, { CancelToken } from 'axios';
  * This store handles network requests.
  */
 export default class Network {
+
   constructor({ network = {} }) {
     // Set history from state
     this.history.replace(network.history);
@@ -15,7 +16,8 @@ export default class Network {
    * throttling them.
    * @var {Map} The key is url.
    */
-  @observable history = new ObservableMap();
+  @observable
+  history = new ObservableMap();
 
   /**
    * Extended fetch method with credentials needed

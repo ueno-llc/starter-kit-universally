@@ -39,7 +39,7 @@ class Planets extends PureComponent {
         page: PropTypes.string,
       }),
     }),
-  };
+  }
 
   /**
    * Fired when pagination buttons are clicked.

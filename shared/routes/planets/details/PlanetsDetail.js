@@ -11,6 +11,7 @@ import RelatedPlanets from './components/related-planets';
 
 // can't decorate this class, it contains <RelatedPlanets> that has state
 class PlanetsDetail extends PureComponent {
+
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,
@@ -18,7 +19,7 @@ class PlanetsDetail extends PureComponent {
       previous: PropTypes.string,
       next: PropTypes.string,
     }),
-  };
+  }
 
   /**
    * Render method

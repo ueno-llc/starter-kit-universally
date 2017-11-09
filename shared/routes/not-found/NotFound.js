@@ -10,10 +10,11 @@ export default class NotFound extends PureComponent {
     staticContext: PropTypes.shape({
       status: PropTypes.number,
     }),
-  };
+  }
 
   componentWillMount() {
     const { staticContext } = this.props;
+
     if (staticContext) {
       staticContext.status = 404;
     }

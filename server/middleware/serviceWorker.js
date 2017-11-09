@@ -2,6 +2,7 @@
 
 import { resolve as pathResolve } from 'path';
 import appRootDir from 'app-root-dir';
+
 import config from '../../config';
 
 // Middleware to serve our service worker.

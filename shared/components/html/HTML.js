@@ -27,11 +27,12 @@ function HTML(props) {
   return (
     <html {...htmlAttributes} className="no-js">
       <head>
-        { headerElements }
+        {headerElements}
       </head>
+
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: appBodyString }} />
-        { bodyElements }
+        {bodyElements}
       </body>
     </html>
   );
@@ -50,7 +51,5 @@ HTML.defaultProps = {
   htmlAttributes: {},
   bodyElements: null,
 };
-
-// EXPORT
 
 export default HTML;

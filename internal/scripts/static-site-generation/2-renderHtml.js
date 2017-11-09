@@ -1,21 +1,21 @@
 /* eslint-disable import/no-unresolved */
-/*
-    launches the already transpiled node server at build/static/temp/index.js and traverses the
-    routes specified in build/static/temp/routes.json, writing them to files.
- */
 
+/**
+ * launches the already transpiled node server at build/static/temp/index.js and traverses the
+ * routes specified in build/static/temp/routes.json, writing them to files.
+ */
 import colors from 'colors/safe';
 import appRootDir from 'app-root-dir';
 import { remove, outputFile } from 'fs-extra';
 import superagent from 'superagent';
-import _ from 'lodash';
+import map from 'lodash/map';
 import path from 'path';
+
 import routeConfig from '../../../build/static/temp/routes.json';
 import config from '../../../config';
 
 // this import actually launches the server as well as providing a reference to it
-import server from '../../../build/static/temp/index';
-
+import server from '../../../build/static/temp/index'; // eslint-disable-line
 
 const rootDir = appRootDir.get();
 const outputDir = path.join(rootDir, config('buildOutputPath'), 'static');
@@ -38,7 +38,8 @@ function renderRouteToHtmlFile({ source, destination, ignoreGetError }) {
 }
 
 async function generateHtmlFiles() {
-  const promises = _.map(routeConfig, renderRouteToHtmlFile);
+  const promises = map(routeConfig, renderRouteToHtmlFile);
+
   try {
     await Promise.all(promises);
     console.log(colors.green(`SUCCESS: static site generated in ${outputDir}`));
