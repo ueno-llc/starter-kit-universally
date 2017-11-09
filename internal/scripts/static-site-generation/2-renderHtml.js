@@ -1,9 +1,10 @@
-/* eslint-disable import/no-unresolved */
-
 /**
  * launches the already transpiled node server at build/static/temp/index.js and traverses the
  * routes specified in build/static/temp/routes.json, writing them to files.
  */
+
+/* eslint-disable import/no-unresolved */
+
 import colors from 'colors/safe';
 import appRootDir from 'app-root-dir';
 import { remove, outputFile } from 'fs-extra';

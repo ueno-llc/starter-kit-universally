@@ -22,8 +22,6 @@ import ifElse from '../../../internal/utils/logic/ifElse';
 import removeNil from '../../../internal/utils/arrays/removeNil';
 import ClientConfig from '../../../config/components/ClientConfig';
 
-// PRIVATES
-
 function KeyedComponent({ children }) {
   return Children.only(children);
 }
@@ -68,8 +66,6 @@ function resolveUrl(filename) {
 
   return `${filePath}?t=${Date.now()}`;
 }
-
-// COMPONENT
 
 function ServerHTML(props) {
   const {
@@ -163,7 +159,5 @@ ServerHTML.propTypes = {
   appState: PropTypes.object,
   chunkNames: PropTypes.array,
 };
-
-// EXPORT
 
 export default ServerHTML;
