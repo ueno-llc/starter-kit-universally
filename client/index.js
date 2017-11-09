@@ -55,9 +55,7 @@ function renderApp(TheApp) {
     </ReactHotLoader>
   );
 
-  // We use the react-async-component in order to support code splitting of
-  // our bundle output. It's important to use this helper.
-  // @see https://github.com/ctrlplusb/react-async-component
+  // Needed for react-jobs
   asyncBootstrapper(app).then(() => render(app, container));
 }
 

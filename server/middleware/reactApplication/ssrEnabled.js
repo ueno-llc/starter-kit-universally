@@ -59,8 +59,7 @@ export default function reactApplicationMiddleware(request, response) {
   // Measure the time it takes to complete the async boostrapper runtime.
   const { end: endRuntimeTiming } = timing.start('Server runtime');
 
-  // Pass our app into the react-async-component helper so that any async
-  // components are resolved for the render.
+  // Needed for react-jobs
   asyncBootstrapper(app).then(() => {
     const { end: endRenderTiming } = timing.start('Render app');
     const appString = renderToString(app);
