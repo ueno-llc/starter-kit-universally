@@ -41,7 +41,6 @@ function registerEnvFile() {
 
   // If we found an env file match the register it.
   if (envFilePath) {
-    // eslint-disable-next-line no-console
     // log({
     //   title: 'server',
     //   level: 'special',
