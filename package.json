@@ -64,6 +64,9 @@
     },
     "testPathIgnorePatterns": [
       "<rootDir>/(build|internal|node_modules|flow-typed|public)/"
+    ],
+    "modulePathIgnorePatterns": [
+      "chalk"
     ]
   },
   "pre-commit": "lint-staged",
