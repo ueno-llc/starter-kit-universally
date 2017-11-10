@@ -63,11 +63,7 @@
       "\\.(je?pg|png|gif|ico|otf|ttf|eot|woff|woff2|svg)$": "<rootDir>/internal/jest/assetMock.js"
     },
     "testPathIgnorePatterns": [
-      "<rootDir>/(build|internal|node_modules|flow-typed|public)/"
-    ],
-    "modulePathIgnorePatterns": [
-      "chalk",
-      "ansi-styles"
+      "<rootDir>/(.cache|build|internal|node_modules|flow-typed|public)/"
     ]
   },
   "pre-commit": "lint-staged",
