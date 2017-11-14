@@ -28,8 +28,8 @@ function toLevel(str) {
 
 export function log(options) {
   const title = `${options.title.toUpperCase()}`;
-  const level = options.level || 'info';
   const notify = config('notifier');
+  const level = options.level || 'info';
 
   if (options.notify && toLevel(notify) >= toLevel(level)) {
     require('node-notifier').notify({
@@ -38,13 +38,21 @@ export function log(options) {
     });
   }
 
-  const msg = `==> ${title} -> ${options.message}`;
+  const msg = `${title}: ${options.message}`;
 
   switch (level) {
-    case 'warn': console.log(colors.yellow(msg)); break;
-    case 'error': console.log(colors.bgRed.white(msg)); break;
+    case 'warn':
+      console.log(colors.yellow(msg));
+      break;
+    case 'error':
+      console.log(colors.bgRed.white(msg));
+      break;
+    case 'special':
+      console.log(colors.italic.cyan(msg));
+      break;
     case 'info':
-    default: console.log(colors.green(msg));
+    default:
+      console.log(colors.green.dim(msg));
   }
 }
 

@@ -15,6 +15,7 @@ import offlinePage from './middleware/offlinePage';
 import errorHandlers from './middleware/errorHandlers';
 import enforceHttps from './middleware/enforceHttps';
 import basicAuth from './middleware/basicAuth';
+import { log } from '../internal/utils';
 
 // Create our express based server.
 const app = express();
@@ -60,7 +61,15 @@ if (config('passwordProtect') !== '') {
 }
 
 // The React application middleware.
-app.get('*', reactApplication);
+app.get('*', (request, response) => {
+  log({
+    title: 'Request',
+    level: 'special',
+    message: `Received for "${request.url}"`,
+  });
+
+  return reactApplication(request, response);
+});
 
 // Error Handler middlewares.
 app.use(...errorHandlers);
@@ -71,10 +80,14 @@ const listener = app.listen(config('port'), () => {
   const port = config('port');
   const localUrl = `http://${host}:${port}`;
   const publicUrl = process.env.PUBLIC_URL;
-
   const url = publicUrl && publicUrl !== '' ? publicUrl : localUrl;
-
-  console.info(`Server listening on ${url}`);
+  log({
+    title: 'server',
+    level: 'special',
+    message: `Server started on port ${port}
+Available on ${url}
+Press Ctrl-C to stop.`,
+  });
 });
 
 // We export the listener as it will be handy for our development hot reloader,

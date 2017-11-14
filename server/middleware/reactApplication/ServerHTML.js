@@ -97,9 +97,9 @@ function ServerHTML(props) {
     noJs(),
     ifElse(facebookPixel)(() => inlineScript(analytics.facebook)),
     ifElse(twitterPixel)(() => inlineScript(analytics.twitter)),
+    ...ifElse(helmet)(() => helmet.meta.toComponent(), []),
     ...ifElse(helmet)(() => helmet.title.toComponent(), []),
     ...ifElse(helmet)(() => helmet.base.toComponent(), []),
-    ...ifElse(helmet)(() => helmet.meta.toComponent(), []),
     ...ifElse(helmet)(() => helmet.link.toComponent(), []),
     ifElse(clientEntryAssets && clientEntryAssets.css)(() => stylesheetTag(clientEntryAssets.css)),
     ...ifElse(helmet)(() => helmet.style.toComponent(), []),
@@ -130,12 +130,12 @@ function ServerHTML(props) {
     // vendor dll bundle below.
     ifElse(
       process.env.BUILD_FLAG_IS_DEV === 'true' && config('bundles.client.devVendorDLL.enabled'),
-    )(
-      () =>
-        scriptTag(
-          `${config('bundles.client.webPath')}${config('bundles.client.devVendorDLL.name')}.js?t=${Date.now()}`,
-        ),
-    ),
+    )(() =>
+      scriptTag(
+        `${config('bundles.client.webPath')}${config(
+          'bundles.client.devVendorDLL.name',
+        )}.js?t=${Date.now()}`,
+      )),
     inlineScript(`window.__CSS_CHUNKS__=${serialize(cssHashRaw)}`),
     ...scripts.map(s => scriptTag(resolveUrl(s))),
     ifElse(clientEntryAssets && clientEntryAssets.js)(() => scriptTag(clientEntryAssets.js)),
@@ -145,10 +145,18 @@ function ServerHTML(props) {
   return (
     <HTML
       htmlAttributes={ifElse(helmet)(() => helmet.htmlAttributes.toComponent(), null)}
-      headerElements={headerElements.map((x, idx) => (
-        <KeyedComponent key={idx}>{x}</KeyedComponent>
-      ))}
-      bodyElements={bodyElements.map((x, idx) => <KeyedComponent key={idx}>{x}</KeyedComponent>)}
+      headerElements={headerElements.map((x, idx) =>
+        (
+          <KeyedComponent key={idx}>
+            {x}
+          </KeyedComponent>
+        ))}
+      bodyElements={bodyElements.map((x, idx) =>
+        (
+          <KeyedComponent key={idx}>
+            {x}
+          </KeyedComponent>
+        ))}
       appBodyString={reactAppString}
     />
   );
