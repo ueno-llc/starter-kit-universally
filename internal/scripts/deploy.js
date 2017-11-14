@@ -4,5 +4,7 @@
  */
 
 import { exec } from '../utils';
+
 const cmd = 'now';
+
 exec(cmd);

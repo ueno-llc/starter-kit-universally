@@ -118,6 +118,7 @@ export default function withServiceWorker(webpackConfig, bundleConfig) {
               config('publicAssetsPath'),
               cur,
             );
+
             const publicFileWebPaths = acc.concat(
               // First get all the matching public folder files.
               globSync(publicAssetPathGlob, { nodir: true })
@@ -134,6 +135,7 @@ export default function withServiceWorker(webpackConfig, bundleConfig) {
                 // off the root of the application.
                 .map(relativePath => `/${relativePath}`),
             );
+
             return publicFileWebPaths;
           }, []),
         ),

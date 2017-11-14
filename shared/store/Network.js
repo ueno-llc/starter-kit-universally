@@ -46,6 +46,7 @@ export default class Network {
     // Unless force flag is in options.
     if (!force && item.data) {
       const now = new Date().getTime();
+
       if ((now / 1000) - (item.ts / 1000) <= maxAge) {
         return Promise.resolve(toJS(item.data));
       }
@@ -54,6 +55,7 @@ export default class Network {
     // Adds cancel token
     // Store the cancel method in the `cancel` variable
     let cancel;
+
     const config = Object.assign({
       cancelToken: new CancelToken((c) => {
         cancel = c;

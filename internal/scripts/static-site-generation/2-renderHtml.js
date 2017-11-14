@@ -61,6 +61,7 @@ async function generateHtmlFiles() {
 console.log('Waiting for server to start');
 server.on('listening', () => {
   let exitCode = 0;
+
   console.log('Server is running, will call html routes to generate files');
   generateHtmlFiles()
     .then(() => {

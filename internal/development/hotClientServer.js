@@ -7,11 +7,12 @@ import config from '../../config';
 import { log } from '../utils';
 
 class HotClientServer {
+
   constructor(compiler) {
     const app = express();
-
     const httpPathRegex = /^https?:\/\/(.*):([\d]{1,5})/i;
     const httpPath = compiler.options.output.publicPath;
+
     if (!httpPath.startsWith('http') && !httpPathRegex.test(httpPath)) {
       throw new Error(
         'You must supply an absolute public path to a development build of a web target bundle as it will be hosted on a seperate development server to any node target bundles.',

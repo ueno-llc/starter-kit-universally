@@ -57,6 +57,7 @@ class Planets extends PureComponent {
 
     // this.context.history.push()
     const { match, history } = this.props;
+
     history.push(match.path.replace(':page', page));
   }
 
@@ -90,6 +91,7 @@ class Planets extends PureComponent {
    */
   render() {
     const { results, count, previous, next } = this.props.jobResult;
+
     return (
       <div>
         <Helmet title="Planets" />

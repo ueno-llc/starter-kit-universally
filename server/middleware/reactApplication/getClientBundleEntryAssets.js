@@ -44,6 +44,7 @@ export default function getClientBundleEntryAssets() {
 
   const readAssetsJSONFile = () => JSON.parse(fs.readFileSync(assetsFilePath, 'utf8'));
   const assetsJSONCache = readAssetsJSONFile();
+
   if (typeof assetsJSONCache.index === 'undefined') {
     throw new Error('No asset data found for expected "index" entry chunk of client bundle.');
   }

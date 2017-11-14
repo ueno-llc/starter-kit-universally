@@ -27,6 +27,7 @@ const container = document.querySelector('#app');
 const appState = window.__APP_STATE__;
 
 let store = new Store(appState);
+
 window.store = store;
 
 // Does the user's browser support the HTML5 history API?
@@ -91,6 +92,7 @@ if (process.env.BUILD_FLAG_IS_DEV === 'true' && module.hot) {
 
   console.warn = (first, ...args) => {
     const noStoreChange = /Provided store (.*) has changed/;
+
     if (first && noStoreChange.test(first)) return;
     consoleWarn.call(console, first, ...args);
   };

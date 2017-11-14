@@ -69,6 +69,7 @@ export default (webpackConfig, buildOptions) => {
 
   // Remove ExtractTextPlugin
   const etpIndex = webpackConfig.plugins.findIndex(p => p instanceof ExtractTextPlugin);
+
   if (etpIndex > -1) {
     webpackConfig.plugins.splice(etpIndex, 1);
   }
@@ -94,6 +95,7 @@ export default (webpackConfig, buildOptions) => {
 
   // Overwrite happypack css dev plugin. Adds css chunks to the dev build.
   const happyPackDevclientCssIndex = webpackConfig.plugins.findIndex(r => r.id === 'happypack-devclient-css');
+
   if (happyPackDevclientCssIndex > 1) {
     webpackConfig.plugins.splice(
       happyPackDevclientCssIndex,
@@ -117,10 +119,12 @@ export default (webpackConfig, buildOptions) => {
 
   // Overwrite css loader ExtractTextPlugin
   const cssRule = webpackConfig.module.rules.find(r => r.test.test('.css'));
+
   if (cssRule && _isArray(cssRule.use)) {
     // Find plugin
     const pluginIndex = cssRule.use.findIndex(u =>
       Object.prototype.hasOwnProperty.call(u, 'loader') && /extract-text-webpack-plugin/.test(u.loader));
+
     if (pluginIndex > -1) {
       const loaders = ExtractCssChunks.extract({
         fallback: 'style-loader',
@@ -130,6 +134,7 @@ export default (webpackConfig, buildOptions) => {
           'sass-loader?outputStyle=expanded',
         ],
       });
+
       cssRule.use.splice(
         pluginIndex,
         loaders.length,
@@ -140,6 +145,7 @@ export default (webpackConfig, buildOptions) => {
 
   // Overwrite node_modules css loader ExtractTextPlugin
   const nmCssRule = webpackConfig.module.rules.find(r => r.test.test('node_modules.css'));
+
   if (nmCssRule && _isArray(nmCssRule.use)) {
     // Find plugin
     const pluginIndex = cssRule.use.findIndex(u =>
@@ -150,6 +156,7 @@ export default (webpackConfig, buildOptions) => {
         fallback: 'style-loader',
         use: ['css-loader', 'postcss-loader'],
       });
+
       cssRule.use.splice(
         pluginIndex,
         loaders.length,

@@ -11,6 +11,7 @@ import removeNil from '../arrays/removeNil';
  */
 export default function mergeDeep(...args) {
   const filtered = removeNil(args);
+
   if (filtered.length < 1) {
     return {};
   }

@@ -42,6 +42,7 @@ const cspConfig = {
 
 // Add any additional CSP from the static config.
 const cspExtensions = config('cspExtensions');
+
 Object.keys(cspExtensions).forEach((key) => {
   if (cspConfig.directives[key]) {
     cspConfig.directives[key] = cspConfig.directives[key].concat(cspExtensions[key]);

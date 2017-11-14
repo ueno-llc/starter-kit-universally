@@ -43,6 +43,7 @@ function runWebpackCompiler(compiler) {
  */
 function compileServer() {
   const webpackConfig = configFactory({ target: 'server', optimize: true });
+
   webpackConfig.entry.App = reactAppPath;
   webpackConfig.output.path = tempOutputDir;
   return runWebpackCompiler(webpack(webpackConfig));
@@ -54,6 +55,7 @@ function compileServer() {
  */
 function compileClient() {
   const webpackConfig = configFactory({ target: 'client', optimize: true });
+
   webpackConfig.output.path = clientOutputDir;
   return runWebpackCompiler(webpack(webpackConfig));
 }
@@ -61,23 +63,28 @@ function compileClient() {
 async function generateRouteConfig() {
   const { allIndex, routes } = config('staticSiteGeneration');
   const { basePaths, ignoredPaths, customRoutes } = routes;
-
   const basePathsToUse = _.filter(basePaths, basePath => !_.includes(ignoredPaths, basePath));
+
   const baseConfigs = _.map(basePathsToUse, (routePath) => {
     let destination;
+
     if (routePath === '') {
       destination = 'index.html';
     } else {
       destination = allIndex ? `${routePath}/index.html` : `${routePath}.html`;
     }
+
     return { source: routePath, destination };
   });
+
   const allRoutes = _.concat(baseConfigs, customRoutes);
   const outputFileName = path.join(tempOutputDir, 'routes.json');
+
   await outputJson(outputFileName, allRoutes, { spaces: 2 });
 }
 
 let failed = false;
+
 remove(outputDir)
   .then(copyPublicDir)
   .then(compileServer)
@@ -93,5 +100,6 @@ remove(outputDir)
   })
   .then(() => {
     const exitCode = failed ? -1 : 0;
+
     process.exit(exitCode);
   });

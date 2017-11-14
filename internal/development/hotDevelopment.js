@@ -30,6 +30,7 @@ const initializeBundle = (name, bundleConfig) => {
         target: name,
         mode: 'development',
       });
+
       // Install the vendor DLL config for the client bundle if required.
       if (name === 'client' && usesDevVendorDLL(bundleConfig)) {
         // Install the vendor DLL plugin.
@@ -61,6 +62,7 @@ const initializeBundle = (name, bundleConfig) => {
 };
 
 class HotDevelopment {
+
   constructor() {
     this.hotClientServer = null;
     this.hotNodeServers = [];
@@ -86,6 +88,7 @@ class HotDevelopment {
           new Promise((resolve) => {
             const { createCompiler } = clientBundle;
             const compiler = createCompiler();
+
             compiler.plugin('done', (stats) => {
               if (!stats.hasErrors()) {
                 resolve(compiler);

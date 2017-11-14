@@ -28,6 +28,7 @@ class PlanetsDetail extends PureComponent {
   render() {
     const { jobResult: planet } = this.props;
     const { name, gravity, terrain, climate, population, diameter } = planet;
+
     return (
       <div>
         <Helmet title="Planet loading..." />
@@ -56,4 +57,5 @@ const planetsDetailWithJob = withJob({
   work: ({ match, planets }) => planets.fetchById(match.params.id),
   shouldWorkAgain: (prev, next) => prev.match.params.id !== next.match.params.id,
 })(PlanetsDetail);
+
 export default inject('planets')(planetsDetailWithJob);

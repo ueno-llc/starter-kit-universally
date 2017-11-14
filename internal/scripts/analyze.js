@@ -42,6 +42,7 @@ clientCompiler.run((err, stats) => {
 
     // Run the bundle analyzer against the stats file.
     const cmd = `webpack-bundle-analyzer ${anaylzeFilePath} ${config('bundles.client.outputPath')}`;
+
     exec(cmd);
   }
 });

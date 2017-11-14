@@ -11,6 +11,7 @@ export default (webpackConfig, buildOptions) => {
 
   // Hook up possible single route development
   const route = CliVar('route');
+
   if (mode === 'development' && route) {
     const routePath = path.resolve(appRootDir.get(), `shared/routes/${route}`);
 

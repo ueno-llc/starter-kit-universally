@@ -92,10 +92,13 @@ export default function configGet(path) {
       'You must provide the path to the configuration value you would like to consume.',
     );
   }
+
   let result = resolveConfigForBrowserOrServer();
+
   for (let i = 0; i < parts.length; i += 1) {
     if (result === undefined) {
       const errorMessage = `Failed to resolve configuration value at "${parts.join('.')}".`;
+
       // This "if" block gets stripped away by webpack for production builds.
       if (process.env.BUILD_FLAG_IS_DEV === 'true' && process.env.BUILD_FLAG_IS_CLIENT === 'true') {
         throw new Error(
@@ -104,7 +107,9 @@ export default function configGet(path) {
       }
       throw new Error(errorMessage);
     }
+
     result = result[parts[i]];
   }
+
   return result;
 }

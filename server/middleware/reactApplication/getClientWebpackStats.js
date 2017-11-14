@@ -35,6 +35,7 @@ export default function getClientBundleEntryAssets() {
 
   const readAssetsJSONFile = () => JSON.parse(fs.readFileSync(webpackStatsFilePath, 'utf8'));
   const assetsJSONCache = readAssetsJSONFile();
+
   resultCache = assetsJSONCache;
   return resultCache;
 }

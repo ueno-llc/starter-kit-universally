@@ -23,6 +23,7 @@ Object.keys(config('bundles'))
   // And then build them all.
   .forEach((bundleName) => {
     const compiler = webpack(webpackConfigFactory({ target: bundleName, optimize }));
+
     compiler.run((err, stats) => {
       if (err) {
         console.error(err);

@@ -1,6 +1,7 @@
 const { log } = require('../utils');
 
 class ListenerManager {
+
   constructor(listener, name) {
     this.name = name || 'listener';
     this.lastConnectionKey = 0;
@@ -13,6 +14,7 @@ class ListenerManager {
       this.lastConnectionKey += 1;
       // Generate a new key to represent the connection
       const connectionKey = this.lastConnectionKey;
+
       // Add the connection to our map.
       this.connectionMap[connectionKey] = connection;
       // Remove the connection from our map when it closes.
