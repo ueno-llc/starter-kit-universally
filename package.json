@@ -21,7 +21,7 @@
     "preinstall": "node internal/scripts/preinstall",
     "start": "cross-env NODE_ENV=production node build/server",
     "start:static": "serve build/static",
-    "lint": "npm run eslint; npm run stylelint",
+    "lint": "npm run eslint && npm run stylelint",
     "lint-staged": "lint-staged",
     "eslint": "eslint client server shared config internal --report-unused-disable-directives",
     "stylelint": "stylelint \"shared/**/*.scss\" --syntax scss",
