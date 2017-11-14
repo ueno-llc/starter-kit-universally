@@ -75,27 +75,20 @@ app.get('*', (request, response) => {
 app.use(...errorHandlers);
 
 // Create an http listener for our express app.
-const listener = app.listen(config('port'), () =>
+const listener = app.listen(config('port'), () => {
+  const host = config('host');
+  const port = config('port');
+  const localUrl = `http://${host}:${port}`;
+  const publicUrl = process.env.PUBLIC_URL;
+  const url = publicUrl && publicUrl !== '' ? publicUrl : localUrl;
   log({
     title: 'server',
     level: 'special',
-    message: `✓
-
-      ${config('welcomeMessage')}
-
-      with
-
-      Service Workers: ${config('serviceWorker.enabled')}
-      Polyfills: ${config('polyfillIO.enabled')} (${config('polyfillIO.features').join(', ')})
-
-      Server is now listening on Port ${config('port')}
-      You can access it in the browser at http://${config('host')}:${config('port')}
-      Press Ctrl-C to stop.
-
-
-
-    `,
-  }));
+    message: `Server started on port ${port}
+Available on ${url}
+Press Ctrl-C to stop.`,
+  });
+});
 
 // We export the listener as it will be handy for our development hot reloader,
 // or for exposing a general extension layer for application customisations.
