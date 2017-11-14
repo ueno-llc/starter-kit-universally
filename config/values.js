@@ -439,7 +439,7 @@ const values = {
 
       // Remove mobx devtools from production builds
       if (mode !== 'development') {
-        webpackConfig.resolve.alias['components/devtools'] = 'components/devtools/MobXDevToolsMock.js';
+        webpackConfig.resolve.alias['components/devtools'] = 'utils/empty';
       }
 
       return webpackConfig;
