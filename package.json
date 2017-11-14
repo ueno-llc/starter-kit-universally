@@ -19,6 +19,7 @@
     "dev-remote": "cross-env DEPLOYMENT=development babel-node internal/scripts/ngrok",
     "fix-sass": "npm rebuild node-sass",
     "preinstall": "node internal/scripts/preinstall",
+    "heroku-postbuild": "npm run build",
     "start": "cross-env NODE_ENV=production node build/server",
     "start:static": "serve build/static",
     "lint": "npm run eslint && npm run stylelint",
