@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import { computed } from 'mobx';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
-import { autobind } from 'core-decorators';
 
 import Segment from 'components/segment';
 import Button from 'components/button';
@@ -23,7 +22,7 @@ const LoadingComponent = () => (
   shouldWorkAgain: (prev, next) => prev.match.params.page !== next.match.params.page,
   LoadingComponent,
 })
-class Planets extends Component {
+class Planets extends PureComponent {
 
   static propTypes = {
     jobResult: PropTypes.shape({
@@ -47,8 +46,7 @@ class Planets extends Component {
    * @param {Event} Click-event.
    * @return {void}
    */
-  @autobind
-  onClickPage(e) {
+  onClickPage = (e) => {
     // Prevent default click behaviour
     e.preventDefault();
 

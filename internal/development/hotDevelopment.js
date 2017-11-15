@@ -68,8 +68,9 @@ class HotDevelopment {
     const clientBundle = initializeBundle('client', config('bundles.client'));
 
     const nodeBundles = [initializeBundle('server', config('bundles.server'))].concat(
-      Object.keys(config('additionalNodeBundles')).map(name =>
-        initializeBundle(name, config('additionalNodeBundles')[name]),
+      Object.keys(config('additionalNodeBundles')).map(
+        name =>
+          initializeBundle(name, config('additionalNodeBundles')[name]),
       ),
     );
 

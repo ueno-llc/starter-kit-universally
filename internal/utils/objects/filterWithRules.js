@@ -16,7 +16,8 @@ function filterWithRulesLoop(rules, obj, basePropPath = '') {
       }
       return acc;
     },
-    {});
+    {},
+  );
 }
 
 /**

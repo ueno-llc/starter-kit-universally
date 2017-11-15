@@ -123,11 +123,12 @@ export default function withServiceWorker(webpackConfig, bundleConfig) {
               globSync(publicAssetPathGlob, { nodir: true })
                 // Then map them to relative paths against the public folder.
                 // We need to do this as we need the "web" paths for each one.
-                .map(publicFile =>
-                  path.relative(
-                    path.resolve(appRootDir.get(), config('publicAssetsPath')),
-                    publicFile,
-                  ),
+                .map(
+                  publicFile =>
+                    path.relative(
+                      path.resolve(appRootDir.get(), config('publicAssetsPath')),
+                      publicFile,
+                    ),
                 )
                 // Add the leading "/" indicating the file is being hosted
                 // off the root of the application.

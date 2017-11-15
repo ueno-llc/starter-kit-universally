@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Helmet from 'react-helmet';
 
 import Segment from 'components/segment';
 
-export default class About extends Component {
+export default class About extends PureComponent {
   render() {
     return (
       <div>

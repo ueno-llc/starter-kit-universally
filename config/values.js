@@ -5,12 +5,11 @@
  * absolute paths should be resolved during runtime by our build internal/server.
  */
 
-import path from 'path';
-import fs from 'fs';
-import appRootDir from 'app-root-dir';
-
 import * as EnvVars from './utils/envVars';
-import CliVar from './utils/cliVar';
+
+import codeSplittingConfigExtender from './extenders/codeSplitting';
+import singleRouteAppConfigExtender from './extenders/singleRouteApp';
+import reactApplicationExtender from './extenders/reactApplication';
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
@@ -314,7 +313,6 @@ const values = {
         // For these cases you don't want to include them in the Vendor DLL.
         include: [
           'react-async-bootstrapper',
-          'react-async-component',
           'react-jobs',
           'react',
           'react-dom',
@@ -323,7 +321,6 @@ const values = {
           'react-router-dom',
           'mobx',
           'mobx-react',
-          'core-decorators',
         ],
 
         // The name of the vendor DLL.
@@ -397,6 +394,10 @@ const values = {
       // Decorators for everybody
       plugins.push('transform-decorators-legacy');
 
+      plugins.push('universal-import');
+
+      plugins.push('css-modules-transform');
+
       // Remove stage-# prests
       presets.forEach((val, pos) => String(val).match(/stage-\d/) && presets.splice(pos, 1));
       // Add stage-0 to list of presets
@@ -418,9 +419,6 @@ const values = {
       // eslint-disable-next-line no-unused-vars
       const { target, mode } = buildOptions;
 
-      // we assume resolve to be an object with an `alias` object we can add to
-      const { resolve } = webpackConfig;
-
       // Example:
       /*
       if (target === 'server' && mode === 'development') {
@@ -435,27 +433,13 @@ const values = {
       }
       */
 
-      // Hook up possible single route development
-      const route = CliVar('route');
-      if (mode === 'development' && route) {
-        const routePath = path.resolve(appRootDir.get(), `shared/routes/${route}`);
+      codeSplittingConfigExtender(webpackConfig, buildOptions);
+      singleRouteAppConfigExtender(webpackConfig, buildOptions);
+      reactApplicationExtender(webpackConfig, buildOptions);
 
-        // we can call sync function here since it's only in development
-        const routeIsValid = route && route !== '' && fs.existsSync(routePath);
-
-        if (routeIsValid) {
-          const resolvedApp = path.resolve(appRootDir.get(), 'shared/SingleRouteApp');
-
-          resolve.alias.route = routePath;
-          resolve.alias.App = resolvedApp;
-
-          console.info(`==> Routing all requests to the "${route}" route`);
-        } else {
-          console.warn(`Unable to resolve route "${route}" at ${routePath}`);
-          resolve.alias.App = path.resolve(appRootDir.get(), 'shared/MainApp');
-        }
-      } else {
-        resolve.alias.App = path.resolve(appRootDir.get(), 'shared/MainApp');
+      // Remove mobx devtools from production builds
+      if (mode !== 'development') {
+        webpackConfig.resolve.alias['components/devtools'] = 'utils/empty';
       }
 
       return webpackConfig;

@@ -21,10 +21,8 @@ export default function mergeDeep(...args) {
     (acc, cur) => {
       Object.keys(cur).forEach((key) => {
         if (typeof acc[key] === 'object' && typeof cur[key] === 'object') {
-          // eslint-disable-next-line no-param-reassign
           acc[key] = mergeDeep(acc[key], cur[key]);
         } else {
-          // eslint-disable-next-line no-param-reassign
           acc[key] = cur[key];
         }
       });

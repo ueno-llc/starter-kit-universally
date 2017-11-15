@@ -2,6 +2,7 @@
  * This script builds a production output of all of our bundles.
  */
 
+import fs from 'fs';
 import webpack from 'webpack';
 import webpackConfigFactory from '../webpack/configFactory';
 import config from '../../config';
@@ -28,5 +29,10 @@ Object.keys(config('bundles'))
         return;
       }
       console.log(stats.toString({ colors: true }));
+
+      // Save the build stats to a file so it can be used for serving css chunks
+      if (bundleName === 'client') {
+        fs.writeFileSync('build/stats.json', JSON.stringify(stats.toJson()));
+      }
     });
   });

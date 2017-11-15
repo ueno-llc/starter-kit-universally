@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
@@ -10,7 +10,7 @@ import Segment from 'components/segment';
 import RelatedPlanets from './components/related-planets';
 
 // can't decorate this class, it contains <RelatedPlanets> that has state
-class PlanetsDetail extends Component {
+class PlanetsDetail extends PureComponent {
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,

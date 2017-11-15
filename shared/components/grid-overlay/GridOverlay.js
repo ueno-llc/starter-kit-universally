@@ -1,9 +1,8 @@
 /* eslint-disable react/no-array-index-key */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import autobind from 'core-decorators/lib/autobind';
 
 import s from './GridOverlay.scss';
 
@@ -15,10 +14,11 @@ const LOCAL_STORAGE_KEY_VERTICAL = '_devtoolsVerticalGridVisible';
  * Grid Overlay component
  */
 @observer
-export default class GridOverlay extends Component {
+export default class GridOverlay extends PureComponent {
 
   static propTypes = {
     columns: PropTypes.number,
+    baseline: PropTypes.number, // eslint-disable-line
     noPanel: PropTypes.bool,
   };
 
@@ -33,12 +33,6 @@ export default class GridOverlay extends Component {
 
   @observable
   isVerticalVisible = false;
-
-  // Initial state
-  state = {
-    horizontalIsVisible: false,
-    verticalIsVisible: false,
-  };
 
   /**
    * Fired when component is mounted on the client
@@ -74,8 +68,7 @@ export default class GridOverlay extends Component {
    * Because why not
    * @return {void}
    */
-  @autobind
-  onKeyDown(e) {
+  onKeyDown = (e) => {
     if (e.ctrlKey && e.keyCode === 76) {
       this.onToggleVertical();
     }
@@ -85,8 +78,7 @@ export default class GridOverlay extends Component {
    * Fired when the horizontal grid is meant to be toggled.
    * @return {void}
    */
-  @autobind
-  onToggleHorizontal() {
+  onToggleHorizontal = () => {
     this.isHorizontalVisible = !this.isHorizontalVisible;
     localStorage.setItem(LOCAL_STORAGE_KEY_HORIZONTAL, this.isHorizontalVisible);
   }
@@ -95,8 +87,7 @@ export default class GridOverlay extends Component {
    * Fired when the vertical grid is meant to be toggled.
    * @return {void}
    */
-  @autobind
-  onToggleVertical() {
+  onToggleVertical = () => {
     this.isVerticalVisible = !this.isVerticalVisible;
     localStorage.setItem(LOCAL_STORAGE_KEY_VERTICAL, this.isVerticalVisible);
   }

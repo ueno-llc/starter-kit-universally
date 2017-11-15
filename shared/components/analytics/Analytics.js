@@ -1,8 +1,8 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { fbPageView, twPageView, gaPageView } from 'utils/analytics';
 
-export default class Analytics extends Component {
+export default class Analytics extends PureComponent {
 
   static propTypes = {
     location: PropTypes.object,

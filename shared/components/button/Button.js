@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import s from './Button.scss';
  * Button Component
  * feel free to modify to fit the project.
  */
-export default class Button extends Component {
+export default class Button extends PureComponent {
 
   static propTypes = {
     to: PropTypes.string,
@@ -39,7 +39,7 @@ export default class Button extends Component {
     const isExternal = isLink && /^((https?:)?\/\/|[0-9a-zA-Z]+:)/.test(to);
 
     // Extend className of the rest
-    rest.className = s('button', className, {
+    rest.className = s(s.button, className, {
       alt,
       flat,
       large,
@@ -51,7 +51,7 @@ export default class Button extends Component {
 
     if (isExternal) {
       // http, https, //, mailto, etc.
-      return <a href={to} {...rest}>{children}</a>;
+      return <a target="_blank" rel="noopener noreferrer" href={to} {...rest}>{children}</a>;
     }
 
     if (isLink) {
