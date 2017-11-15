@@ -152,8 +152,8 @@
     "write-file-webpack-plugin": "4.2.0"
   },
   "devDependencies": {
-    "@ueno/eslint-config": "1.0.3",
-    "@ueno/stylelint-config": "1.0.1",
+    "@ueno/eslint-config": "1.2.1",
+    "@ueno/stylelint-config": "1.0.3",
     "babel-eslint": "7.2.3",
     "enzyme": "2.9.1",
     "enzyme-to-json": "1.5.1",
