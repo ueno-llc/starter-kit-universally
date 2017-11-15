@@ -25,7 +25,8 @@
     "lint-staged": "lint-staged",
     "eslint": "eslint client server shared config internal --report-unused-disable-directives",
     "stylelint": "stylelint \"shared/**/*.scss\" --syntax scss",
-    "test": "jest --setupTestFrameworkScriptFile ./shared/setupTests.js",
+    "test": "npm run lint",
+    "test-broken-on-heroku": "jest --setupTestFrameworkScriptFile ./shared/setupTests.js",
     "test:coverage": "jest --coverage"
   },
   "repository": {
