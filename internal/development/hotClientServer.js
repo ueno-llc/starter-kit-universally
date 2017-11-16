@@ -23,7 +23,7 @@ class HotClientServer {
       quiet: true,
       noInfo: true,
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': `http://${config('host')}:${config('port')}`,
       },
       // Ensure that the public path is taken from the compiler webpack config
       // as it will have been created as an absolute path to avoid conflicts

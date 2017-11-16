@@ -4,7 +4,7 @@
   "description": "A starter kit from Ueno. Based on react-universally",
   "main": "build/server/index.js",
   "engines": {
-    "node": ">=7.5 <9"
+    "node": ">=7.5 <10"
   },
   "scripts": {
     "analyze:client": "babel-node internal/scripts/analyze --client",
@@ -17,16 +17,15 @@
     "deploy": "babel-node internal/scripts/deploy",
     "dev": "cross-env DEPLOYMENT=development babel-node internal/development",
     "dev-remote": "cross-env DEPLOYMENT=development babel-node internal/scripts/ngrok",
-    "fix-sass": "npm rebuild node-sass",
     "preinstall": "node internal/scripts/preinstall",
-    "postinstall": "if [ \"x$NODE_ENV\" != \"x\" ] && [ \"$NODE_ENV\" != \"development\" ]; then (npm run fix-sass && npm run build); fi;",
+    "heroku-postbuild": "npm run build",
     "start": "cross-env NODE_ENV=production node build/server",
     "start:static": "serve build/static",
-    "lint": "npm run eslint; npm run stylelint",
+    "lint": "npm run eslint && npm run stylelint",
     "lint-staged": "lint-staged",
     "eslint": "eslint client server shared config internal --report-unused-disable-directives",
     "stylelint": "stylelint \"shared/**/*.scss\" --syntax scss",
-    "test": "jest",
+    "test": "npm run lint",
     "test:coverage": "jest --coverage"
   },
   "repository": {
@@ -63,7 +62,7 @@
       "\\.(je?pg|png|gif|ico|otf|ttf|eot|woff|woff2|svg)$": "<rootDir>/internal/jest/assetMock.js"
     },
     "testPathIgnorePatterns": [
-      "<rootDir>/(build|internal|node_modules|flow-typed|public)/"
+      "<rootDir>/(.cache|build|internal|node_modules|flow-typed|public)/"
     ]
   },
   "pre-commit": "lint-staged",
@@ -97,12 +96,11 @@
     "colors": "1.1.2",
     "compression": "1.7.0",
     "cross-env": "5.0.5",
-    "css-loader": "0.28.5",
+    "css-loader": "0.28.7",
     "dotenv": "4.0.0",
-    "eslint-plugin-react": "7.4.0",
     "express": "4.15.4",
     "extract-css-chunks-webpack-plugin": "2.0.17",
-    "extract-text-webpack-plugin": "2.1.2",
+    "extract-text-webpack-plugin": "3.0.0",
     "file-loader": "0.11.2",
     "glob": "7.1.2",
     "happypack": "3.1.0",
@@ -116,18 +114,21 @@
     "mobx": "3.2.2",
     "mobx-react": "4.2.2",
     "mobx-react-devtools": "4.2.15",
+    "node-notifier": "5.1.2",
     "node-sass": "4.5.3",
     "normalize.css": "7.0.0",
     "offline-plugin": "4.8.3",
     "postcss": "6.0.10",
     "postcss-csso": "2.0.0",
     "postcss-loader": "2.0.6",
+    "pretty-error": "2.1.1",
     "prop-types": "15.5.10",
     "react": "15.6.1",
     "react-async-bootstrapper": "1.1.1",
+    "react-async-component": "1.0.1",
     "react-dom": "15.6.1",
     "react-ga": "2.2.0",
-    "react-helmet": "5.1.3",
+    "react-helmet": "5.2.0",
     "react-hot-loader": "3.0.0-beta.6",
     "react-jobs": "1.0.0-beta.3",
     "react-router": "4.2.0",
@@ -140,12 +141,12 @@
     "semver": "5.4.1",
     "serialize-javascript": "1.4.0",
     "sha256": "0.2.0",
-    "source-map-support": "0.4.16",
+    "source-map-support": "0.4.18",
     "style-loader": "0.18.2",
     "svg-to-jsx-loader": "2.0.1",
     "user-home": "2.0.0",
     "uuid": "3.1.0",
-    "webpack": "2.7.0",
+    "webpack": "3.6.0",
     "webpack-flush-chunks": "1.1.23",
     "webpack-md5-hash": "0.0.5",
     "webpack-node-externals": "1.6.0",
@@ -155,15 +156,15 @@
     "@ueno/eslint-config": "1.2.3",
     "@ueno/stylelint-config": "1.0.4",
     "babel-eslint": "7.2.3",
+    "babel-jest": "21.0.2",
     "enzyme": "2.9.1",
-    "enzyme-to-json": "1.5.1",
+    "enzyme-to-json": "2.0.0",
     "eslint": "4.9.0",
     "fs-extra": "4.0.2",
     "husky": "0.14.3",
-    "jest": "19.0.2",
-    "lint-staged": "4.0.4",
+    "jest": "21.2.1",
+    "lint-staged": "4.2.2",
     "ngrok": "2.2.21",
-    "node-notifier": "5.1.2",
     "onecolor": "3.0.4",
     "pre-commit": "1.2.2",
     "react-addons-test-utils": "15.6.0",
@@ -172,6 +173,6 @@
     "superagent": "3.6.0",
     "webpack-bundle-analyzer": "2.9.0",
     "webpack-dev-middleware": "1.12.0",
-    "webpack-hot-middleware": "2.18.2"
+    "webpack-hot-middleware": "2.19.1"
   }
 }

@@ -117,7 +117,7 @@ export default (webpackConfig, buildOptions) => {
   }
 
   // Overwrite css loader ExtractTextPlugin
-  const cssRule = webpackConfig.module.rules.find(r => r.test.test('.css'));
+  const cssRule = webpackConfig.module.rules[0].oneOf.find(r => r.test.test('.css'));
 
   if (cssRule && _isArray(cssRule.use)) {
     // Find plugin
@@ -143,7 +143,7 @@ export default (webpackConfig, buildOptions) => {
   }
 
   // Overwrite node_modules css loader ExtractTextPlugin
-  const nmCssRule = webpackConfig.module.rules.find(r => r.test.test('node_modules.css'));
+  const nmCssRule = webpackConfig.module.rules[0].oneOf.find(r => r.test.test('node_modules.css'));
 
   if (nmCssRule && _isArray(nmCssRule.use)) {
     // Find plugin

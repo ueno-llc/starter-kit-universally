@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import webpack from 'webpack';
 import appRootDir from 'app-root-dir';
 import _ from 'lodash';
@@ -19,9 +20,9 @@ function copyPublicDir() {
   return copy(publicDir, outputDir);
 }
 
-function runWebpackCompiler(compiler) {
+function runWebpackCompiler(webpackConfig) {
   return new Promise((resolve, reject) => {
-    compiler.run((err, stats) => {
+    webpack(webpackConfig).run((err, stats) => {
       if (err) {
         console.error(err);
         reject(err);
@@ -30,6 +31,10 @@ function runWebpackCompiler(compiler) {
         reject();
       } else {
         console.log(stats.toString({ colors: true }));
+        // Save the build stats to a file so it can be used for serving css chunks
+        if (webpackConfig.target === 'web') {
+          fs.writeFileSync('build/stats.json', JSON.stringify(stats.toJson()));
+        }
         resolve();
       }
     });
@@ -46,7 +51,7 @@ function compileServer() {
 
   webpackConfig.entry.App = reactAppPath;
   webpackConfig.output.path = tempOutputDir;
-  return runWebpackCompiler(webpack(webpackConfig));
+  return runWebpackCompiler(webpackConfig);
 }
 
 /**
@@ -57,7 +62,7 @@ function compileClient() {
   const webpackConfig = configFactory({ target: 'client', optimize: true });
 
   webpackConfig.output.path = clientOutputDir;
-  return runWebpackCompiler(webpack(webpackConfig));
+  return runWebpackCompiler(webpackConfig);
 }
 
 async function generateRouteConfig() {

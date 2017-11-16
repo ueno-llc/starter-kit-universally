@@ -18,7 +18,7 @@ const cspConfig = {
       "'self' 'unsafe-inline'",
       'data:',
     ],
-    fontSrc: ["'self'"],
+    fontSrc: ["'self'", 'data:'],
     objectSrc: ["'self'"],
     mediaSrc: ["'self'"],
     manifestSrc: ["'self'"],
