@@ -57,6 +57,10 @@
       "node_modules",
       "shared"
     ],
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
     "moduleNameMapper": {
       "\\.(css|scss)$": "<rootDir>/internal/jest/styleMock.js",
       "\\.(je?pg|png|gif|ico|otf|ttf|eot|woff|woff2|svg)$": "<rootDir>/internal/jest/assetMock.js"
