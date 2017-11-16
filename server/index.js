@@ -81,6 +81,7 @@ const listener = app.listen(config('port'), () => {
   const localUrl = `http://${host}:${port}`;
   const publicUrl = process.env.PUBLIC_URL;
   const url = publicUrl && publicUrl !== '' ? publicUrl : localUrl;
+
   log({
     title: 'server',
     level: 'special',
