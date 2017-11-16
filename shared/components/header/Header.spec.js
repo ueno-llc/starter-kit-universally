@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
 
-import Header from './Header';
+import Header from 'components/header';
 
 it('contains a <header>', () => {
   const wrapper = shallow(<Header />);
