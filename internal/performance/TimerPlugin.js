@@ -2,6 +2,7 @@ import timer from './timer';
 
 function TimerPlugin(options) {
   const opts = options || {};
+
   this.category = opts.category;
   this.timers = opts.timers || [];
 

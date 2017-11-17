@@ -35,6 +35,7 @@ export default function offlinePageMiddleware(req, res, next) {
       }
       // We replace the placeholder with the actual nonce.
       const offlinePageWithNonce = data.replace('OFFLINE_PAGE_NONCE_PLACEHOLDER', nonce);
+
       // Send back the page as the response
       res.send(offlinePageWithNonce);
     },

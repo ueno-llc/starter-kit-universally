@@ -13,7 +13,7 @@ export default class Segment extends PureComponent {
   static propTypes = {
     container: PropTypes.bool,
     children: PropTypes.node,
-  };
+  }
 
   static defaultProps = {
     container: true,
@@ -29,7 +29,7 @@ export default class Segment extends PureComponent {
       container,
     } = this.props;
 
-    const content = container ? (<Container>{children}</Container>) : children;
+    const content = container ? <Container>{children}</Container> : children;
 
     return (
       <section className={s.segment}>

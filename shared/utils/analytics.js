@@ -26,6 +26,7 @@ function scripts({ facebookPixel, twitterPixel }) {
 }
 
 export default class Analytics {
+
   constructor(args) {
     Object.assign(this, args);
     this.scripts = scripts(args);

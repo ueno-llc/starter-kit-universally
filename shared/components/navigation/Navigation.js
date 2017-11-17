@@ -7,7 +7,7 @@ export default class Navigation extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
-  };
+  }
 
   render() {
     return (

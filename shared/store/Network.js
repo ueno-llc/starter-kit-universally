@@ -5,6 +5,7 @@ import axios, { CancelToken } from 'axios';
  * This store handles network requests.
  */
 export default class Network {
+
   constructor({ network = {} }) {
     // Set history from state
     this.history.replace(network.history);
@@ -15,7 +16,8 @@ export default class Network {
    * throttling them.
    * @var {Map} The key is url.
    */
-  @observable history = new ObservableMap();
+  @observable
+  history = new ObservableMap();
 
   /**
    * Extended fetch method with credentials needed
@@ -44,6 +46,7 @@ export default class Network {
     // Unless force flag is in options.
     if (!force && item.data) {
       const now = new Date().getTime();
+
       if ((now / 1000) - (item.ts / 1000) <= maxAge) {
         return Promise.resolve(toJS(item.data));
       }
@@ -52,6 +55,7 @@ export default class Network {
     // Adds cancel token
     // Store the cancel method in the `cancel` variable
     let cancel;
+
     const config = Object.assign({
       cancelToken: new CancelToken((c) => {
         cancel = c;

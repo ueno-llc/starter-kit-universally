@@ -63,6 +63,7 @@ function createVendorDLL(bundleName, bundleConfig) {
 
       const webpackConfig = webpackConfigFactory();
       const vendorDLLCompiler = webpack(webpackConfig);
+
       vendorDLLCompiler.run((err) => {
         if (err) {
           reject(err);

@@ -11,7 +11,9 @@ const LOCAL_STORAGE_KEY_VISIBLE = '_devtoolsVisible';
 
 @observer
 class DevTools extends Component {
-  @observable display = false;
+
+  @observable
+  display = false;
 
   componentDidMount() {
     this.display = (localStorage.getItem(LOCAL_STORAGE_KEY_VISIBLE) === 'true');

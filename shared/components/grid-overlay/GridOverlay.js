@@ -20,13 +20,13 @@ export default class GridOverlay extends Component {
     columns: PropTypes.number,
     baseline: PropTypes.number, // eslint-disable-line
     noPanel: PropTypes.bool,
-  };
+  }
 
   static defaultProps = {
     columns: 12,
     baseline: 16,
     noPanel: true,
-  };
+  }
 
   @observable
   isHorizontalVisible = false;

@@ -26,6 +26,7 @@ class Timing {
 
   end(key) {
     const timing = this.timings.get(key);
+
     timing.end = process.hrtime();
   }
 
@@ -50,6 +51,7 @@ class Timing {
 
     descriptor.value = function promiseTiming(...args) {
       const { end, cancel } = start(key);
+
       return method.apply(this, args)
         .then((data) => {
           end();
@@ -65,6 +67,7 @@ class Timing {
   diff([as, ans], [bs, bns]) {
     let ns = (ans - bns);
     let s = (as - bs);
+
     if (ns < 0) {
       s -= 1;
       ns += 1e9;
@@ -74,13 +77,17 @@ class Timing {
 
   toString() {
     const arr = [];
+
     this.timings.forEach(({ name, start, end }, key) => {
       const [s, ns] = this.diff(end, start);
+
       arr.push(`${key}=${(s + (ns / 1000000000)).toFixed(3)}; "${name}"`);
     });
+
     return arr.join(', ');
   }
 }
 
 const timing = new Timing();
+
 export default timing;

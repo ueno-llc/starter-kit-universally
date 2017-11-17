@@ -79,6 +79,7 @@ export default function webpackConfigFactory(buildOptions) {
 
   // UENO: Local identname
   const localIdentName = ifDev('[name]_[local]_[hash:base64:5]', '[hash:base64:10]');
+
   buildOptions.localIdentName = localIdentName;
 
   // UENO: Get public url for webpack dev server based on if it is proxied or not.
@@ -485,6 +486,7 @@ export default function webpackConfigFactory(buildOptions) {
         () => {
           const category = isClient ? 'client' : 'server';
           const timers = isClient ? clientTimers : serverTimers;
+
           return new TimerPlugin({ category, timers });
         },
       ),

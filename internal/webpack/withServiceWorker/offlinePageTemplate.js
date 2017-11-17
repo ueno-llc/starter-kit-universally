@@ -19,5 +19,6 @@ module.exports = function generate(context) {
       bodyElements={<ClientConfig nonce="OFFLINE_PAGE_NONCE_PLACEHOLDER" />}
     />,
   );
+
   return `<!DOCTYPE html>${html}`;
 };

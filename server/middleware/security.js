@@ -1,6 +1,7 @@
 import uuid from 'uuid';
 import hpp from 'hpp';
 import helmet from 'helmet';
+
 import config from '../../config';
 
 // You should NOT add any project specific CSP rules here
@@ -41,6 +42,7 @@ const cspConfig = {
 
 // Add any additional CSP from the static config.
 const cspExtensions = config('cspExtensions');
+
 Object.keys(cspExtensions).forEach((key) => {
   if (cspConfig.directives[key]) {
     cspConfig.directives[key] = cspConfig.directives[key].concat(cspExtensions[key]);

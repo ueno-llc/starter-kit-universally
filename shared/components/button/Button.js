@@ -19,7 +19,7 @@ export default class Button extends PureComponent {
     disabled: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
-  };
+  }
 
   render() {
     const {

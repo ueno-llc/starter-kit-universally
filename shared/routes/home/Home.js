@@ -6,6 +6,7 @@ import Segment from 'components/segment';
 import Button from 'components/button';
 
 export default class Home extends PureComponent {
+
   render() {
     return (
       <div>

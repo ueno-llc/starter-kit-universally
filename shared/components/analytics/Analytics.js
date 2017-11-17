@@ -16,6 +16,7 @@ export default class Analytics extends PureComponent {
 
   componentDidMount() {
     const { location } = this.props;
+
     this.trackPageView(location);
   }
 

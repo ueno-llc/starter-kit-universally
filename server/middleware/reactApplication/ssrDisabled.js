@@ -32,5 +32,6 @@ export default function reactApplicationMiddleware(request, response) {
   // SSR is disabled so we will return an "empty" html page and
   // rely on the client to initialize and render the react application.
   const html = renderToStaticMarkup(<ServerHTML helmet={Helmet.rewind()} addHash={addHash} />);
+
   response.status(200).send(`<!DOCTYPE html>${html}`);
 }

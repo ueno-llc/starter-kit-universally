@@ -11,6 +11,7 @@ import RelatedPlanets from './components/related-planets';
 
 // can't decorate this class, it contains <RelatedPlanets> that has state
 class PlanetsDetail extends PureComponent {
+
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,
@@ -18,7 +19,7 @@ class PlanetsDetail extends PureComponent {
       previous: PropTypes.string,
       next: PropTypes.string,
     }),
-  };
+  }
 
   /**
    * Render method
@@ -27,6 +28,7 @@ class PlanetsDetail extends PureComponent {
   render() {
     const { jobResult: planet } = this.props;
     const { name, gravity, terrain, climate, population, diameter } = planet;
+
     return (
       <div>
         <Helmet title="Planet loading..." />
@@ -55,4 +57,5 @@ const planetsDetailWithJob = withJob({
   work: ({ match, planets }) => planets.fetchById(match.params.id),
   shouldWorkAgain: (prev, next) => prev.match.params.id !== next.match.params.id,
 })(PlanetsDetail);
+
 export default inject('planets')(planetsDetailWithJob);

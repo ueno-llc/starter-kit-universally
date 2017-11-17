@@ -9,6 +9,7 @@ export default (webpackConfig, buildOptions) => {
     const moduleName = config('disableSSR') ? 'ssrDisabled' : 'ssrEnabled';
     const modulePath = `server/middleware/reactApplication/${moduleName}`;
     const resolvedPath = path.resolve(appRootDir.get(), modulePath);
+
     webpackConfig.resolve.alias.reactApplication = resolvedPath;
   }
 };

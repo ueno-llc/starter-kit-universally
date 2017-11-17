@@ -5,12 +5,11 @@ import appRootDir from 'app-root-dir';
 import _ from 'lodash';
 import { copy, remove, outputJson } from 'fs-extra';
 import colors from 'colors/safe';
+
 import config from '../../../config';
 import configFactory from '../../webpack/configFactory';
 
-
 const rootDir = appRootDir.get();
-
 const reactAppPath = path.join(rootDir, 'shared/MainApp.js');
 const outputDir = path.join(rootDir, config('buildOutputPath'), 'static');
 const tempOutputDir = path.join(outputDir, 'temp');
@@ -42,20 +41,26 @@ function runWebpackCompiler(webpackConfig) {
   });
 }
 
-// generate node bundles to a temporary directory. One is the server which we'll launch in the the
-// next script to generate html files. The other transpiles just the react app without css so we can
-// determine the route configuration.
+/**
+ * Generate node bundles to a temporary directory. One is the server which we'll launch in the the
+ * next script to generate html files. The other transpiles just the react app without css so we can
+ * determine the route configuration.
+ */
 function compileServer() {
   const webpackConfig = configFactory({ target: 'server', optimize: true });
+
   webpackConfig.entry.App = reactAppPath;
   webpackConfig.output.path = tempOutputDir;
   return runWebpackCompiler(webpackConfig);
 }
 
-// now compile the client bundles. They're exactly what the static site will serve,
-// so we put them right into the destination directory.
+/**
+ * Now compile the client bundles. They're exactly what the static site will serve,
+ * so we put them right into the destination directory.
+ */
 function compileClient() {
   const webpackConfig = configFactory({ target: 'client', optimize: true });
+
   webpackConfig.output.path = clientOutputDir;
   return runWebpackCompiler(webpackConfig);
 }
@@ -63,23 +68,28 @@ function compileClient() {
 async function generateRouteConfig() {
   const { allIndex, routes } = config('staticSiteGeneration');
   const { basePaths, ignoredPaths, customRoutes } = routes;
-
   const basePathsToUse = _.filter(basePaths, basePath => !_.includes(ignoredPaths, basePath));
+
   const baseConfigs = _.map(basePathsToUse, (routePath) => {
     let destination;
+
     if (routePath === '') {
       destination = 'index.html';
     } else {
       destination = allIndex ? `${routePath}/index.html` : `${routePath}.html`;
     }
+
     return { source: routePath, destination };
   });
+
   const allRoutes = _.concat(baseConfigs, customRoutes);
   const outputFileName = path.join(tempOutputDir, 'routes.json');
+
   await outputJson(outputFileName, allRoutes, { spaces: 2 });
 }
 
 let failed = false;
+
 remove(outputDir)
   .then(copyPublicDir)
   .then(compileServer)
@@ -95,5 +105,6 @@ remove(outputDir)
   })
   .then(() => {
     const exitCode = failed ? -1 : 0;
+
     process.exit(exitCode);
   });
