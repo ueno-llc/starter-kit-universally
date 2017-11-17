@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { hydrate } from 'react-dom';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import asyncBootstrapper from 'react-async-bootstrapper';
 import { JobProvider } from 'react-jobs';
@@ -58,7 +58,7 @@ function renderApp(TheApp) {
   );
 
   // Needed for react-jobs
-  asyncBootstrapper(app).then(() => render(app, container));
+  asyncBootstrapper(app).then(() => hydrate(app, container));
 }
 
 // Execute the first render of our app.
