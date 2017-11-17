@@ -10,11 +10,11 @@
   version "8.0.34"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.34.tgz#55f801fa2ddb2a40dd6dfc15ecfe1dde9c129fe9"
 
-"@ueno/eslint-config@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@ueno/eslint-config/-/eslint-config-1.2.3.tgz#84203edfd6ae278895d3c9fd9219a99ac0a4389e"
+"@ueno/eslint-config@1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@ueno/eslint-config/-/eslint-config-1.2.4.tgz#9d91fe3c14fbdfecaba11733cee88ab3a4d24cdc"
   dependencies:
-    "@ueno/eslint-plugin-internal" "1.0.1"
+    "@ueno/eslint-plugin-internal" "1.0.2"
     babel-eslint "8.0.1"
     chai "4.1.2"
     eslint-config-airbnb "16.0.0"
@@ -26,9 +26,9 @@
     eslint-plugin-react "7.4.0"
     eslint-plugin-react-native "3.1.0"
 
-"@ueno/eslint-plugin-internal@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@ueno/eslint-plugin-internal/-/eslint-plugin-internal-1.0.1.tgz#01706347074106c10a80b4ea253f63749d3527ac"
+"@ueno/eslint-plugin-internal@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@ueno/eslint-plugin-internal/-/eslint-plugin-internal-1.0.2.tgz#0ed6de3fdf2a1319a705136dd0794886be9740ef"
 
 "@ueno/stylelint-config@1.0.4":
   version "1.0.4"
