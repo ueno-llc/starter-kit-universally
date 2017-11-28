@@ -10,9 +10,9 @@
   version "8.0.34"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.34.tgz#55f801fa2ddb2a40dd6dfc15ecfe1dde9c129fe9"
 
-"@ueno/eslint-config@1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@ueno/eslint-config/-/eslint-config-1.2.4.tgz#9d91fe3c14fbdfecaba11733cee88ab3a4d24cdc"
+"@ueno/eslint-config@1.2.6":
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/@ueno/eslint-config/-/eslint-config-1.2.6.tgz#cdc4babcaa0888e485b4872049198e678b0c1d28"
   dependencies:
     "@ueno/eslint-plugin-internal" "1.0.2"
     babel-eslint "8.0.1"
