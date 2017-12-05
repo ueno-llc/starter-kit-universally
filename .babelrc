@@ -17,13 +17,5 @@
     ["css-modules-transform", {
       "generateScopedName": "[hash:base64:10]"
     }]
-  ],
-  "env": {
-    "test": {
-      "plugins": [
-        "universal-import",
-        "dynamic-import-node"
-      ]
-    }
-  }
+  ]
 }

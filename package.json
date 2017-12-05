@@ -49,7 +49,7 @@
   "homepage": "https://github.com/ueno-llc/starter-kit-universally",
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "shared/**/*.{js,jsx}"
     ],
     "setupFiles": [
       "<rootDir>/internal/jest/setupFile.js"
@@ -70,9 +70,8 @@
       "\\.(je?pg|png|gif|ico|otf|ttf|eot|woff|woff2|svg)$": "<rootDir>/internal/jest/assetMock.js"
     },
     "testPathIgnorePatterns": [
-      "<rootDir>/(.cache|build|internal|node_modules|flow-typed|public)/"
-    ],
-    "setupFiles": ["<rootDir>/internal/jest/rafShim.js", "<rootDir>/shared/setupTests.js"]
+      "<rootDir>/(build|internal|node_modules|flow-typed|public)/"
+    ]
   },
   "pre-commit": "lint-staged",
   "lint-staged": {},
