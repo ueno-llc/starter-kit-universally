@@ -92,30 +92,6 @@ export default (webpackConfig, buildOptions) => {
     ]),
   );
 
-  // Overwrite happypack css dev plugin. Adds css chunks to the dev build.
-  const happyPackDevclientCssIndex = webpackConfig.plugins.findIndex(r => r.id === 'happypack-devclient-css');
-
-  if (happyPackDevclientCssIndex > 1) {
-    webpackConfig.plugins.splice(
-      happyPackDevclientCssIndex,
-      1,
-      happyPackPlugin({
-        name: 'happypack-devclient-css',
-        loaders: [
-          'classnames-loader',
-          ...ExtractCssChunks.extract({
-            fallback: 'style-loader',
-            use: [
-              `css-loader?sourceMap=1&modules=1&importLoaders=1&localIdentName=${localIdentName}`,
-              'postcss-loader?sourceMap=1',
-              'sass-loader?sourceMap=1&outputStyle=expanded',
-            ],
-          }),
-        ],
-      }),
-    );
-  }
-
   // Overwrite css loader ExtractTextPlugin
   const cssRule = webpackConfig.module.rules[0].oneOf.find(r => r.test.test('.css'));
 
