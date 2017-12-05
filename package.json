@@ -68,7 +68,8 @@
     },
     "testPathIgnorePatterns": [
       "<rootDir>/(.cache|build|internal|node_modules|flow-typed|public)/"
-    ]
+    ],
+    "setupFiles": ["<rootDir>/internal/jest/rafShim.js", "<rootDir>/shared/setupTests.js"]
   },
   "pre-commit": "lint-staged",
   "lint-staged": {},
