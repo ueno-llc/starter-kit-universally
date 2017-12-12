@@ -22,7 +22,7 @@ Change values in `app.json` and `config/values.js`. Delete this part of the read
 
 ```
 > yarn
-> yarn run dev
+> yarn dev
 ...
 Server listening on http://localhost:3000
 ```
@@ -60,7 +60,7 @@ By setting a `PASSWORD_PROTECT` env variable, the server will ask the client to 
 If you’re working on a single route and don’t want to build the entire app you can do so by using the `--route` argument, for example:
 
 ```bash
-> yarn run dev -- --route=about
+> yarn dev --route=about
 ```
 `about` being the folder name of the targeted route (inside `shared/routes`). This can be very useful when the app gets bigger and rebuilds and HMR start to get slower.
 
@@ -72,7 +72,7 @@ If you’re working on a single route and don’t want to build the entire app y
 ## Production build
 
 ```bash
-yarn run build
+yarn build
 yarn start
 ```
 
@@ -167,7 +167,7 @@ Measuring initial build times, runs the dev build, kills it, runs it again N tim
 ```bash
 > chmod +x ./internal/performance/build.sh # allow execution
 > ./internal/performance/build.sh
-Running "yarn run dev" 5 times
+Running "yarn dev" 5 times
 2627.793
 2697.435
 4140.478
@@ -182,7 +182,7 @@ Measuring hot reload rebuilds, runs the dev task and waits for changes that trig
 ```bash
 > chmod +x ./internal/performance/hot.sh # allow execution
 > ./internal/performance/hot.sh
-Running "yarn run dev" watching for hot reloads
+Running "yarn dev" watching for hot reloads
 Build complete
 794.079
 518.700
