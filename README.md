@@ -86,14 +86,11 @@ export default from './Grid';
 
 ## Static site build
 
-You can generate a static site by configuring the appropriate staticSiteGeneration values in `config/values.js`.  Then
-run `yarn run build:static` and the static pages will be generated in build/static.
+You can generate a static site by configuring the appropriate staticSiteGeneration values in `config/values.js`. Then run `yarn build:static` and the static pages will be generated in build/static.
 
-To see the generated site, use `yarn run start:static` or copy the `build/static` directory
-to the web server of your choice. Note that any error pages (e.g. 404.html) will not work
-without some server intelligence to send requests to the correct file.
+To see the generated site, use `yarn start:static` or copy the `build/static` directory to the web server of your choice. Note that any error pages (e.g. 404.html) will not work without some server intelligence to send requests to the correct file.
 
-More information on the internals of the static site build are in the directory's [README]('/internal/scripts/static-site-generation/README.md).
+More information on the internals of the static site build are in the directory's [README](/internal/scripts/static-site-generation/README.md).
 
 
 ## Updating from upstream
