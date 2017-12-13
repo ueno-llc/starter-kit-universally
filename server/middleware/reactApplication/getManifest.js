@@ -1,5 +1,5 @@
 /**
- * This file resolves the webpack stats.
+ * This file resolves the manifest file
  */
 
 import fs from 'fs';
@@ -10,10 +10,14 @@ import config from 'utils/config';
 let resultCache;
 
 /**
- * Retrieves the webpack stats file.
+ * Retrieves the manifest file.
  *
  */
-export default function getClientWebpackStats() {
+export default function getManifest() {
+  // No manifest on dev
+  if (process.env.BUILD_FLAG_IS_DEV === 'true') {
+    return null;
+  }
   // Return the json cache if it exists.
   // In development mode we always read the file from disk to avoid
   // any cases where an older version gets cached.
@@ -21,19 +25,18 @@ export default function getClientWebpackStats() {
     return resultCache;
   }
 
-  const webpackStatsFilePath = pathResolve(
+  const manifestFilePath = pathResolve(
     appRootDir.get(),
     config('bundles.client.outputPath'),
-    '../stats.json',
+    '../manifest.json',
   );
 
-  if (!fs.existsSync(webpackStatsFilePath)) {
-    throw new Error(
-      `We could not find the "${webpackStatsFilePath}" file, which contains a list of the assets of the client bundle. Please ensure that the client bundle has been built.`,
-    );
+  if (!fs.existsSync(manifestFilePath)) {
+    console.warn('We could not find the webpack manifest file.');
+    return null;
   }
 
-  const readAssetsJSONFile = () => JSON.parse(fs.readFileSync(webpackStatsFilePath, 'utf8'));
+  const readAssetsJSONFile = () => JSON.parse(fs.readFileSync(manifestFilePath, 'utf8'));
   const assetsJSONCache = readAssetsJSONFile();
 
   resultCache = assetsJSONCache;

@@ -76,6 +76,14 @@ yarn run build
 yarn start
 ```
 
+## Code splitting
+
+Code splitting is enabled by default. We use `react-universal-component` and other related modules to do both JS and CSS chunks. To code split, all you have to do is wrap a component with `react-universal-component`. An example of this can be found in `shared/routes/grid/index.js`. To disable code splitting you just need to change the file to:
+
+```js
+export default from './Grid';
+```
+
 ## Static site build
 
 You can generate a static site by configuring the appropriate staticSiteGeneration values in `config/values.js`.  Then

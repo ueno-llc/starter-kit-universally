@@ -11,6 +11,35 @@ import codeSplittingConfigExtender from './extenders/codeSplitting';
 import singleRouteAppConfigExtender from './extenders/singleRouteApp';
 import reactApplicationExtender from './extenders/reactApplication';
 
+const host = EnvVars.string('HOST', 'localhost');
+const port = EnvVars.number('PORT', 3000);
+const publicUrl = EnvVars.string('PUBLIC_URL');
+const clientDevServerPort = EnvVars.number('CLIENT_DEV_PORT', 7331);
+const clientDevProxy = EnvVars.bool('CLIENT_DEV_PROXY', false);
+const NODE_ENV = EnvVars.string('NODE_ENV', 'development');
+const clientBundleWebPath = '/client/';
+
+function getPublicUrl() {
+  if (clientDevProxy && publicUrl) {
+    return `${publicUrl}/webpack`;
+  } else if (clientDevProxy) {
+    return `http://${host}:${port}/webpack`;
+  } else if (publicUrl) {
+    return publicUrl;
+  }
+  return `http://${host}:${clientDevServerPort}`;
+}
+
+function getPublicPath() {
+  if (NODE_ENV === 'development') {
+    // As we run a seperate development server for our client and server
+    // bundles we need to use an absolute http path for the public path.
+    return `${getPublicUrl()}${clientBundleWebPath}`;
+  }
+  // Otherwise we expect our bundled client to be served from this path.
+  return clientBundleWebPath;
+}
+
 const values = {
   // The configuration values that should be exposed to our client bundle.
   // This value gets passed through the /shared/utils/objects/filterWithRules
@@ -35,19 +64,21 @@ const values = {
   },
 
   // The public facing url of the app
-  publicUrl: EnvVars.string('PUBLIC_URL'),
+  publicUrl: getPublicUrl(),
+
+  publicPath: getPublicPath(),
 
   // The host on which the server should bind to.
-  host: EnvVars.string('HOST', 'localhost'),
+  host,
 
   // The port on which the server should bind to.
-  port: EnvVars.number('PORT', 3000),
+  port,
 
   // Should the webpack dev server be proxied through the public url
-  clientDevProxy: EnvVars.bool('CLIENT_DEV_PROXY', false),
+  clientDevProxy,
 
   // The port on which the client bundle development server should run.
-  clientDevServerPort: EnvVars.number('CLIENT_DEV_PORT', 7331),
+  clientDevServerPort,
 
   // This is an example environment variable which is used within the react
   // application to demonstrate the usage of environment variables across
@@ -292,7 +323,7 @@ const values = {
       outputPath: './build/client',
 
       // What is the public http path at which we must serve the bundle from?
-      webPath: '/client/',
+      webPath: clientBundleWebPath,
 
       // Configuration settings for the development vendor DLL.  This will be created
       // by our development server and provides an improved dev experience
@@ -391,12 +422,12 @@ const values = {
       }
      */
 
+      // For code splitting
+      plugins.push('universal-import');
+      plugins.push('css-modules-transform');
+
       // Decorators for everybody
       plugins.push('transform-decorators-legacy');
-
-      plugins.push('universal-import');
-
-      plugins.push('css-modules-transform');
 
       // Remove stage-# prests
       presets.forEach((val, pos) => String(val).match(/stage-\d/) && presets.splice(pos, 1));
