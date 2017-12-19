@@ -1,3 +1,1 @@
-import universal from 'react-universal-component';
-
-export default universal(import('./PlanetsDetail'));
+export default from './PlanetsDetail';

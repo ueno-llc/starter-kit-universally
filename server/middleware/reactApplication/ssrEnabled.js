@@ -3,6 +3,7 @@ import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { JobProvider, createJobContext } from 'react-jobs';
 import asyncBootstrapper from 'react-async-bootstrapper';
+import { clearChunks } from 'react-universal-component/server';
 import { toJS } from 'mobx';
 import { Provider, useStaticRendering } from 'mobx-react';
 import Helmet from 'react-helmet';
@@ -10,7 +11,6 @@ import Store from 'store';
 import timing from 'utils/timing';
 import sha256 from 'sha256';
 import App from 'App';
-import { flushChunkNames } from 'react-universal-component/server';
 
 import ServerHTML from './ServerHTML';
 
@@ -62,15 +62,15 @@ export default function reactApplicationMiddleware(request, response) {
   // Needed for react-jobs
   asyncBootstrapper(app).then(() => {
     const { end: endRenderTiming } = timing.start('Render app');
+
+    clearChunks();
     const appString = renderToString(app);
-    const chunkNames = flushChunkNames();
 
     endRenderTiming();
 
     const html = renderToStaticMarkup(
       <ServerHTML
         reactAppString={appString}
-        chunkNames={chunkNames}
         addHash={addHash}
         helmet={Helmet.rewind()}
         routerState={reactRouterContext}

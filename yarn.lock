@@ -651,13 +651,6 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-css-modules-transform@1.2.7:
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/babel-plugin-css-modules-transform/-/babel-plugin-css-modules-transform-1.2.7.tgz#56bcc8ee2665bed8fe59dd8733767911b905bae3"
-  dependencies:
-    css-modules-require-hook "^4.0.6"
-    mkdirp "^0.5.1"
-
 babel-plugin-dynamic-import-node@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-1.2.0.tgz#f91631e703e0595e47d4beafbb088576c87fbeee"
@@ -1047,9 +1040,9 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-plugin-universal-import@1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/babel-plugin-universal-import/-/babel-plugin-universal-import-1.3.4.tgz#807616542c406893700904b44545c4d17ba70112"
+"babel-plugin-universal-import@git://github.com/baldurh/babel-plugin-universal-import.git#a22d671fb4e3ad57e94e41b83736cd366cfe7791":
+  version "0.0.0-development"
+  resolved "git://github.com/baldurh/babel-plugin-universal-import.git#a22d671fb4e3ad57e94e41b83736cd366cfe7791"
   dependencies:
     "@babel/helper-module-imports" "^7.0.0-beta.32"
 
@@ -1593,6 +1586,12 @@ chokidar@1.7.0, chokidar@^1.6.1, chokidar@^1.7.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
+chunk-manifest-webpack-plugin@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/chunk-manifest-webpack-plugin/-/chunk-manifest-webpack-plugin-1.1.2.tgz#b332efb97c1a23bfd3ca5dcee13aa120df72df59"
+  dependencies:
+    webpack-core "^0.6.9"
+
 ci-info@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-1.1.1.tgz#47b44df118c48d2597b56d342e7e25791060171a"
@@ -2043,23 +2042,6 @@ css-loader@0.28.7:
     postcss-modules-values "^1.1.0"
     postcss-value-parser "^3.3.0"
     source-list-map "^2.0.0"
-
-css-modules-require-hook@^4.0.6:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/css-modules-require-hook/-/css-modules-require-hook-4.2.2.tgz#99bb95e5ce9cf49060eed74997c7f7a04bf221eb"
-  dependencies:
-    debug "^2.2.0"
-    generic-names "^1.0.1"
-    glob-to-regexp "^0.3.0"
-    icss-replace-symbols "^1.0.2"
-    lodash "^4.3.0"
-    postcss "^6.0.1"
-    postcss-modules-extract-imports "^1.0.0"
-    postcss-modules-local-by-default "^1.0.1"
-    postcss-modules-resolve-imports "^1.3.0"
-    postcss-modules-scope "^1.0.0"
-    postcss-modules-values "^1.1.1"
-    seekout "^1.0.1"
 
 css-rule-stream@^1.1.0:
   version "1.1.0"
@@ -3337,12 +3319,6 @@ gaze@^1.0.0:
   dependencies:
     globule "^1.0.0"
 
-generic-names@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/generic-names/-/generic-names-1.0.2.tgz#e25b7feceb5b5a8f28f5f972a7ccfe57e562adcd"
-  dependencies:
-    loader-utils "^0.2.16"
-
 get-caller-file@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
@@ -3385,10 +3361,6 @@ glob-parent@^2.0.0:
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-2.0.0.tgz#81383d72db054fcccf5336daa902f182f6edbb28"
   dependencies:
     is-glob "^2.0.0"
-
-glob-to-regexp@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/glob-to-regexp/-/glob-to-regexp-0.3.0.tgz#8c5a1494d2066c570cc3bfe4496175acc4d502ab"
 
 glob@7.1.2, glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@~7.1.1:
   version "7.1.2"
@@ -3786,7 +3758,7 @@ iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
-icss-replace-symbols@^1.0.2, icss-replace-symbols@^1.1.0:
+icss-replace-symbols@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/icss-replace-symbols/-/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
 
@@ -3795,12 +3767,6 @@ icss-utils@^2.1.0:
   resolved "https://registry.yarnpkg.com/icss-utils/-/icss-utils-2.1.0.tgz#83f0a0ec378bf3246178b6c2ad9136f135b1c962"
   dependencies:
     postcss "^6.0.1"
-
-icss-utils@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/icss-utils/-/icss-utils-3.0.1.tgz#ee70d3ae8cac38c6be5ed91e851b27eed343ad0f"
-  dependencies:
-    postcss "^6.0.2"
 
 ieee754@^1.1.4:
   version "1.1.8"
@@ -6054,14 +6020,6 @@ postcss-modules-local-by-default@^1.0.1:
     css-selector-tokenizer "^0.7.0"
     postcss "^6.0.1"
 
-postcss-modules-resolve-imports@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/postcss-modules-resolve-imports/-/postcss-modules-resolve-imports-1.3.0.tgz#398d3000b95ae969420cdf4cd83fa8067f1c5eae"
-  dependencies:
-    css-selector-tokenizer "^0.7.0"
-    icss-utils "^3.0.1"
-    minimist "^1.2.0"
-
 postcss-modules-scope@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/postcss-modules-scope/-/postcss-modules-scope-1.1.0.tgz#d6ea64994c79f97b62a72b426fbe6056a194bb90"
@@ -6069,7 +6027,7 @@ postcss-modules-scope@^1.0.0:
     css-selector-tokenizer "^0.7.0"
     postcss "^6.0.1"
 
-postcss-modules-values@^1.1.0, postcss-modules-values@^1.1.1:
+postcss-modules-values@^1.1.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/postcss-modules-values/-/postcss-modules-values-1.3.0.tgz#ecffa9d7e192518389f42ad0e83f72aec456ea20"
   dependencies:
@@ -6532,9 +6490,9 @@ react-tree-walker@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-2.1.3.tgz#e781dd7ba9b5c50cc6300e3388b490f2b43b6295"
 
-react-universal-component@2.5.5:
-  version "2.5.5"
-  resolved "https://registry.yarnpkg.com/react-universal-component/-/react-universal-component-2.5.5.tgz#b98ff648b52f773cba2f8bcda8cb62379082f52f"
+react-universal-component@2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-universal-component/-/react-universal-component-2.7.0.tgz#6cbcdeb0cd609539b7c905ec1085ff4e69016a2c"
   dependencies:
     hoist-non-react-statics "^2.2.1"
     prop-types "^15.5.10"
@@ -6972,10 +6930,6 @@ scss-tokenizer@^0.2.3:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
 
-seekout@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/seekout/-/seekout-1.0.2.tgz#09ba9f1bd5b46fbb134718eb19a68382cbb1b9c9"
-
 "semver@2 || 3 || 4 || 5", semver@5.4.1, semver@^5.3.0:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
@@ -7116,6 +7070,10 @@ source-list-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
 
+source-list-map@~0.1.7:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
+
 source-map-support@0.4.18, source-map-support@^0.4.15:
   version "0.4.18"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.18.tgz#0286a6de8be42641338594e97ccea75f0a2c585f"
@@ -7130,7 +7088,7 @@ source-map@0.5.x, source-map@^0.5.3, source-map@^0.5.6, source-map@^0.5.7, sourc
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
-source-map@^0.4.2, source-map@^0.4.4:
+source-map@^0.4.2, source-map@^0.4.4, source-map@~0.4.1:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
   dependencies:
@@ -7968,6 +7926,13 @@ webpack-bundle-analyzer@2.9.0:
     opener "^1.4.3"
     ws "^2.3.1"
 
+webpack-core@^0.6.9:
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/webpack-core/-/webpack-core-0.6.9.tgz#fc571588c8558da77be9efb6debdc5a3b172bdc2"
+  dependencies:
+    source-list-map "~0.1.7"
+    source-map "~0.4.1"
+
 webpack-dev-middleware@1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-1.12.0.tgz#d34efefb2edda7e1d3b5dbe07289513219651709"
@@ -7978,9 +7943,9 @@ webpack-dev-middleware@1.12.0:
     range-parser "^1.0.3"
     time-stamp "^2.0.0"
 
-webpack-flush-chunks@1.1.23:
-  version "1.1.23"
-  resolved "https://registry.yarnpkg.com/webpack-flush-chunks/-/webpack-flush-chunks-1.1.23.tgz#130bd3f9d33552e2d7290862ef159978c6b98a1e"
+webpack-flush-chunks@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/webpack-flush-chunks/-/webpack-flush-chunks-1.2.2.tgz#8bcce878a68da1edaaca4100ba9e13e356991f34"
 
 webpack-hot-middleware@2.19.1:
   version "2.19.1"
