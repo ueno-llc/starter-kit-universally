@@ -398,7 +398,6 @@ const values = {
 
       // For code splitting
       plugins.push('universal-import');
-      plugins.push('css-modules-transform');
 
       // Decorators for everybody
       plugins.push('transform-decorators-legacy');

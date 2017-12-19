@@ -147,11 +147,13 @@ export default (webpackConfig, buildOptions) => {
   }
 
   // Overwrite node_modules css loader ExtractTextPlugin
-  const nmCssRule = moduleRules.find(r => r.test.test('node_modules.css'));
+  const nmCssRule = moduleRules.find(r =>
+    r.test.test('node_modules.css') &&
+    (!r.exclude || !r.exclude.test('node_modules.css')));
 
   if (nmCssRule && _isArray(nmCssRule.use)) {
     // Find plugin
-    const pluginIndex = cssRule.use.findIndex(u =>
+    const pluginIndex = nmCssRule.use.findIndex(u =>
       Object.prototype.hasOwnProperty.call(u, 'loader') && /extract-text-webpack-plugin/.test(u.loader));
 
     if (pluginIndex > -1) {
@@ -160,7 +162,7 @@ export default (webpackConfig, buildOptions) => {
         use: ['css-loader', 'postcss-loader'],
       });
 
-      cssRule.use.splice(
+      nmCssRule.use.splice(
         pluginIndex,
         loaders.length,
         ...loaders,
