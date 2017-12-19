@@ -49,10 +49,10 @@ const values = {
   port: EnvVars.number('PORT', 3000),
 
   // Should the webpack dev server be proxied through the public url
-  clientDevProxy: EnvVars.number('CLIENT_DEV_PORT', 7331),
+  clientDevProxy: EnvVars.bool('CLIENT_DEV_PROXY', false),
 
   // The port on which the client bundle development server should run.
-  clientDevServerPort: EnvVars.bool('CLIENT_DEV_PROXY', false),
+  clientDevServerPort: EnvVars.number('CLIENT_DEV_PORT', 7331),
 
   // This is an example environment variable which is used within the react
   // application to demonstrate the usage of environment variables across
