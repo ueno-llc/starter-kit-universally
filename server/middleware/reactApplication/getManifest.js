@@ -19,9 +19,7 @@ export default function getManifest() {
     return null;
   }
   // Return the json cache if it exists.
-  // In development mode we always read the file from disk to avoid
-  // any cases where an older version gets cached.
-  if (process.env.BUILD_FLAG_IS_DEV === 'false' && resultCache) {
+  if (resultCache) {
     return resultCache;
   }
 
