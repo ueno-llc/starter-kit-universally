@@ -9,9 +9,9 @@ import { Provider, useStaticRendering } from 'mobx-react';
 import Helmet from 'react-helmet';
 import Store from 'store';
 import timing from 'utils/timing';
-import sha256 from 'sha256';
 import App from 'App';
 
+import addHash from './addHashToCspHeader';
 import ServerHTML from './ServerHTML';
 
 useStaticRendering(true);
@@ -22,17 +22,7 @@ useStaticRendering(true);
 export default function reactApplicationMiddleware(request, response) {
   // Add script hashes
   // See the server/middleware/security.js for more info.
-  const addHash = (content) => {
-    response.setHeader(
-      'content-security-policy',
-      (response.getHeader('content-security-policy') || '')
-        .split(';')
-        .map(directive => directive.indexOf('script-src') >= 0 ?
-          `${directive} sha256-${sha256(content)}` : directive)
-        .join(';'),
-    );
-    return content;
-  };
+  const hashFunction = addHash(response);
 
   // Create a context for <StaticRouter>, which will allow us to
   // query for the results of the render.
@@ -71,7 +61,7 @@ export default function reactApplicationMiddleware(request, response) {
     const html = renderToStaticMarkup(
       <ServerHTML
         reactAppString={appString}
-        addHash={addHash}
+        addHash={hashFunction}
         helmet={Helmet.rewind()}
         routerState={reactRouterContext}
         jobsState={jobContext.getState()}
