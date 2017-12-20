@@ -6,10 +6,13 @@
  */
 
 import * as EnvVars from './utils/envVars';
+import { getPublicUrl, getPublicPath } from './utils/publicPath';
 
 import codeSplittingConfigExtender from './extenders/codeSplitting';
 import singleRouteAppConfigExtender from './extenders/singleRouteApp';
 import reactApplicationExtender from './extenders/reactApplication';
+
+const clientBundleWebPath = '/client/';
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
@@ -35,7 +38,9 @@ const values = {
   },
 
   // The public facing url of the app
-  publicUrl: EnvVars.string('PUBLIC_URL'),
+  publicUrl: getPublicUrl(),
+
+  publicPath: getPublicPath(clientBundleWebPath),
 
   // The host on which the server should bind to.
   host: EnvVars.string('HOST', 'localhost'),
@@ -292,7 +297,7 @@ const values = {
       outputPath: './build/client',
 
       // What is the public http path at which we must serve the bundle from?
-      webPath: '/client/',
+      webPath: clientBundleWebPath,
 
       // Configuration settings for the development vendor DLL.  This will be created
       // by our development server and provides an improved dev experience
@@ -391,12 +396,11 @@ const values = {
       }
      */
 
-      // Decorators for everybody
-      plugins.push('transform-decorators-legacy');
-
+      // For code splitting
       plugins.push('universal-import');
 
-      plugins.push('css-modules-transform');
+      // Decorators for everybody
+      plugins.push('transform-decorators-legacy');
 
       // Remove stage-# prests
       presets.forEach((val, pos) => String(val).match(/stage-\d/) && presets.splice(pos, 1));
