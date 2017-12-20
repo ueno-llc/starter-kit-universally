@@ -36,8 +36,6 @@ const clientEntryAssets = getClientBundleEntryAssets();
 
 const webpackManifest = getManifest();
 
-const isDev = process.env.BUILD_FLAG_IS_DEV === 'true';
-
 function stylesheetTag(stylesheetFilePath) {
   return (
     <link href={stylesheetFilePath} media="screen, projection" rel="stylesheet" type="text/css" />
@@ -121,7 +119,7 @@ function ServerHTML(props) {
     // compilation times.  Therefore we need to inject the path to the
     // vendor dll bundle below.
     ifElse(
-      isDev && config('bundles.client.devVendorDLL.enabled'),
+      process.env.BUILD_FLAG_IS_DEV === 'true' && config('bundles.client.devVendorDLL.enabled'),
     )(() =>
       scriptTag(
         `${config('bundles.client.webPath')}${config(
