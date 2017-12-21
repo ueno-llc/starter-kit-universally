@@ -46,17 +46,6 @@ function scriptTag(jsFilePath) {
   return <script type="text/javascript" src={jsFilePath} />;
 }
 
-// renames html class from no-js to js
-function noJs() {
-  return (
-    <script
-      type="text/javascript"
-      dangerouslySetInnerHTML={{ __html: `document.documentElement.className =
-       document.documentElement.className.replace('no-js', 'js')` }}
-    />
-  );
-}
-
 function ServerHTML(props) {
   const {
     jobsState,
@@ -81,7 +70,8 @@ function ServerHTML(props) {
   } = getChunks(chunkNames);
 
   const headerElements = removeNil([
-    noJs(),
+    // Renames html class from no-js to js
+    inlineScript('var e=document.documentElement;e.className=e.className.replace("no-js","js")'),
     ifElse(facebookPixel)(() => inlineScript(analytics.facebook)),
     ifElse(twitterPixel)(() => inlineScript(analytics.twitter)),
     ...ifElse(helmet)(() => helmet.meta.toComponent(), []),
