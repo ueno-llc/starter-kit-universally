@@ -71,7 +71,7 @@ function ServerHTML(props) {
 
   const headerElements = removeNil([
     // Renames html class from no-js to js
-    inlineScript('document.documentElement.className=document.documentElement.className.replace("no-js","js")'),
+    inlineScript('var e=document.documentElement;e.className=e.className.replace("no-js","js")'),
     ifElse(facebookPixel)(() => inlineScript(analytics.facebook)),
     ifElse(twitterPixel)(() => inlineScript(analytics.twitter)),
     ...ifElse(helmet)(() => helmet.meta.toComponent(), []),
