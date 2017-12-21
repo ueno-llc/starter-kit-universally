@@ -1,6 +1,6 @@
 {
   "name": "starter-kit-universally",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "A starter kit from Ueno. Based on react-universally",
   "main": "build/server/index.js",
   "engines": {
