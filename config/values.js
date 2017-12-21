@@ -182,7 +182,6 @@ const values = {
     manifestSrc: [],
     objectSrc: [],
     scriptSrc: [
-      "'self'",
       // Allow scripts from cdn.polyfill.io so that we can import the polyfill.
       'cdn.polyfill.io',
       // For analytics
@@ -192,9 +191,7 @@ const values = {
       'analytics.twitter.com',
     ],
     styleSrc: [
-      "'self' 'unsafe-inline'",
       'fonts.googleapis.com',
-      'blob:',
     ],
   },
 

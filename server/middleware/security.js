@@ -25,11 +25,6 @@ const cspConfig = {
     scriptSrc: [
       // Allow scripts hosted from our application.
       "'self'",
-      // This is a know workaround for browsers that don't support nonces.
-      // It will be ignored by browsers that do support nonces as they will
-      // recognise that we have also provided a nonce configuration and
-      // use the stricter rule.
-      "'unsafe-inline'",
     ],
     styleSrc: [
       "'self'",
