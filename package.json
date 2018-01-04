@@ -88,7 +88,7 @@
     "babel-plugin-transform-react-inline-elements": "6.22.0",
     "babel-plugin-transform-react-jsx-self": "6.22.0",
     "babel-plugin-transform-react-jsx-source": "6.22.0",
-    "babel-plugin-universal-import": "git://github.com/baldurh/babel-plugin-universal-import.git#a22d671fb4e3ad57e94e41b83736cd366cfe7791",
+    "babel-plugin-universal-import": "git://github.com/faceyspacey/babel-plugin-universal-import.git#cb4c5d3a240991af7445493f04908033df61c823",
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.24.1",
