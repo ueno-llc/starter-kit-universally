@@ -55,10 +55,6 @@ const values = {
     gaId: true,
     // Expose heroku devtools flag
     herokuDevtools: true,
-    // For project's local api
-    baseUrl: true,
-    // Project's local api url
-    localApiUrl: true,
   },
 
   // The public facing url of the app

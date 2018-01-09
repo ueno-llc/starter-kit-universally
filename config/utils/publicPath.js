@@ -25,14 +25,14 @@ export function getPublicPath(clientBundleWebPath, params) {
  * Construct a fully qualified URL to a local API if we have any.
  * Assumes we're using HTTP in dev and HTTPS when not
  */
-export function constructLocalApiUrl({ base, host, port, heroku }) {
-  if (base) {
-    return `${base}/api`;
+export function constructLocalApiUrl({ baseUrl, host, port, herokuAppName }) {
+  if (baseUrl) {
+    return `${baseUrl}/api`;
   }
 
   // Used on Heroku PR apps
-  if (heroku) {
-    return `https://${heroku}.herokuapp.com/api`;
+  if (herokuAppName) {
+    return `https://${herokuAppName}.herokuapp.com/api`;
   }
 
   return `http://${host}:${port}/api`;
