@@ -70,6 +70,8 @@ function ServerHTML(props) {
   } = getChunks(chunkNames);
 
   const headerElements = removeNil([
+    // IE wants this at the top of the head element before any script tags
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />,
     // Renames html class from no-js to js
     inlineScript('var e=document.documentElement;e.className=e.className.replace("no-js","js")'),
     ifElse(facebookPixel)(() => inlineScript(analytics.facebook)),

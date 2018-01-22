@@ -128,7 +128,7 @@ const values = {
         http://realfavicongenerator.net/
         http://www.favicomatic.com/
       */
-      { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
+      { charset: 'utf-8' },
       { name: 'description', content: 'Ueno. description text here!' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, user-scalable=no' }, // prevents inputs from zooming, but iOS still allows normal pinch zoom
       { name: 'msapplication-TileColor', content: '#00E2AD' },
