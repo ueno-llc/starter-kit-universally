@@ -61,6 +61,36 @@ function ServerHTML(props) {
     <script type="text/javascript" dangerouslySetInnerHTML={{ __html: addHash(body) }} />
   );
 
+  // when IE is in compat mode, the user agent string is set to IE7 even when the document mode is
+  // higher. This inline script ensures that the correct polyfill shims are retrieved by special-
+  // casing IE to check the documentMode
+  function ieCompatModeSafePolyfill() {
+    const polyfillFeatures = config('polyfillIO.features');
+    const featuresQueryParams = `features=${polyfillFeatures.join(',')}&flags=gated`;
+    const polyfillUrlBase = config('polyfillIO.url');
+
+    const inlineScriptContents = `   
+    var isIE = false;
+    if (navigator.appName == 'Microsoft Internet Explorer') {
+      isIE = true;
+    }
+    else if (navigator.appName == 'Netscape') {
+      var ua = navigator.userAgent;
+      var re  = new RegExp("Trident/.*rv:([0-9]{1,}[\\.0-9]{0,})");
+      if (re.exec(ua) != null)
+        isIE = true;
+    }
+
+    var polyfillUrl = isIE ?
+      '${polyfillUrlBase}?ua=ie/' + document.documentMode + '&${featuresQueryParams}' :
+      '${polyfillUrlBase}?${featuresQueryParams}';
+
+    document.write('<'+'script src="' + polyfillUrl + '"></'+'script>');
+    `;
+
+    return inlineScript(inlineScriptContents);
+  }
+
   const chunkNames = flushChunkNames();
 
   const {
@@ -104,7 +134,7 @@ function ServerHTML(props) {
     // preventing wrong feature set in chrome simulator
     ifElse(config('polyfillIO.enabled'))(
       () =>
-        scriptTag(`${config('polyfillIO.url')}?features=${config('polyfillIO.features').join(',')}&flags=gated`),
+        ieCompatModeSafePolyfill(),
     ),
     // When we are in development mode our development server will
     // generate a vendor DLL in order to dramatically reduce our
