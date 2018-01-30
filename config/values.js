@@ -158,7 +158,7 @@ const values = {
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicons/apple-touch-icon-180x180.png' },
       { rel: 'mask-icon', href: '/favicons/safari-pinned-tab.svg', color: '#00a9d9' },
       { rel: 'icon', type: 'image/png', href: '/favicons/favicon-196x196.png', sizes: '196x196' },
-      { rel: 'icon', type: 'image/png', href: '/favicons/favicon-128.png', sizes: '128x128' },
+      { rel: 'icon', type: 'image/png', href: '/favicons/favicon-128x128.png', sizes: '128x128' },
       { rel: 'icon', type: 'image/png', href: '/favicons/favicon-96x96.png', sizes: '96x96' },
       { rel: 'icon', type: 'image/png', href: '/favicons/favicon-32x32.png', sizes: '32x32' },
       { rel: 'icon', sizes: '16x16 32x32', href: '/favicon.ico' },
