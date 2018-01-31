@@ -1,5 +1,4 @@
 import appRootDir from 'app-root-dir';
-import AssetsPlugin from 'assets-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import nodeExternals from 'webpack-node-externals';
@@ -278,19 +277,6 @@ export default function webpackConfigFactory(buildOptions) {
         // Is this a development build?
         BUILD_FLAG_IS_DEV: JSON.stringify(isDev),
       }),
-
-      // Generates a JSON file containing a map of all the output files for
-      // our webpack bundle.  A necessisty for our server rendering process
-      // as we need to interogate these files in order to know what JS/CSS
-      // we need to inject into our HTML. We only need to know the assets for
-      // our client bundle.
-      ifClient(
-        () =>
-          new AssetsPlugin({
-            filename: config('bundleAssetsFileName'),
-            path: path.resolve(appRootDir.get(), bundleConfig.outputPath),
-          }),
-      ),
 
       // We don't want webpack errors to occur during development as it will
       // kill our dev servers.

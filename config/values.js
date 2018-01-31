@@ -233,9 +233,8 @@ const values = {
     'webm',
   ],
 
-  // What should we name the json output file that webpack generates
-  // containing details of all output files for a bundle?
-  bundleAssetsFileName: 'assets.json',
+  // What should we name the json output file that webpack generates?
+  webpackStatsFileName: 'stats.json',
 
   // node_modules are not included in any bundles that target "node" as a
   // runtime (e.g.. the server bundle) as including them often breaks builds

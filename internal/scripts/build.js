@@ -3,6 +3,8 @@
  */
 
 import fs from 'fs';
+import path from 'path';
+import appRootDir from 'app-root-dir';
 import webpack from 'webpack';
 import webpackConfigFactory from '../webpack/configFactory';
 import config from '../../config';
@@ -48,7 +50,10 @@ Object.keys(config('bundles'))
 
         const output = { assetsByChunkName, publicPath, assets };
 
-        fs.writeFileSync('build/stats.json', JSON.stringify(output));
+        fs.writeFileSync(
+          path.resolve(appRootDir.get(), config('buildOutputPath'), config('webpackStatsFileName')),
+          JSON.stringify(output),
+        );
       }
     });
   });
