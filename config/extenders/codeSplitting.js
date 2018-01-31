@@ -110,7 +110,7 @@ export default (webpackConfig, buildOptions) => {
       ifProdClient(
         new webpack.optimize.CommonsChunkPlugin({
           name: 'vendor',
-          filename: isDev ? '[name].js' : '[name]-[chunkhash].js',
+          filename: '[name]-[chunkhash].js',
           // Put all node_modules into one chunk
           // see: https://webpack.js.org/plugins/commons-chunk-plugin/#passing-the-minchunks-property-a-function
           minChunks: module => module.context && module.context.includes('node_modules'),
