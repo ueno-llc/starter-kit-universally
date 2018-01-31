@@ -22,7 +22,7 @@ Change values in `app.json` and `config/values.js`. Delete this part of the read
 
 ```
 > yarn
-> yarn run dev
+> yarn dev
 ...
 Server listening on http://localhost:3000
 ```
@@ -60,7 +60,7 @@ By setting a `PASSWORD_PROTECT` env variable, the server will ask the client to 
 If you’re working on a single route and don’t want to build the entire app you can do so by using the `--route` argument, for example:
 
 ```bash
-> yarn run dev -- --route=about
+> yarn dev --route=about
 ```
 `about` being the folder name of the targeted route (inside `shared/routes`). This can be very useful when the app gets bigger and rebuilds and HMR start to get slower.
 
@@ -72,7 +72,7 @@ If you’re working on a single route and don’t want to build the entire app y
 ## Production build
 
 ```bash
-yarn run build
+yarn build
 yarn start
 ```
 
@@ -86,14 +86,11 @@ export default from './Grid';
 
 ## Static site build
 
-You can generate a static site by configuring the appropriate staticSiteGeneration values in `config/values.js`.  Then
-run `yarn run build:static` and the static pages will be generated in build/static.
+You can generate a static site by configuring the appropriate staticSiteGeneration values in `config/values.js`. Then run `yarn build:static` and the static pages will be generated in build/static.
 
-To see the generated site, use `yarn run start:static` or copy the `build/static` directory
-to the web server of your choice. Note that any error pages (e.g. 404.html) will not work
-without some server intelligence to send requests to the correct file.
+To see the generated site, use `yarn start:static` or copy the `build/static` directory to the web server of your choice. Note that any error pages (e.g. 404.html) will not work without some server intelligence to send requests to the correct file.
 
-More information on the internals of the static site build are in the directory's [README]('/internal/scripts/static-site-generation/README.md).
+More information on the internals of the static site build are in the directory's [README](/internal/scripts/static-site-generation/README.md).
 
 
 ## Updating from upstream
@@ -170,7 +167,7 @@ Measuring initial build times, runs the dev build, kills it, runs it again N tim
 ```bash
 > chmod +x ./internal/performance/build.sh # allow execution
 > ./internal/performance/build.sh
-Running "yarn run dev" 5 times
+Running "yarn dev" 5 times
 2627.793
 2697.435
 4140.478
@@ -185,7 +182,7 @@ Measuring hot reload rebuilds, runs the dev task and waits for changes that trig
 ```bash
 > chmod +x ./internal/performance/hot.sh # allow execution
 > ./internal/performance/hot.sh
-Running "yarn run dev" watching for hot reloads
+Running "yarn dev" watching for hot reloads
 Build complete
 794.079
 518.700
