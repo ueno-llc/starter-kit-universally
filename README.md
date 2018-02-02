@@ -142,6 +142,29 @@ Server listening on http://192.168.1.1:3000
 Server listening on https://xyz.ngrok.io
 ```
 
+## Environment variables
+
+`.env_example` should contain all environment variables, required or not. All environment variables should default to development values.
+
+Paths, must be absolute URLs because of `axios` and the server not knowing its hostname
+
+* `BASE_URL` - Used for compiling canonical urls and local api url (for internal requests)
+
+`publicPath` is set by the following environment variables:
+
+1. In development the `publicPath` is set by these variables:
+  1. `REMOTE_URL` - Only set when running `yarn dev-remote`
+  * `HOST` and `CLIENT_DEV_PORT` - Generates a url pointing to the dev server
+* Otherwise it’s set to `/client/`
+
+`localApiUrl` is set by the following environment rules:
+
+1. `BASE_URL` - `/api` is appended
+* `HEROKU_APP_NAME` - Injected into an Heroku app url string
+* `HOST` and `PORT` - Used to compile a local api url
+
+This allows for the build to work in dev, on Heroku PR apps and Heroku prod. See `./config/values.js` for details.
+
 ## Stricter development
 
 For those so inclined, pre-commit linting hooks can be added by changing `lint-stage` in `package.json` to:

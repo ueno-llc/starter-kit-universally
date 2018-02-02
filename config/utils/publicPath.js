@@ -1,17 +1,20 @@
-export function getPublicUrl({ clientDevProxy, publicUrl, host, port, clientDevServerPort }) {
-  if (clientDevProxy && publicUrl) {
-    return `${publicUrl}/webpack`;
-  } else if (clientDevProxy) {
-    return `http://${host}:${port}/webpack`;
-  } else if (publicUrl) {
-    return publicUrl;
+// Only used for development
+export function getPublicUrl({ remoteUrl, host, clientDevServerPort }) {
+  if (remoteUrl) {
+    return `${remoteUrl}/webpack`;
   }
-
+  // Normal development url
   return `http://${host}:${clientDevServerPort}`;
 }
 
-export function getPublicPath(clientBundleWebPath, params) {
-  if (params.NODE_ENV === 'development') {
+// Returns the public path of the app’s assets.
+// The returned path must have a trailing slash.
+export function getPublicPath({
+  NODE_ENV,
+  clientBundleWebPath,
+  ...params
+}) {
+  if (NODE_ENV === 'development') {
     // As we run a seperate development server for our client and server
     // bundles we need to use an absolute http path for the public path.
     return `${getPublicUrl(params)}${clientBundleWebPath}`;
@@ -25,7 +28,7 @@ export function getPublicPath(clientBundleWebPath, params) {
  * Construct a fully qualified URL to a local API if we have any.
  * Assumes we're using HTTP in dev and HTTPS when not
  */
-export function constructLocalApiUrl({ baseUrl, host, port, herokuAppName }) {
+export function getLocalApiUrl({ baseUrl, host, port, herokuAppName }) {
   if (baseUrl) {
     return `${baseUrl}/api`;
   }
