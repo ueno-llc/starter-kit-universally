@@ -25,8 +25,8 @@ export default function getManifest() {
 
   const manifestFilePath = pathResolve(
     appRootDir.get(),
-    config('bundles.client.outputPath'),
-    '../manifest.json',
+    config('buildOutputPath'),
+    'manifest.json',
   );
 
   if (!fs.existsSync(manifestFilePath)) {

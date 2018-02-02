@@ -77,7 +77,6 @@
   "lint-staged": {},
   "dependencies": {
     "app-root-dir": "1.0.2",
-    "assets-webpack-plugin": "3.5.1",
     "autoprefixer": "7.1.3",
     "axios": "0.16.2",
     "babel-cli": "6.26.0",
