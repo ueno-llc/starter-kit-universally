@@ -156,8 +156,8 @@ Paths, must be absolute URLs because of `axios` and the server not knowing its h
 
 `localApiUrl` is set by the following environment rules:
 
-1. `BASE_URL` - `/api` is appended
-* `HEROKU_APP_NAME` - Injected into an Heroku app url string
+1. `HEROKU_APP_NAME` - Injected into an Heroku app url string
+* `BASE_URL` - `/api` is appended
 * `HOST` and `PORT` - Used to compile a local api url
 
 This allows for the build to work in dev, on Heroku PR apps and Heroku prod. See `./config/values.js` for details.

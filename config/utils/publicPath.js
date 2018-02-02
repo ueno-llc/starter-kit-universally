@@ -29,13 +29,13 @@ export function getPublicPath({
  * Assumes we're using HTTP in dev and HTTPS when not
  */
 export function getLocalApiUrl({ baseUrl, host, port, herokuAppName }) {
-  if (baseUrl) {
-    return `${baseUrl}/api`;
-  }
-
   // Used on Heroku PR apps
   if (herokuAppName) {
     return `https://${herokuAppName}.herokuapp.com/api`;
+  }
+
+  if (baseUrl) {
+    return `${baseUrl}/api`;
   }
 
   return `http://${host}:${port}/api`;
