@@ -6,13 +6,35 @@
  */
 
 import * as EnvVars from './utils/envVars';
-import { getPublicUrl, getPublicPath } from './utils/publicPath';
+import {
+  getPublicUrl,
+  getPublicPath,
+  getLocalApiUrl,
+} from './utils/publicPath';
 
 import codeSplittingConfigExtender from './extenders/codeSplitting';
 import singleRouteAppConfigExtender from './extenders/singleRouteApp';
 import reactApplicationExtender from './extenders/reactApplication';
 
 const clientBundleWebPath = '/client/';
+const baseUrl = EnvVars.string('BASE_URL', 'http://localhost:3000');
+const clientDevServerPort = EnvVars.number('CLIENT_DEV_PORT', 7331);
+const herokuAppName = EnvVars.string('HEROKU_APP_NAME');
+const host = EnvVars.string('HOST', 'localhost');
+const port = EnvVars.number('PORT', 3000);
+const remoteUrl = EnvVars.string('REMOTE_URL');
+const NODE_ENV = EnvVars.string('NODE_ENV', 'development');
+
+const urlParams = {
+  clientBundleWebPath,
+  baseUrl,
+  clientDevServerPort,
+  herokuAppName,
+  host,
+  port,
+  remoteUrl,
+  NODE_ENV,
+};
 
 const values = {
   // The configuration values that should be exposed to our client bundle.
@@ -37,30 +59,31 @@ const values = {
     herokuDevtools: true,
   },
 
-  // The public facing url of the app
-  publicUrl: getPublicUrl(),
-
-  publicPath: getPublicPath(clientBundleWebPath),
-
   // The host on which the server should bind to.
-  host: EnvVars.string('HOST', 'localhost'),
+  host,
 
   // The port on which the server should bind to.
-  port: EnvVars.number('PORT', 3000),
-
-  // Should the webpack dev server be proxied through the public url
-  clientDevProxy: EnvVars.bool('CLIENT_DEV_PROXY', false),
+  port,
 
   // The port on which the client bundle development server should run.
-  clientDevServerPort: EnvVars.number('CLIENT_DEV_PORT', 7331),
+  clientDevServerPort,
+
+  // Expose environment
+  NODE_ENV,
+
+  // Local api url for internal requests
+  localApiUrl: getLocalApiUrl(urlParams),
+
+  // The public facing url of the app
+  publicUrl: getPublicUrl(urlParams),
+
+  // The path were assets are stored
+  publicPath: getPublicPath(urlParams),
 
   // This is an example environment variable which is used within the react
   // application to demonstrate the usage of environment variables across
   // the client and server bundles.
   welcomeMessage: EnvVars.string('WELCOME_MSG', 'Nothing feels like ::ffff!'),
-
-  // Expose environment
-  NODE_ENV: EnvVars.string('NODE_ENV', 'development'),
 
   // Are we measuring performance?
   performance: EnvVars.bool('PERFORMANCE', false),
@@ -71,6 +94,7 @@ const values = {
   // Toggle devtools on heroku
   herokuDevtools: EnvVars.bool('HEROKU_DEVTOOLS', false),
 
+  // Define a password to access the app
   passwordProtect: EnvVars.string('PASSWORD_PROTECT', ''),
 
   // Disable server side rendering?
