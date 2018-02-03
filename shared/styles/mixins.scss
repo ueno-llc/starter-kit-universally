@@ -14,8 +14,7 @@
   @return $number;
 }
 
-// defaults to standard heading size
-@mixin responsive-font($min-size: ($font-size - 2), $size: $font-size, $limit: $page-limit) {
+@mixin responsive-font($min-size: strip-unit($font-size-min), $size: strip-unit($font-size), $limit: $page-limit) {
   $baseline: $min-mobile;
   $font-multiplier: (($size - $min-size) / (strip-unit($limit) - strip-unit($baseline)));
   $font-baseline: ($min-size - $font-multiplier * strip-unit($baseline));
@@ -25,16 +24,16 @@
   }
 
   font-size: #{$min-size}px;
-  font-size: calc(#{$min-size}px * #{var(--scale-multiplier)});
+  font-size: calc(#{$min-size}px * #{var(--scale-font)});
 
   @media (min-width: $baseline) {
     font-size: #{$min-size}px;
-    font-size: calc((#{$font-multiplier} * #{100vw} + (#{$font-baseline}px)) * #{var(--scale-multiplier)});
+    font-size: calc((#{$font-multiplier} * #{100vw} + (#{$font-baseline}px)) * #{var(--scale-font)});
   }
 
   @media (min-width: $limit) {
     font-size: #{$size}px;
-    font-size: calc(#{$size}px * #{var(--scale-multiplier)});
+    font-size: calc(#{$size}px * #{var(--scale-font)});
   }
 }
 
@@ -77,19 +76,42 @@
   }
 }
 
+@mixin v-scale($property, $number) {
+  #{$property}: $number;
+
+  @supports (--css: variables) {
+    #{$property}: calc(#{$number} * var(--scale-element));
+  }
+}
+
 // segment customisable per-component / instance rather than being forced to work around defaults.
 @mixin segment($padding-top: $segment-padding, $padding-bottom: $segment-padding, $padding-top-mobile: $segment-padding-mobile, $padding-bottom-mobile: $segment-padding-mobile) {
-  padding-top: $padding-top-mobile;
-  padding-bottom: $padding-bottom-mobile;
+  padding-top: strip-unit($padding-top-mobile) + px;
+  padding-bottom: strip-unit($padding-bottom-mobile) + px;
+
+  @supports (--css: variables) {
+    padding-top: calc(#{strip-unit($padding-top-mobile) + px} * var(--scale-element));
+    padding-bottom: calc(#{strip-unit($padding-bottom-mobile) + px} * var(--scale-element));
+  }
 
   @media (min-width: $min-tablet) {
     padding-top: percentage(strip-unit($padding-top) / strip-unit($page-limit));
     padding-bottom: percentage(strip-unit($padding-bottom) / strip-unit($page-limit));
+
+    @supports (--css: variables) {
+      padding-top: calc(#{percentage(strip-unit($padding-top) / strip-unit($page-limit))} * var(--scale-element));
+      padding-bottom: calc(#{percentage(strip-unit($padding-bottom) / strip-unit($page-limit))} * var(--scale-element));
+    }
   }
 
   @media (min-width: $page-limit) {
-    padding-top: strip-unit($padding-top) * 1px;
-    padding-bottom: strip-unit($padding-bottom) * 1px;
+    padding-top: strip-unit($padding-top) + px;
+    padding-bottom: strip-unit($padding-bottom) + px;
+
+    @supports (--css: variables) {
+      padding-top: calc(#{strip-unit($padding-top) + px} * var(--scale-element));
+      padding-bottom: calc(#{strip-unit($padding-bottom) + px} * var(--scale-element));
+    }
   }
 }
 

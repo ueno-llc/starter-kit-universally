@@ -16,16 +16,22 @@
 }
 
 :root {
-  --scale-multiplier: $scale;
+  --scale-element: $scale;
+  --scale-font: $scale;
 
-  // 805px is start of 15" Mac Book Pro range
-  @media (max-height: 805px) and (min-aspect-ratio: 16/10) {
-    --scale-multiplier: $scale-md;
+  @media (max-height: $scale-height-lg) {
+    --scale-element: $scale-element-lg;
+    --scale-font: $scale-font-lg;
   }
 
-  // 650px is start of 13" Mac Book Pro with dock at bottom range
-  @media (max-height: 650px) and (min-aspect-ratio: 16/10) {
-    --scale-multiplier: $scale-sm;
+  @media (max-height: $scale-height-md) {
+    --scale-element: $scale-element-md;
+    --scale-font: $scale-font-md;
+  }
+
+  @media (max-height: $scale-height-sm) {
+    --scale-element: $scale-element-sm;
+    --scale-font: $scale-font-sm;
   }
 }
 
@@ -56,12 +62,12 @@ html {
 }
 
 body {
+  @include responsive-font(strip-unit($font-size-min), strip-unit($font-size));
   position: relative;
 
   margin: 0;
 
   font-family: $font-family;
-  font-size: $font-size;
   line-height: $line-height;
   color: $color-font;
 
