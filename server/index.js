@@ -40,8 +40,8 @@ if (process.env.BUILD_FLAG_IS_DEV === 'false' && config('serviceWorker.enabled')
   );
 }
 
-// Proxy hot module reload development server when flagged to do so.
-if (process.env.BUILD_FLAG_IS_DEV === 'true' && config('clientDevProxy')) {
+// Proxy hot module reload development server when running remote dev
+if (process.env.BUILD_FLAG_IS_DEV === 'true' && process.env.REMOTE_URL) {
   app.use(require('./middleware/devServerProxy').default);
 }
 
@@ -78,9 +78,7 @@ app.use(...errorHandlers);
 const listener = app.listen(config('port'), () => {
   const host = config('host');
   const port = config('port');
-  const localUrl = `http://${host}:${port}`;
-  const publicUrl = process.env.PUBLIC_URL;
-  const url = publicUrl && publicUrl !== '' ? publicUrl : localUrl;
+  const url = process.env.REMOTE_URL || `http://${host}:${port}`;
 
   log({
     title: 'server',

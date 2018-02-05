@@ -7,6 +7,7 @@ import webpack from 'webpack';
 import ExtractCssChunks from 'extract-css-chunks-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import ChunkManifestWebpackPlugin from 'chunk-manifest-webpack-plugin';
+import NameAllModulesPlugin from 'name-all-modules-plugin';
 
 import config from '../';
 import { removeNil } from '../../internal/utils/arrays';
@@ -78,9 +79,25 @@ export default (webpackConfig, buildOptions) => {
   webpackConfig.plugins.push(
     ...removeNil([
 
-      ifClient(new ExtractCssChunks({ filename: '[name]-[contenthash].css' })),
+      // NamedModulesPlugin, NamedChunksPlugin and NameAllModulesPlugin (see below) are all here to
+      // deal with chunk hashes.
+      // See https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
+      ifClient(new webpack.NamedModulesPlugin()),
 
-      ifProdClient(() => new ChunkManifestWebpackPlugin({
+      ifClient(
+        new webpack.NamedChunksPlugin((chunk) => {
+          if (chunk.name) {
+            return chunk.name;
+          }
+          return chunk.mapModules(m => path.relative(m.context, m.request)).join('_');
+        }),
+      ),
+
+      ifClient(new ExtractCssChunks({
+        filename: isDev ? '[name].js' : '[name]-[contenthash].css',
+      })),
+
+      ifProdClient(new ChunkManifestWebpackPlugin({
         filename: '../manifest.json',
         manifestVariable: '__WEBPACK_MANIFEST__',
       })),
@@ -93,7 +110,7 @@ export default (webpackConfig, buildOptions) => {
       ifProdClient(
         new webpack.optimize.CommonsChunkPlugin({
           name: 'vendor',
-          filename: isDev ? '[name].js' : '[name]-[chunkhash].js',
+          filename: '[name]-[chunkhash].js',
           // Put all node_modules into one chunk
           // see: https://webpack.js.org/plugins/commons-chunk-plugin/#passing-the-minchunks-property-a-function
           minChunks: module => module.context && module.context.includes('node_modules'),
@@ -104,9 +121,11 @@ export default (webpackConfig, buildOptions) => {
       ifClient(
         new webpack.optimize.CommonsChunkPlugin({
           name: 'bootstrap', // needed to put webpack bootstrap code before chunks
-          filename: isDev ? '[name]-[hash].js' : '[name]-[chunkhash].js',
+          filename: isDev ? '[name].js' : '[name]-[chunkhash].js',
         }),
       ),
+
+      ifClient(new NameAllModulesPlugin()),
 
       // We only want one server chunk
       ifNode(

@@ -23,8 +23,8 @@ export default function getClientWebpackStats() {
 
   const webpackStatsFilePath = pathResolve(
     appRootDir.get(),
-    config('bundles.client.outputPath'),
-    '../stats.json',
+    config('buildOutputPath'),
+    config('webpackStatsFileName'),
   );
 
   if (!fs.existsSync(webpackStatsFilePath)) {
