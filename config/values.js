@@ -17,11 +17,11 @@ import singleRouteAppConfigExtender from './extenders/singleRouteApp';
 import reactApplicationExtender from './extenders/reactApplication';
 
 const clientBundleWebPath = '/client/';
-const baseUrl = EnvVars.string('BASE_URL', 'http://localhost:3000');
 const clientDevServerPort = EnvVars.number('CLIENT_DEV_PORT', 7331);
 const herokuAppName = EnvVars.string('HEROKU_APP_NAME');
 const host = EnvVars.string('HOST', 'localhost');
 const port = EnvVars.number('PORT', 3000);
+const baseUrl = EnvVars.string('BASE_URL', `http://${host}:${port}`);
 const remoteUrl = EnvVars.string('REMOTE_URL');
 const NODE_ENV = EnvVars.string('NODE_ENV', 'development');
 
