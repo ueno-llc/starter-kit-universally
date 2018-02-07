@@ -62,7 +62,7 @@ html {
 }
 
 body {
-  @include responsive-font(strip-unit($font-size-min), strip-unit($font-size));
+  @include responsive-font($font-size-min, $font-size);
   position: relative;
 
   margin: 0;
