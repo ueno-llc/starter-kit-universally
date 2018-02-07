@@ -67,7 +67,7 @@
 
   @media (min-width: $min-tablet) {
     @include v-scale(padding-top, percentage(($padding-top-unitless * 1px) / $page-limit));
-    @include v-scale(padding-bottom, percentage(($padding-top-unitless * 1px) / $page-limit));
+    @include v-scale(padding-bottom, percentage(($padding-bottom-unitless * 1px) / $page-limit));
   }
 
   @media (min-width: $page-limit) {
