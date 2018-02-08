@@ -18,10 +18,10 @@
 
   $unitless-min: strip-unit($min-size);
   $unitless-size: strip-unit($size);
+  $baseline: strip-unit($min-mobile);
 
-  $baseline: $min-mobile;
-  $font-multiplier: (($unitless-size - $unitless-min) / (strip-unit($limit) - strip-unit($baseline)));
-  $font-baseline: ($unitless-min - $font-multiplier * strip-unit($baseline));
+  $font-multiplier: (($unitless-size - $unitless-min) / (strip-unit($limit) - $baseline));
+  $font-baseline: ($unitless-min - $font-multiplier * $baseline);
 
   @if $unitless-min >= $unitless-size {
     @warn 'Responsive font: min-size equal or greater than size';
@@ -30,7 +30,7 @@
   font-size: #{$unitless-min}px;
   font-size: calc(#{$unitless-min}px * #{var(--scale-font)});
 
-  @media (min-width: $baseline) {
+  @media (min-width: $min-mobile) {
     font-size: #{$unitless-min}px;
     font-size: calc((#{$font-multiplier} * #{100vw} + (#{$font-baseline}px)) * #{var(--scale-font)});
   }
@@ -41,7 +41,7 @@
   }
 }
 
-@mixin v-scale($property, $number) {
+@mixin vertically-responsive($property, $number) {
   #{$property}: $number;
 
   @supports (--css: variables) {
@@ -62,17 +62,17 @@
   $padding-top-unitless: strip-unit($padding-top);
   $padding-bottom-unitless: strip-unit($padding-bottom);
 
-  @include v-scale(padding-top, $padding-top-mobile-unitless * 1px);
-  @include v-scale(padding-bottom, $padding-bottom-mobile-unitless * 1px);
+  @include vertically-responsive(padding-top, $padding-top-mobile-unitless * 1px);
+  @include vertically-responsive(padding-bottom, $padding-bottom-mobile-unitless * 1px);
 
   @media (min-width: $min-tablet) {
-    @include v-scale(padding-top, percentage(($padding-top-unitless * 1px) / $page-limit));
-    @include v-scale(padding-bottom, percentage(($padding-bottom-unitless * 1px) / $page-limit));
+    @include vertically-responsive(padding-top, percentage(($padding-top-unitless * 1px) / $page-limit));
+    @include vertically-responsive(padding-bottom, percentage(($padding-bottom-unitless * 1px) / $page-limit));
   }
 
   @media (min-width: $page-limit) {
-    @include v-scale(padding-top, $padding-top-unitless * 1px);
-    @include v-scale(padding-bottom, $padding-bottom-unitless * 1px);
+    @include vertically-responsive(padding-top, $padding-top-unitless * 1px);
+    @include vertically-responsive(padding-bottom, $padding-bottom-unitless * 1px);
   }
 }
 
