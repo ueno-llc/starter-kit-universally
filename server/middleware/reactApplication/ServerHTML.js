@@ -15,7 +15,6 @@ import HTML from 'components/html';
 import config from 'utils/config';
 import Analytics from 'utils/analytics';
 
-import getClientBundleEntryAssets from './getClientBundleEntryAssets';
 import getChunks from './getChunks';
 import getManifest from './getManifest';
 
@@ -30,9 +29,6 @@ function KeyedComponent({ children }) {
 const facebookPixel = config('facebookPixel');
 const twitterPixel = config('twitterPixel');
 const analytics = new Analytics({ facebookPixel, twitterPixel });
-
-// Resolve the assets (js/css) for the client bundle's entry chunk.
-const clientEntryAssets = getClientBundleEntryAssets();
 
 const webpackManifest = getManifest();
 
@@ -78,9 +74,6 @@ function ServerHTML(props) {
     ...ifElse(helmet)(() => helmet.title.toComponent(), []),
     ...ifElse(helmet)(() => helmet.base.toComponent(), []),
     ...ifElse(helmet)(() => helmet.link.toComponent(), []),
-    ifElse(clientEntryAssets && clientEntryAssets.css)(
-      () => stylesheetTag(clientEntryAssets.css),
-    ),
     ...ifElse(helmet)(() => helmet.style.toComponent(), []),
     ifElse(webpackManifest)(() => inlineScript(`window.__WEBPACK_MANIFEST__=${serialize(webpackManifest, { isJSON: true })};`)),
     ...ifElse(stylesheets)(() => stylesheets.map(s => stylesheetTag(s)), []),
@@ -118,9 +111,6 @@ function ServerHTML(props) {
       )),
     inlineScript(`window.__CSS_CHUNKS__=${serialize(cssHashRaw)}`),
     ...ifElse(scripts)(() => scripts.map(s => scriptTag(s)), []),
-    ifElse(clientEntryAssets && clientEntryAssets.js)(
-      () => scriptTag(clientEntryAssets.js),
-    ),
     ...ifElse(helmet)(() => helmet.script.toComponent(), []),
   ]);
 
