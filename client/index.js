@@ -11,6 +11,7 @@ import Store from 'store';
 import App from 'App';
 
 import config from 'utils/config';
+import ErrorBoundary from 'components/error-boundary';
 import ReactHotLoader from './components/ReactHotLoader';
 
 // Initialize Google Analytics
@@ -47,18 +48,25 @@ function renderApp(TheApp) {
   // component app with a browser based version of react router.
   const app = (
     <ReactHotLoader>
-      <JobProvider rehydrateState={rehydrateState}>
-        <Provider {...store}>
-          <BrowserRouter forceRefresh={!supportsHistory}>
-            <TheApp />
-          </BrowserRouter>
-        </Provider>
-      </JobProvider>
+      <ErrorBoundary>
+        <JobProvider rehydrateState={rehydrateState}>
+          <Provider {...store}>
+            <BrowserRouter forceRefresh={!supportsHistory}>
+              <TheApp />
+            </BrowserRouter>
+          </Provider>
+        </JobProvider>
+      </ErrorBoundary>
     </ReactHotLoader>
   );
 
   // Needed for react-jobs
-  asyncBootstrapper(app).then(() => hydrate(app, container));
+  asyncBootstrapper(app)
+    .then(() => hydrate(app, container))
+    .catch((err) => {
+      console.warn('Error bootstrapping react app', err);
+      throw err;
+    });
 }
 
 // Execute the first render of our app.

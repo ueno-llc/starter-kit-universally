@@ -3,6 +3,9 @@
 
 const prettyError = require('pretty-error').start();
 
+// default color scheme has a very low contrast in light terminal themes
+prettyError.withoutColors();
+
 // Configure prettyError to simplify the stack trace:
 
 // skip events.js and http.js and similar core node files
