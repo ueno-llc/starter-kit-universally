@@ -5,6 +5,9 @@
  * absolute paths should be resolved during runtime by our build internal/server.
  */
 
+import path from 'path';
+import appRootDir from 'app-root-dir';
+
 import * as EnvVars from './utils/envVars';
 import {
   getPublicUrl,
@@ -344,6 +347,7 @@ const values = {
           'react-ga',
           'react-helmet',
           'react-router-dom',
+          'react-svgdom-loader',
           'mobx',
           'mobx-react',
         ],
@@ -465,6 +469,11 @@ const values = {
       if (mode !== 'development') {
         webpackConfig.resolve.alias['components/devtools'] = 'utils/empty';
       }
+
+      // Add path to internal webpack loaders
+      webpackConfig.resolveLoader = {
+        modules: ['node_modules', path.resolve(appRootDir.get(), 'internal/webpack/loaders')],
+      };
 
       return webpackConfig;
     },
