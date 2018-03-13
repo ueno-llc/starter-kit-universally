@@ -144,6 +144,7 @@
     "react-jobs": "1.0.0",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
+    "react-svgdom-loader": "3.0.0",
     "react-universal-component": "2.7.0",
     "regenerator-runtime": "0.11.0",
     "rimraf": "2.6.1",
