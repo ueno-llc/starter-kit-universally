@@ -50,41 +50,46 @@ export default function reactApplicationMiddleware(request, response) {
   const { end: endRuntimeTiming } = timing.start('Server runtime');
 
   // Needed for react-jobs
-  asyncBootstrapper(app).then(() => {
-    const { end: endRenderTiming } = timing.start('Render app');
+  asyncBootstrapper(app)
+    .then(() => {
+      const { end: endRenderTiming } = timing.start('Render app');
 
-    clearChunks();
-    const appString = renderToString(app);
+      clearChunks();
+      const appString = renderToString(app);
 
-    endRenderTiming();
+      endRenderTiming();
 
-    const html = renderToStaticMarkup(
-      <ServerHTML
-        reactAppString={appString}
-        addHash={hashFunction}
-        helmet={Helmet.rewind()}
-        routerState={reactRouterContext}
-        jobsState={jobContext.getState()}
-        appState={toJS(store)}
-      />,
-    );
+      const html = renderToStaticMarkup(
+        <ServerHTML
+          reactAppString={appString}
+          addHash={hashFunction}
+          helmet={Helmet.rewind()}
+          routerState={reactRouterContext}
+          jobsState={jobContext.getState()}
+          appState={toJS(store)}
+        />,
+      );
 
-    // Check if the router context contains a redirect, if so we need to set
-    // the specific status and redirect header and end the response.
-    if (reactRouterContext.url) {
-      response.status(302).setHeader('Location', reactRouterContext.url);
-      response.end();
-      return;
-    }
+      // Check if the router context contains a redirect, if so we need to set
+      // the specific status and redirect header and end the response.
+      if (reactRouterContext.url) {
+        response.status(302).setHeader('Location', reactRouterContext.url);
+        response.end();
+        return;
+      }
 
-    // End the measurement
-    endRuntimeTiming();
+      // End the measurement
+      endRuntimeTiming();
 
-    // Set server timings header for Chrome network tab timings.
-    response.set('Server-Timing', timing.toString());
+      // Set server timings header for Chrome network tab timings.
+      response.set('Server-Timing', timing.toString());
 
-    response
-      .status(reactRouterContext.status || 200)
-      .send(`<!DOCTYPE html>${html}`);
-  });
+      response
+        .status(reactRouterContext.status || 200)
+        .send(`<!DOCTYPE html>${html}`);
+    })
+    .catch((err) => {
+      console.warn('Error bootstrapping react app', err);
+      response.status(500).send('Error bootstrapping app');
+    });
 }
