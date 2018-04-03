@@ -10,13 +10,16 @@ import Helmet from 'react-helmet';
 import { renderToStaticMarkup } from 'react-dom/server';
 import HTML from 'components/html';
 
+// No server available for SW, so no hash
+const addHash = str => str;
+
 module.exports = function generate(context) {
   const { config, ClientConfig } = context.htmlWebpackPlugin.options.custom;
 
   const html = renderToStaticMarkup(
     <HTML
       helmet={<Helmet {...config('helmet')} /> && Helmet.rewind()}
-      bodyElements={<ClientConfig nonce="OFFLINE_PAGE_NONCE_PLACEHOLDER" />}
+      bodyElements={<ClientConfig nonce="OFFLINE_PAGE_NONCE_PLACEHOLDER" addHash={addHash} />}
     />,
   );
 
