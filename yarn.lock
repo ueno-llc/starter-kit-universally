@@ -6355,12 +6355,6 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
-react-svgdom-loader@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/react-svgdom-loader/-/react-svgdom-loader-3.0.0.tgz#49db7120ca4812eee7ac08ee3065524f8ca1b6d4"
-  dependencies:
-    loader-utils "^0.2.11"
-
 react-test-renderer@16.2.0, react-test-renderer@^16.0.0-0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.2.0.tgz#bddf259a6b8fcd8555f012afc8eacc238872a211"
