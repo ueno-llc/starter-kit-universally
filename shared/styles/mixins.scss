@@ -14,30 +14,117 @@
   @return $number;
 }
 
-// defaults to standard heading size
-@mixin responsive-font($min-size: ($font-size - 2), $size: $font-size, $limit: $page-limit) {
-  $baseline: $min-mobile;
-  $font-multiplier: (($size - $min-size) / (strip-unit($limit) - strip-unit($baseline)));
-  $font-baseline: ($min-size - $font-multiplier * strip-unit($baseline));
+@mixin responsive-font($min-size: $font-size-min, $size: $font-size, $limit: $page-limit) {
 
-  @if $min-size >= $size {
+  $unitless-min: strip-unit($min-size);
+  $unitless-size: strip-unit($size);
+  $baseline: strip-unit($min-mobile);
+
+  $font-multiplier: (($unitless-size - $unitless-min) / (strip-unit($limit) - $baseline));
+  $font-baseline: ($unitless-min - $font-multiplier * $baseline);
+
+  @if $unitless-min >= $unitless-size {
     @warn 'Responsive font: min-size equal or greater than size';
   }
 
-  font-size: #{$min-size}px;
-  font-size: calc(#{$min-size}px * #{var(--scale-multiplier)});
+  font-size: #{$unitless-min}px;
+  font-size: calc(#{$unitless-min}px * #{var(--scale-font)});
 
-  @media (min-width: $baseline) {
-    font-size: #{$min-size}px;
-    font-size: calc((#{$font-multiplier} * #{100vw} + (#{$font-baseline}px)) * #{var(--scale-multiplier)});
+  @media (min-width: $min-mobile) {
+    font-size: #{$unitless-min}px;
+    font-size: calc((#{$font-multiplier} * #{100vw} + (#{$font-baseline}px)) * #{var(--scale-font)});
   }
 
   @media (min-width: $limit) {
-    font-size: #{$size}px;
-    font-size: calc(#{$size}px * #{var(--scale-multiplier)});
+    font-size: #{$unitless-size}px;
+    font-size: calc(#{$unitless-size}px * #{var(--scale-font)});
   }
 }
 
+@mixin vertically-responsive($property, $number) {
+  #{$property}: $number;
+
+  @supports (--css: variables) {
+    #{$property}: calc(#{$number} * var(--scale-element));
+  }
+}
+
+// segment customisable per-component / instance rather than being forced to work around defaults.
+@mixin segment (
+  $padding-top: $segment-padding,
+  $padding-bottom: $segment-padding,
+  $padding-top-mobile: $segment-padding-mobile,
+  $padding-bottom-mobile: $segment-padding-mobile) {
+
+  // set up unitless values
+  $padding-top-mobile-unitless: strip-unit($padding-top-mobile);
+  $padding-bottom-mobile-unitless: strip-unit($padding-bottom-mobile);
+  $padding-top-unitless: strip-unit($padding-top);
+  $padding-bottom-unitless: strip-unit($padding-bottom);
+
+  @include vertically-responsive(padding-top, $padding-top-mobile-unitless * 1px);
+  @include vertically-responsive(padding-bottom, $padding-bottom-mobile-unitless * 1px);
+
+  @media (min-width: $min-tablet) {
+    @include vertically-responsive(padding-top, percentage(($padding-top-unitless * 1px) / $page-limit));
+    @include vertically-responsive(padding-bottom, percentage(($padding-bottom-unitless * 1px) / $page-limit));
+  }
+
+  @media (min-width: $page-limit) {
+    @include vertically-responsive(padding-top, $padding-top-unitless * 1px);
+    @include vertically-responsive(padding-bottom, $padding-bottom-unitless * 1px);
+  }
+}
+
+@mixin container() {
+  margin: 0 auto;
+
+  padding-left: $container-gutter-mobile;
+  padding-right: $container-gutter-mobile;
+
+  max-width: $page-width + $container-gutter-mobile * 1;
+
+  @media (min-width: $min-mobile) {
+    max-width: $page-width + $container-gutter-mobile * 2;
+  }
+
+  @media (min-width: $min-tablet) {
+    padding-left: $container-gutter-tablet;
+    padding-right: $container-gutter-tablet;
+    max-width: $page-width + $container-gutter-tablet * 2;
+  }
+
+  @media (min-width: $min-desktop) {
+    padding-left: $container-gutter-desktop;
+    padding-right: $container-gutter-desktop;
+    max-width: $page-width + $container-gutter-desktop * 2;
+  }
+}
+
+// change below to reflect your project
+@mixin heading() {
+  // per project
+}
+
+@mixin subheading() {
+  // per project
+}
+
+// html.js / html.no-js will not compile?!
+// hence these workaround selectors
+@mixin js-only {
+  html:not(:global(.no-js)) & {
+    @content;
+  }
+}
+
+@mixin no-js {
+  html:not(:global(.js)) & {
+    @content;
+  }
+}
+
+// deprecated viewport stuff
 @mixin viewport($media) {
   @warn 'viewport mixin is deprecated and will be removed in a future version';
 
@@ -73,113 +160,6 @@
   @media only screen and (-webkit-min-device-pixel-ratio: 1.3),
     only screen and (-o-min-device-pixel-ratio: 13/10),
     only screen and (min-resolution: 120dpi) {
-    @content;
-  }
-}
-
-// segment customisable per-component / instance rather than being forced to work around defaults.
-@mixin segment($padding-top: $segment-padding, $padding-bottom: $segment-padding, $padding-top-mobile: $segment-padding-mobile, $padding-bottom-mobile: $segment-padding-mobile) {
-  padding-top: $padding-top-mobile;
-  padding-bottom: $padding-bottom-mobile;
-
-  @media (min-width: $min-tablet) {
-    padding-top: percentage(strip-unit($padding-top) / strip-unit($page-limit));
-    padding-bottom: percentage(strip-unit($padding-bottom) / strip-unit($page-limit));
-  }
-
-  @media (min-width: $page-limit) {
-    padding-top: strip-unit($padding-top) * 1px;
-    padding-bottom: strip-unit($padding-bottom) * 1px;
-  }
-}
-
-@mixin container() {
-  margin: 0 auto;
-
-  padding-left: $container-gutter-mobile;
-  padding-right: $container-gutter-mobile;
-
-  max-width: $page-width + $container-gutter-mobile * 1;
-
-  @media (min-width: $min-mobile) {
-    max-width: $page-width + $container-gutter-mobile * 2;
-  }
-
-  @media (min-width: $min-tablet) {
-    padding-left: $container-gutter-tablet;
-    padding-right: $container-gutter-tablet;
-    max-width: $page-width + $container-gutter-tablet * 2;
-  }
-
-  @media (min-width: $min-desktop) {
-    padding-left: $container-gutter-desktop;
-    padding-right: $container-gutter-desktop;
-    max-width: $page-width + $container-gutter-desktop * 2;
-  }
-}
-
-// change below to reflect your project
-@mixin heading($min: ($font-size * 1.5), $max: ($font-size * 3)) {
-  @include reset-heading;
-  @include responsive-font($min, $max);
-
-  $arbitrary-heading-margin: 5;
-  $arbitrary-heading-line-height: 58;
-
-  margin-bottom: (strip-unit($arbitrary-heading-margin) / strip-unit($max)) * 1em;
-
-  font-family: $font-family;
-  font-weight: normal;
-  letter-spacing: 0;
-  line-height: (strip-unit($arbitrary-heading-line-height) / strip-unit($max));
-
-  color: $color-font;
-}
-
-@mixin subheading($min: ($font-size * 1.5), $max: ($font-size * 3)) {
-  @include reset-heading;
-  @include responsive-font($min, $max);
-
-  $arbitrary-subheading-margin: 26;
-  $arbitrary-subheading-line-height: 58;
-
-  margin-bottom: (strip-unit($arbitrary-subheading-margin) / strip-unit($max)) * 1em;
-
-  font-family: $font-family;
-  font-weight: normal;
-  letter-spacing: 0;
-  line-height: (strip-unit($arbitrary-subheading-line-height) / strip-unit($max));
-
-  color: $color-font;
-}
-
-@mixin copy($min: $font-size, $max: ($font-size + 4)) {
-  @include reset-all;
-  @include responsive-font($min, $max);
-
-  $arbitrary-copy-margin: 26;
-  $arbitrary-copy-line-height: 58;
-
-  margin-bottom: (strip-unit($arbitrary-copy-margin) / strip-unit($max)) * 1em;
-
-  font-family: $font-family;
-  font-weight: normal;
-  letter-spacing: 0;
-  line-height: (strip-unit($arbitrary-copy-line-height) / strip-unit($max));
-
-  color: $color-font;
-}
-
-// html.js / html.no-js will not compile?!
-// hence these workaround selectors
-@mixin js-only {
-  html:not(:global(.no-js)) & {
-    @content;
-  }
-}
-
-@mixin no-js {
-  html:not(:global(.js)) & {
     @content;
   }
 }
