@@ -7,7 +7,7 @@ import config from 'utils/config';
 import AppLayout, { Content } from 'components/app-layout';
 import Header from 'components/header';
 import Navigation from 'components/navigation';
-import DevTools from 'components/devtools';
+import DevTools from 'components/dev-tools';
 import Analytics from 'components/analytics';
 
 // Routes
@@ -18,9 +18,11 @@ import Planets from './routes/planets';
 import NotFound from './routes/not-found';
 
 export default function App() {
+
   return (
     <AppLayout>
       <Helmet {...config('helmet')} />
+
       <Header>
         <Navigation>
           <Link to="/">Home</Link>
@@ -29,8 +31,10 @@ export default function App() {
           <Link to="/about">About</Link>
         </Navigation>
       </Header>
+
       <Content>
         <Route component={Analytics} />
+
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/grid" component={Grid} />
@@ -38,8 +42,9 @@ export default function App() {
           <Route path="/planets" component={Planets} />
           <Route component={NotFound} />
         </Switch>
-        <DevTools />
       </Content>
+
+      <DevTools />
     </AppLayout>
   );
 }

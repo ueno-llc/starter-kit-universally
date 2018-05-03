@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import s from './Content.scss';
 
-export default function Content({ children }) {
-  return (
-    <main className={s.content}>
-      {children}
-    </main>
-  );
-}
+export default class Content extends PureComponent {
 
-Content.propTypes = {
-  children: PropTypes.node,
-};
+  static propTypes = {
+    children: PropTypes.node,
+  }
+
+  render() {
+    const { children } = this.props;
+
+    return (
+      <main className={s.content}>
+        {children}
+      </main>
+    );
+  }
+}
