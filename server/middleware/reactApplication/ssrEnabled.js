@@ -73,7 +73,9 @@ export default function reactApplicationMiddleware(request, response) {
       // Check if the router context contains a redirect, if so we need to set
       // the specific status and redirect header and end the response.
       if (reactRouterContext.url) {
-        response.status(302).setHeader('Location', reactRouterContext.url);
+        response
+          .status(reactRouterContext.status || 302)
+          .setHeader('Location', reactRouterContext.url);
         response.end();
         return;
       }
