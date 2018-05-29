@@ -83,7 +83,7 @@ const values = {
   // This is an example environment variable which is used within the react
   // application to demonstrate the usage of environment variables across
   // the client and server bundles.
-  welcomeMessage: EnvVars.string('WELCOME_MSG', 'Nothing feels like ::ffff!'),
+  welcomeMessage: EnvVars.string('WELCOME_MSG', 'Hello world across client and server bundles!'),
 
   // Are we measuring performance?
   performance: EnvVars.bool('PERFORMANCE', false),
@@ -194,9 +194,15 @@ const values = {
   // @see server/middleware/security for more info.
   cspExtensions: {
     childSrc: [],
-    connectSrc: ['ws:', 'swapi.co'],
+    connectSrc: [
+      'ws:',
+      'swapi.co',
+    ],
     defaultSrc: [],
-    fontSrc: ['fonts.googleapis.com/css', 'fonts.gstatic.com'],
+    fontSrc: [
+      'fonts.googleapis.com/css',
+      'fonts.gstatic.com',
+    ],
     imgSrc: [
       '*.facebook.com',
       '*.google-analytics.com',
