@@ -22,7 +22,7 @@ export default class Home extends PureComponent {
             <li>SCSS and CSS modules</li>
             <li>Webpack 3+</li>
             <li>DevTools (ctrl + l in dev env)</li>
-            <li>GsapTools (See demo <a href="https://www.google.com/">here</a>)</li>
+            <li>GsapTools (See demo <a href="https://ueno-llc.github.io/gsap-tools">here</a>)</li>
             <li>Env. variable exposes on client side: <em>{config('welcomeMessage')}</em></li>
           </ul>
         </Segment>
