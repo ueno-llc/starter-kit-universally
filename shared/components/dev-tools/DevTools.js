@@ -6,6 +6,8 @@ import MobxDevTools from 'mobx-react-devtools';
 
 import GridOverlay from 'components/grid-overlay';
 
+import GsapToolsContainer from './GsapToolsContainer';
+
 const showDevTools = process.env.BUILD_FLAG_IS_DEV === 'true' || config('herokuDevtools');
 const LOCAL_STORAGE_KEY_VISIBLE = '_devtoolsVisible';
 
@@ -42,6 +44,7 @@ class DevTools extends Component {
       <Fragment>
         <MobxDevTools noPanel={!this.display} />
         <GridOverlay noPanel={!this.display} columns={12} baseline={16} />
+        <GsapToolsContainer noPanel={!this.display} />
       </Fragment>
     );
   }
