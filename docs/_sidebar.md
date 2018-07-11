@@ -1,0 +1,8 @@
+- [Getting started](/GETTING_STARTED.md)
+  - [Rename the app](/RENAME.md)
+  - [Change favicons](/ICONS.md)
+- [Features](/FEATURES.md)
+- [DevTools](/DEVTOOLS.md)
+- [Environment Variables](/ENV.md)
+- [Remote development](/REMOTE.md)
+- [Testing](/TESTING.md)
