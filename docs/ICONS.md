@@ -43,6 +43,6 @@ Safari
 
 - 310x310
 
-## Social share images for twitter and facebook
+## Images for social medias
 
-TODO
+We provided by default an image `share.png` for websites like Twitter, Facebook, Slack and more to create a beautiful thumbnail when you share the link of your app.

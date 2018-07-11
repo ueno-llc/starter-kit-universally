@@ -8,21 +8,16 @@ This React Starter Kit is packed with great features.
   - `react-router` v4 as the router.
   - `express` server.
   - `jest` as the test framework.
-  - Ueno's ESlint configuration. Stop worrying about code style consistency.
-  - SASS and CSS modules.
+  - `ESlint` with Ueno's configuration. Stop worrying about code style consistency.
+  - `SASS` and `CSS modules`.
   - Code splitting.
   - Server Side Rendering.
-  - Progressive Web Application ready, with offline support, via a Service Worker.
-  - Long term browser caching of assets with automated cache invalidation.
-  - All source is bundled using Webpack v3.
-  - Full ES2017+ support.
+  - Progressive Web Application ready.
+  - Long term browser caching.
+  - `Webpack` v3.
+  - ES2017+ support.
   - Hot reloading of ALL changes.
   - SEO friendly with `react-helmet`.
-  - Optimised Webpack builds via HappyPack and an auto generated Vendor DLL for smooth development experiences.
-  - Tree-shaking, courtesy of Webpack.
-  - Security on the `express` server using `helmet` and `hpp`.
-  - Asset bundling support. e.g. images/fonts.
-  - Preconfigured to support development and optimised production builds.
 
 ## Code splitting
 
