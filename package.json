@@ -27,7 +27,8 @@
     "eslint": "eslint client server shared config internal --report-unused-disable-directives",
     "stylelint": "stylelint \"shared/**/*.scss\" --syntax scss",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "rename": "./internal/scripts/rename.sh"
   },
   "repository": {
     "type": "git",

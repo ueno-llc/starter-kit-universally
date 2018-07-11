@@ -1,4 +1,4 @@
-![Build status](https://travis-ci.org/ueno-llc/starter-kit-universally.svg?branch=development) ![Dependencies](https://david-dm.org/ueno-llc/starter-kit-universally/status.svg) ![devDependencies](https://david-dm.org/ueno-llc/starter-kit-universally/dev-status.svg)
+![Build status](https://travis-ci.org/ueno-llc/starter-kit-universally.svg) ![Dependencies](https://david-dm.org/ueno-llc/starter-kit-universally/status.svg) ![devDependencies](https://david-dm.org/ueno-llc/starter-kit-universally/dev-status.svg)
 
 ![Ueno](/docs/_ueno-loves-react.png)
 
