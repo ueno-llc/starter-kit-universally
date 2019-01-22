@@ -1,3 +1,9 @@
+# WARNING
+
+## This starter kit has been deprecated. We published [Create Ueno App](https://github.com/ueno-llc/create-ueno-app) to easily create projects with different stacks: Gatsby, Next.js, Create React App or React Native, with our config and starters.
+
+----
+
 ![Build status](https://travis-ci.org/ueno-llc/starter-kit-universally.svg) ![Dependencies](https://david-dm.org/ueno-llc/starter-kit-universally/status.svg) ![devDependencies](https://david-dm.org/ueno-llc/starter-kit-universally/dev-status.svg)
 
 ![Ueno](/docs/_ueno-loves-react.png)
